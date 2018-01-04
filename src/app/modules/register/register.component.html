@@ -4,38 +4,37 @@
           <div class="col-sm-4 col-md-4 col-md-offset-4 col-sm-offset-4">
               <div class="account-wall">
                 <img class="profile-img" src="assets/gosocial_development_logo.png" alt="">
-                  <form class="form-signin" #myForm="ngForm" (ngSubmit)="registerUser(myForm)">
-
-                    <input type="text" name="firstName" class="top form-control" placeholder="First Name" required autofocus [(ngModel)]="user.firstName" #firstName="ngModel">
-                    <span class="text-danger" [hidden]="firstName.valid || firstName.pristine"><small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> First name is required</small></span>
-
-                    <input name="lastName" type="text" class="center form-control" placeholder="Last Name" required autofocus [(ngModel)]="user.lastName" #lastName="ngModel">
-                    <span class="text-danger" [hidden]="lastName.valid || lastName.pristine"><small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Last name is required</small></span>
-
-                    <input name="userName" type="text" class="center form-control" placeholder="User Name" required autofocus [(ngModel)]="user.userName" #userName="ngModel">
-                    <span class="text-danger" [hidden]="userName.valid || userName.pristine"><small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> User name is required</small></span>
-
-                    <input name="email" type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="center form-control" placeholder="Email Address" required autofocus [(ngModel)]="user.email" #email="ngModel">
-                    <div [hidden]="email.valid || email.pristine">
-                            <span class="text-danger" *ngIf="email.errors && email.errors.required"><small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Email is required</small></span>
-                            <span class="text-danger" *ngIf="email.errors && email.errors.pattern"><small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Email is invalid</small></span>
-                    </div>
-
-                    <input name="invitation" type="text" class="center form-control" placeholder="Invitation Code" required autofocus [(ngModel)]="user.invitation" #invitation="ngModel">
-                    <span class="text-danger" [hidden]="invitation.valid || invitation.pristine"><small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Invitation code is required</small></span>
-
-                    <input name="password" type="password" class="bottom form-control" placeholder="Password" required [(ngModel)]="user.password" #password="ngModel">
-                    <span class="text-danger" [hidden]="password.valid || password.pristine"><small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Password is required</small></span>
-
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="myForm.invalid">Register</button>
-                    <label class="remember-checkbox pull-left">
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                    <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-                  </form>
+                <form class="form-signin" [formGroup]="rf" (ngSubmit)="onSubmit()">
+                  <input type="text" class="top form-control" placeholder="First Name" formControlName="firstName" />
+                    <span class="text-danger" [hidden]="rf.controls.firstName.valid || rf.controls.firstName.pristine">
+                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> First Name is required</small>
+                    </span>
+                  <input type="text" class="center form-control" placeholder="Last Name" formControlName="lastName" />
+                    <span class="text-danger" [hidden]="rf.controls.lastName.valid || rf.controls.lastName.pristine">
+                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Last Name is required</small>
+                    </span>
+                  <input type="text" class="center form-control" placeholder="User Name" formControlName="userName" />
+                    <span class="text-danger" [hidden]="rf.controls.userName.valid || rf.controls.userName.pristine">
+                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> User Name is required</small>
+                    </span>
+                  <input type="text" class="center form-control" placeholder="Email Address" formControlName="email" />
+                    <span class="text-danger" [hidden]="rf.controls.email.valid || rf.controls.email.pristine">
+                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Email Address is required</small>
+                    </span>
+                  <input type="text" class="center form-control" placeholder="Invitation Code" formControlName="invitation" />
+                    <span class="text-danger" [hidden]="rf.controls.invitation.valid || rf.controls.invitation.pristine">
+                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Invitation Code is required</small>
+                    </span>
+                  <input type="text" class="bottom form-control" placeholder="Password" formControlName="password" />
+                    <span class="text-danger" [hidden]="rf.controls.password.valid || rf.controls.password.pristine">
+                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Password is required</small>
+                    </span>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="rf.invalid">Register</button>
+                </form>
               </div>
               <a routerLink="/login" class="text-center new-account">Login </a>
           </div>
       </div>
     </div>
   </div>
+  <!-- ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$ -->
