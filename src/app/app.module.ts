@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-/* main component */
+/* app component */
 import { AppComponent } from './app.component';
 
 /* routing module */

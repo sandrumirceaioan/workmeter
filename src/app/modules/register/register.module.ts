@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register.component';
-import { ExcludeCharacter } from '../../directives/exclude-character.directive';
+import { ValidationErrors } from '../../shared/directives/validation-errors/validation-errors.component';
+import { ValidationService } from '../../shared/services/validation/validation.service';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule,
+    RouterModule
   ],
-  declarations: [RegisterComponent, ExcludeCharacter],
-  exports: [ExcludeCharacter]
+  declarations: [RegisterComponent, ValidationErrors],
+  providers: [ValidationService],
+  exports: []
 })
 export class RegisterModule { }

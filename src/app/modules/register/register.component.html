@@ -5,30 +5,24 @@
               <div class="account-wall">
                 <img class="profile-img" src="assets/gosocial_development_logo.png" alt="">
                 <form class="form-signin" [formGroup]="rf" (ngSubmit)="onSubmit()">
-                  <input type="text" class="top form-control" placeholder="First Name" formControlName="firstName" />
-                    <span class="text-danger" [hidden]="rf.controls.firstName.valid || rf.controls.firstName.pristine">
-                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> First Name is required</small>
-                    </span>
-                  <input type="text" class="center form-control" placeholder="Last Name" formControlName="lastName" />
-                    <span class="text-danger" [hidden]="rf.controls.lastName.valid || rf.controls.lastName.pristine">
-                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Last Name is required</small>
-                    </span>
-                  <input type="text" class="center form-control" placeholder="User Name" formControlName="userName" />
-                    <span class="text-danger" [hidden]="rf.controls.userName.valid || rf.controls.userName.pristine">
-                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> User Name is required</small>
-                    </span>
-                  <input type="text" class="center form-control" placeholder="Email Address" formControlName="email" />
-                    <span class="text-danger" [hidden]="rf.controls.email.valid || rf.controls.email.pristine">
-                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Email Address is required</small>
-                    </span>
-                  <input type="text" class="center form-control" placeholder="Invitation Code" formControlName="invitation" />
-                    <span class="text-danger" [hidden]="rf.controls.invitation.valid || rf.controls.invitation.pristine">
-                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Invitation Code is required</small>
-                    </span>
-                  <input type="text" class="bottom form-control" placeholder="Password" formControlName="password" />
-                    <span class="text-danger" [hidden]="rf.controls.password.valid || rf.controls.password.pristine">
-                      <small><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Password is required</small>
-                    </span>
+                  <input type="text" name="firstName" class="top form-control" placeholder="First Name" formControlName="firstName" />
+                  <validation-errors input="First name" [control]="rf.controls.firstName"></validation-errors>
+
+                  <input type="text" name="lastName" class="center form-control" placeholder="Last Name" formControlName="lastName" />
+                  <validation-errors input="Last name" [control]="rf.controls.lastName"></validation-errors>
+
+                  <input type="text" name="userName" class="center form-control" placeholder="User Name" formControlName="userName" />
+                  <validation-errors input="User name" [control]="rf.controls.userName"></validation-errors>
+
+                  <input type="text" name="email" class="center form-control" placeholder="Email Address" formControlName="email" />
+                  <validation-errors input="Email address" [control]="rf.controls.email"></validation-errors>
+
+                  <input type="text" name="invitation" class="center form-control" placeholder="Invitation Code" formControlName="invitation" />
+                  <validation-errors input="Invitation code" [control]="rf.controls.invitation"></validation-errors>
+
+                  <input type="text" name="password" class="bottom form-control" placeholder="Password" formControlName="password" />
+                  <validation-errors input="Password" [control]="rf.controls.password"></validation-errors>
+
                   <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="rf.invalid">Register</button>
                 </form>
               </div>
