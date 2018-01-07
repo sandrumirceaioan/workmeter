@@ -3,11 +3,14 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidationService } from '../../shared/services/validation/validation.service';
 import { User } from '../../models/user.model';
+import { routerTransition } from '../../shared/animations/slide-left.animation';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  animations: [routerTransition('right')],
+  host: {'[@routerTransition]': ''}
 })
 export class RegisterComponent implements OnInit {
   rf: FormGroup;

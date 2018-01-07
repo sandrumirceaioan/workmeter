@@ -6,8 +6,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-/* app component */
+/* main components */
 import { AppComponent } from './app.component';
+import { ToastComponent } from '../app/shared/directives/toast/toast.component';
 
 /* routing module */
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +20,8 @@ import { RegisterModule } from './modules/register/register.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ToastComponent
   ],
   imports: [
     AngularFontAwesomeModule,
