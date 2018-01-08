@@ -1,3 +1,4 @@
-<div class="toast-container">
-    <span>toast...</span>
+<div class="toast-container" [@fadeToast]='state'>
+        <span [class]="toast?.type" class="alert " aria-hidden="true">{{toast?.message}}</span>
 </div>
+

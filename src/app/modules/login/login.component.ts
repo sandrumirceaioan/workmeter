@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../shared/animations/slide-left.animation';
+import { ToastService } from '../../shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  animations: [routerTransition('left')],
-  host: {'[@routerTransition]': ''}
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toast: ToastService) { }
 
   ngOnInit() {
+  }
+
+  successMessage(){
+    this.toast.toastTrigger({
+      message: 'Success message!',
+      options: {type: 'success'}
+    });
   }
 
 }
