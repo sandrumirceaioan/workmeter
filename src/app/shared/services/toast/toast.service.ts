@@ -5,8 +5,7 @@ import { Subject } from 'rxjs/Subject';
 // toast optional settings
 interface ToastMessageOptions {
   type?: string,
-  timeout?: number,
-  position?: string
+  timeout?: number
 }
 
 // toast object overwrites default settings with options
@@ -32,7 +31,6 @@ export class ToastService {
   // create new instance of toast object for Subject
   toastTrigger(params) {
     let toast = new ToastMessage(params.message, params.options);
-    console.log(toast);
     this.currentToast.next(toast);
   }
 

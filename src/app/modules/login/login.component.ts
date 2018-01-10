@@ -20,4 +20,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  successMessageTwo(){
+    this.toast.toastTrigger({
+      message: 'Error message!',
+      options: {type: 'error',}
+    });
+  }
+
 }
