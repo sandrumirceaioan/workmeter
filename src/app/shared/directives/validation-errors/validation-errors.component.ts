@@ -1,11 +1,30 @@
 import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser'
 import { FormControl} from '@angular/forms';
+import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'validation-errors',
   templateUrl: './validation-errors.component.html',
-  styleUrls: ['./validation-errors.component.css']
+  styleUrls: ['./validation-errors.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter',
+        animate('.3s ease-out', keyframes([
+          style({ opacity: '0', transform: 'translateY(0)', offset:0 }),
+          style({ opacity: '0.5', transform: 'translateY(15px)', offset:0.3 }),
+          style({ opacity: '1', transform: 'translateY(0)', offset:1 })
+        ])),
+      ),
+      transition(":leave", 
+      animate('.2s ease-out', keyframes([
+        style({ opacity: '1', transform: 'translateY(0)', offset:0 }),
+        style({ opacity: '1', transform: 'translateY(15px)', offset:0.5 }),
+        style({ opacity: '0', transform: 'translateX(0)', offset:1 })
+      ]))
+      )
+    ]),
+  ]
 })
 export class ValidationErrors {
   @Input() control: FormControl;

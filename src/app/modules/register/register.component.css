@@ -1,71 +1,3 @@
-.form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-}
-.form-signin .form-signin-heading, .form-signin .checkbox {
-    margin-bottom: 10px;
-}
-.form-signin .checkbox {
-    font-weight: normal;
-}
-.form-signin .form-control {
-    position: relative;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.form-signin .form-control:focus {
-    z-index: 2;
-}
-.form-signin .top {
-    margin-bottom: -1px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.form-signin .center {
-    margin-bottom: -1px;
-    border-radius: 0;
-}
-.form-signin .bottom {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
-.form-signin .remember-checkbox {
-    font-weight: normal;
-    margin: 10px 0px;
-}
-
-.account-wall {
-    padding: 40px 0px 20px 0px;
-    background-color: #f7f7f7;
-    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-.login-title {
-    color: #555;
-    font-size: 18px;
-    font-weight: 400;
-    display: block;
-}
-.profile-img {
-    margin: 0 auto 20px;
-    display: block;
-    border-radius: 0;
-}
-.need-help {
-    margin-top: 10px;
-}
-.new-account {
-    display: block;
-    margin-top: 10px;
-}
 .vertical-center {
     min-height: 100%;
     min-height: 100vh;
@@ -73,12 +5,42 @@
     align-items: center;
   }
 
-.not-valid {
-    border-left: 5px solid #b92800;
-    background: #fa3a00;
-    color: #ffffff;
-}
+  .form-container {
+    background: #0606063d;
+    padding: 30px;
+    margin-bottom: 10px;
+  }
 
-.not-valid::placeholder {
+  .form-container input {
+    border-radius: 0px;
+    border: none;
+    height: 60px;
+    font-size: 25px;
+    color: #6203a5;
+    margin-bottom: 25px;
+  }
+
+  .form-container button {
+    border-radius: 0px;
+    height: 60px;
+    background: #5a188c;
+    border: 0px;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
     color: #ffffff;
-}
+  }
+
+  .form-container button:hover,  .form-container button:active, .form-container button:focus {
+      outline:none;
+  }
+
+  .register-links {
+      color:#ffffff;
+      text-decoration: underline;
+      margin: 0 35px;
+  }
+
+  .register-footer {
+      min-height:45px;
+  }

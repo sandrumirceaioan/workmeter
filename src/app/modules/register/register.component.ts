@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidationService } from '../../shared/services/validation/validation.service';
 import { User } from '../../models/user.model';
+import { trigger, state, animate, style, transition, keyframes, query, stagger, group } from '@angular/animations';
 
 @Component({
   selector: 'app-register',

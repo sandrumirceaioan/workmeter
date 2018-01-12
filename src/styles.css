@@ -5,10 +5,15 @@ html {
 }
 
 body {
-    min-height: 100%;
-    background: #ebf1f6;
-    background: -moz-linear-gradient(top, #ebf1f6 0%, #abd3ee 50%, #89c3eb 100%, #d5ebfb 100%);
-    background: linear-gradient(to bottom, #ebf1f6 0%,#abd3ee 50%,#89c3eb 100%,#d5ebfb 100%);
-    background: linear-gradient(to bottom, #ebf1f6 0%,#abd3ee 50%,#89c3eb 100%,#d5ebfb 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ebf1f6', endColorstr='#d5ebfb',GradientType=0);
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat:no-repeat;
+    background: -webkit-linear-gradient(to left top, #000000, #7b00b9);
+    background: -moz-linear-gradient( to left top, #000000, #7b00b9);
+    background: -ms-linear-gradient( to left top, #000000, #7b00b9);
+    background: -o-linear-gradient( to left top, #000000, #7b00b9);
+    background: linear-gradient( to left top, #000000, #7b00b9);
 }
