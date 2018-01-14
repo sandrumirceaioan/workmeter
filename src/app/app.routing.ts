@@ -6,10 +6,9 @@ import { Page404Component } from './page404.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent, data: {title: 'Register'}},
+  { path: 'register', loadChildren: './modules/register/register.module#RegisterModule'},
   { path: 'login', component: LoginComponent, data: {title: 'Login'}},
-  { path: '404', component: Page404Component},
-  { path: '**', redirectTo: '/404'}
+  { path: '**', component: Page404Component}
 ];
 
 @NgModule({
