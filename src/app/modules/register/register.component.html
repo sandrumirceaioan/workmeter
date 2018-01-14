@@ -1,0 +1,65 @@
+<div class="vertical-center">
+    <div class="container">
+      <div class="row">
+        <div class="explain-container" @explainerAnim>
+            <div class="col-sm-4 explanation">
+                <img class="rg-logo" src="assets/signup.png" alt="">
+            </div>
+                <div class="col-sm-8 explanation">
+                    <h3 class="wm">Register</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="row">
+
+          <div class="form-container">
+              <form class="form-signup" [formGroup]="rf" (ngSubmit)="onSubmit()">
+              <div class="col-sm-6">
+                  <input type="text" name="firstName" class="top form-control" placeholder="First Name" formControlName="firstName" />
+
+                  <input type="text" name="lastName" class="center form-control" placeholder="Last Name" formControlName="lastName" />
+
+                  <input type="text" name="userName" class="center form-control" placeholder="User Name" formControlName="userName" />
+              </div>
+              <div class="col-sm-6">
+                  <input type="text" name="email" class="center form-control" placeholder="Email Address" formControlName="email" />
+
+                  <input type="text" name="invitation" class="center form-control" placeholder="Invitation Code" formControlName="invitation" />
+
+                  <input type="text" name="password" class="bottom form-control" placeholder="Password" formControlName="password" />
+
+              </div>
+              <div class="col-sm-12">
+                  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="rf.invalid">Register</button>
+              </div>
+              </form>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="col-sm-12 register-footer">
+              <div class="pull-left">
+                <validation-errors input="First name" [control]="rf.controls.firstName"></validation-errors>
+              </div>
+              <div class="pull-left">
+                <validation-errors input="Last name" [control]="rf.controls.lastName"></validation-errors>
+              </div>
+              <div class="pull-left">
+                <validation-errors input="User name" [control]="rf.controls.userName"></validation-errors>
+              </div>
+              <div class="pull-left">
+                <validation-errors input="Email address" [control]="rf.controls.email"></validation-errors>
+              </div>
+              <div class="pull-left">
+                <validation-errors input="Invitation code" [control]="rf.controls.invitation"></validation-errors>
+              </div>
+              <div class="pull-left">
+                <validation-errors input="Password" [control]="rf.controls.password"></validation-errors>
+              </div>
+              <a routerLink="/login" class="pull-right register-links">Back to login </a>
+            </div>
+            
+      </div>
+    </div>
+  </div>
