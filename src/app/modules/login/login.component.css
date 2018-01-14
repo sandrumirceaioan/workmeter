@@ -1,6 +1,6 @@
 .wm-logo {
     display: block;
-    margin: 15% auto 0;
+    margin: 10% auto 0;
     border-radius: 0;
     width: 160px;
 }
@@ -67,6 +67,6 @@
       margin: 0 35px;
   }
 
-  .wm, .tm {
+  /* .wm, .tm {
     font-size: 40px;
-  }
+  } */

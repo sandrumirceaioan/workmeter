@@ -1,34 +1,43 @@
 // Get dependencies
 const express = require('express');
+const engines = require('consolidate');
+const app = express();
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const apiRoutes = require('./server/routes/index');
 mongoose.Promise = require('bluebird');
 
-// connect to mongoDB @ mlab
-mongoose.connect('mongodb://pretenash:rappac33!@ds139436.mlab.com:39436/tododb', {
-  useMongoClient: true
-});
-
-// Get our API routes
-const api = require('./server/routes/api');
-const app = express();
-
-// Parsers for POST data
+// parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Point static path to dist
+// connect to mongoDB @ mlab
+mongoose.connect('mongodb://admin:rappac33!@ds247357.mlab.com:47357/tmwm', {
+  useMongoClient: true
+});
+
+// set view engine to html
+app.engine('html', engines.mustache);
+app.set('view engine', 'html');
+app.set('views', path.join(__dirname, '/dist'));
 app.use(express.static(path.join(__dirname, 'dist')));
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + 'index.html');
+});
 
-// Set our api routes
-app.use('/api', api);
+// set api routes
+app.use('/api', apiRoutes);
 
-// Get port from environment
+app.get('*', function (req, res) {
+  res.sendFile(__dirname + '/dist/index.html');
+});
+
+// get port from environment
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
-// Create HTTP server
+// create HTTP server
 const server = http.createServer(app);
 server.listen(port, () => console.log(`API running on localhost:${port}`));

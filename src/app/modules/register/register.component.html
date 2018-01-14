@@ -1,6 +1,19 @@
 <div class="vertical-center">
     <div class="container">
       <div class="row">
+        <div class="explain-container" @explainerAnim>
+            <div class="col-sm-4 explanation">
+                <img class="rg-logo" src="assets/signup.png" alt="">
+            </div>
+                <div class="col-sm-8 explanation">
+                    <h3 class="wm">Register</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="row">
+
           <div class="form-container">
               <form class="form-signup" [formGroup]="rf" (ngSubmit)="onSubmit()">
               <div class="col-sm-6">
@@ -24,6 +37,7 @@
               </form>
               <div class="clearfix"></div>
             </div>
+
             <div class="col-sm-12 register-footer">
               <div class="pull-left">
                 <validation-errors input="First name" [control]="rf.controls.firstName"></validation-errors>
@@ -45,6 +59,7 @@
               </div>
               <a routerLink="/login" class="pull-right register-links">Back to login </a>
             </div>
+            
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@ import { trigger, state, animate, style, transition, keyframes, query, stagger, 
       transition('* => *',[
         query('.explanation2', style({opacity: 0, transform: 'translateX(-40px)'})),
         query('.explanation2', stagger('300ms',[
-          animate('800ms 1.5s ease-out', style({opacity: 1, transform: 'translateX(0)'}))
+          animate('800ms 600ms ease-out', style({opacity: 1, transform: 'translateX(0)'}))
         ]))
       ])
     ]),

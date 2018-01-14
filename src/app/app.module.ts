@@ -16,12 +16,14 @@ import { AppRoutingModule } from './app-routing.module';
 /* app modules */
 import { LoginModule } from './modules/login/login.module';
 import { RegisterModule } from './modules/register/register.module';
+import { Page404Component } from './page404.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToastComponent
+    ToastComponent,
+    Page404Component
   ],
   imports: [
     AngularFontAwesomeModule,
