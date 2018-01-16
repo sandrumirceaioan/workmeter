@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ValidationService } from '../../shared/services/validation/validation.service';
-import { User } from '../../models/user.model';
 import { trigger, state, animate, style, transition, keyframes, query, stagger, group } from '@angular/animations';
+import { ValidationService } from '../../shared/services/validation/validation.service';
+import { UsersService } from '../../shared/services/users/users.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -26,16 +27,6 @@ import { trigger, state, animate, style, transition, keyframes, query, stagger, 
         ]))
       ])
     ])
-    // trigger('fadeIn', [
-    //   state('void', style({opacity: '0'})),
-    //   transition(':enter',
-    //     animate('0.5s 300ms ease-out', keyframes([
-    //       style({ opacity: '0', transform: 'translateX(-100px)', offset:0 }),
-    //       style({ opacity: '0.8', transform: 'translateX(30px)', offset:0.5 }),
-    //       style({ opacity: '1', transform: 'translateX(0)', offset:1 })
-    //     ])),
-    //   )
-    // ])
   ]
 })
 export class RegisterComponent implements OnInit {
@@ -49,7 +40,7 @@ export class RegisterComponent implements OnInit {
     password: ''
   };
 
-  constructor(private validationService: ValidationService, private router: Router) { }
+  constructor(private validationService: ValidationService, private usersService: UsersService, private router: Router) { }
 
   ngOnInit() {
     this.rf = new FormGroup({
@@ -70,9 +61,12 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.rf.value);
-    this.rf.reset();
-    this.router.navigate(['login']);
+    console.log('aici: ',this.rf.value);
+    this.usersService.addUser(this.rf.value).subscribe(
+      (result)=>{console.log(result)},
+      (error)=>{console.log(error)}
+    );
+
   }
 
 }
