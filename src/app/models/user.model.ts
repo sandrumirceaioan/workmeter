@@ -2,8 +2,8 @@ export class User {
     firstName: string;
     lastName: string;
     userName: string;
-    email: string;
-    invitation: string;
+    emailAddress: string;
+    invitationCode: string;
     password: string;
-    type?: number;
+    userType?: number;
   }

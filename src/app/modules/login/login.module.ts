@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ToastService } from '../../shared/services/toast/toast.service';
 
 @NgModule({
   imports: [
@@ -10,6 +9,6 @@ import { ToastService } from '../../shared/services/toast/toast.service';
     RouterModule
   ],
   declarations: [LoginComponent],
-  providers: [ToastService]
+  providers: []
 })
 export class LoginModule { }

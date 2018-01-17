@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { trigger, state, animate, style, transition, keyframes, query, stagger, group } from '@angular/animations';
+import { trigger, animate, style, transition, query, stagger } from '@angular/animations';
 import { ValidationService } from '../../shared/services/validation/validation.service';
+import { ToastService } from '../../shared/services/toast/toast.service';
 import { UsersService } from '../../shared/services/users/users.service';
 import { User } from '../../models/user.model';
 
@@ -30,28 +31,33 @@ import { User } from '../../models/user.model';
   ]
 })
 export class RegisterComponent implements OnInit {
-  rf: FormGroup;
+  registerForm: FormGroup;
   user: User = {
     firstName: '',
     lastName: '',
     userName: '',
-    email: '',
-    invitation: '77777',
+    emailAddress: '',
+    invitationCode: '77777',
     password: ''
   };
 
-  constructor(private validationService: ValidationService, private usersService: UsersService, private router: Router) { }
+  constructor(
+    private validationService: ValidationService,
+    private toastService: ToastService,
+    private usersService: UsersService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.rf = new FormGroup({
+    this.registerForm = new FormGroup({
       firstName: new FormControl(this.user.firstName, Validators.required),
       lastName: new FormControl(this.user.lastName,Validators.required),
       userName: new FormControl(this.user.userName,Validators.required),
-      email: new FormControl(this.user.email,[
+      emailAddress: new FormControl(this.user.emailAddress,[
         Validators.required,
         Validators.email
       ]),
-      invitation: new FormControl(this.user.invitation,Validators.required),
+      invitationCode: new FormControl(this.user.invitationCode,Validators.required),
       password: new FormControl(this.user.password,[
         Validators.required,
         Validators.minLength(8),
@@ -61,10 +67,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log('aici: ',this.rf.value);
-    this.usersService.addUser(this.rf.value).subscribe(
-      (result)=>{console.log(result)},
-      (error)=>{console.log(error)}
+    console.log('add user post data: ',this.registerForm.value);
+    this.usersService.addUser(this.registerForm.value).subscribe(
+      (result)=>{console.log('a mers: ',result)},
+      (error)=>{console.log('a crapat: ',error)}
     );
 
   }

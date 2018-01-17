@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
+
 /* main components */
 import { AppComponent } from './app.component';
 import { ToastComponent } from '../app/shared/directives/toast/toast.component';
@@ -11,6 +12,9 @@ import { ToastComponent } from '../app/shared/directives/toast/toast.component';
 /* app modules */
 import { LoginModule } from './modules/login/login.module';
 import { Page404Component } from './page404.component';
+
+/* global services */
+import { ToastService } from './shared/services/toast/toast.service';
 
 /* routing module */
 import { AppRoutingModule } from './app.routing';
@@ -28,7 +32,7 @@ import { AppRoutingModule } from './app.routing';
     LoginModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
