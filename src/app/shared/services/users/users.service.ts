@@ -19,10 +19,6 @@ export class UsersService {
 
   addUser(user: User): Observable<User> {
     return this.http.post(this.apiPath + '/register', user, httpOptions)
-                    .map((res) => {
-                      console.log('service: ', res);
-                      return res;
-                    })
                     .catch((error:HttpErrorResponse) => Observable.throw(error));
     }
 }

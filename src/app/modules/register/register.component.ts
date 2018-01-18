@@ -67,10 +67,20 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log('add user post data: ',this.registerForm.value);
     this.usersService.addUser(this.registerForm.value).subscribe(
-      (result)=>{console.log('a mers: ',result)},
-      (error)=>{console.log('a crapat: ',error)}
+      (result)=>{
+        this.toastService.toastTrigger({
+          message: 'User registered!',
+          options: {type: 'success'}
+        });
+        this.router.navigate(['login']);
+      },
+      (error)=>{
+        this.toastService.toastTrigger({
+          message: error.error.message,
+          options: {type: 'error'}
+        });
+      }
     );
 
   }
