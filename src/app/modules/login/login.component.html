@@ -14,15 +14,17 @@
     </div>
     <div class="row">
         <div class="form-container">
-            <div class="col-sm-5">
-                <input type="text" class="form-control" placeholder="Email" required autofocus>
-            </div>
-            <div class="col-sm-5">
-                <input type="password" class="form-control" placeholder="Password" required>
-            </div>
-            <div class="col-sm-2">
-                <button class="btn btn-block" (click)="successMessage()" type="submit">Login</button>
-            </div>
+            <form class="form-signup" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+                <div class="col-sm-5">
+                    <input type="text" name="userName" class="form-control" [class.invalid]="loginForm.controls.userName.invalid && loginForm.controls.userName.dirty" placeholder="Username" formControlName="userName" autofocus required>
+                </div>
+                <div class="col-sm-5">
+                    <input type="password" name="password" class="form-control" [class.invalid]="loginForm.controls.password.invalid && loginForm.controls.password.dirty" placeholder="Password" formControlName="password" required>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-block" type="submit" [disabled]="loginForm.invalid">Login</button>
+                </div>
+            </form>
             <div class="clearfix"></div>
         </div>
         <div class="col-sm-12">

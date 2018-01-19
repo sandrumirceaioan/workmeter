@@ -80,4 +80,25 @@ router.post('/register', function (req, res) {
 
 });
 
+//----------------------------------------------------------------------------------------------------
+// login user
+//----------------------------------------------------------------------------------------------------
+router.post('/login', function (req, res) {
+  let params = _.merge(req.body, req.query);
+  let salt = '4m0$pr4l3*s0!p3n~d3';
+  params.password = md5(params.password+salt);
+
+  users.findOne(params).then(function(user){
+    console.log(user);
+    if (!user) throw {message:'User not found!'};
+    return user;
+  }).then(function(dbUser){
+    res.status(200).json(dbUser);
+  }).catch(function(error){
+    res.status(500).json(error);
+  });
+
+});
+
+
 module.exports = router;

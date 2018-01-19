@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register.component';
 import { ValidationErrors } from '../../shared/directives/validation-errors/validation-errors.component';
@@ -11,9 +10,8 @@ import { UsersService } from '../../shared/services/users/users.service';
 @NgModule({
   imports: [
     CommonModule,
-    RegisterRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    RegisterRoutingModule
   ],
   declarations: [RegisterComponent, ValidationErrors],
   providers: [ValidationService, UsersService],

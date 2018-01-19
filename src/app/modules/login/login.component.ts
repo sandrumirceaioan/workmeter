@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastService } from '../../shared/services/toast/toast.service';
+import { UsersService } from '../../shared/services/users/users.service';
 import { trigger, state, animate, style, transition, keyframes, query, stagger, group } from '@angular/animations';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+interface logDetails {
+  userName: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -26,24 +34,37 @@ import { trigger, state, animate, style, transition, keyframes, query, stagger, 
   ]
 })
 export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
 
-  constructor(private toast: ToastService) { }
+  constructor(
+    private toastService: ToastService, 
+    private usersService: UsersService, 
+    private router: Router) { }
 
   ngOnInit() {
-  }
-
-  successMessage(){
-    this.toast.toastTrigger({
-      message: 'Success message!',
-      options: {type: 'success'}
+    this.loginForm = new FormGroup({
+      userName: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     });
   }
 
-  successMessageTwo(){
-    this.toast.toastTrigger({
-      message: 'Error message!',
-      options: {type: 'error',}
-    });
+  onSubmit(){
+    console.log('this.registerForm.value: ',this.loginForm.value);
+    this.usersService.loginUser(this.loginForm.value).subscribe(
+      (result)=>{
+        this.toastService.toastTrigger({
+          message: 'User registered!',
+          options: {type: 'success'}
+        });
+        this.router.navigate(['dashboard']);
+      },
+      (error)=>{
+        this.toastService.toastTrigger({
+          message: error.error.message,
+          options: {type: 'error'}
+        });
+      }
+    );
   }
 
 }

@@ -20,5 +20,10 @@ export class UsersService {
   addUser(user: User): Observable<User> {
     return this.http.post(this.apiPath + '/register', user, httpOptions)
                     .catch((error:HttpErrorResponse) => Observable.throw(error));
-    }
+  }
+
+  loginUser(params){
+    return this.http.post(this.apiPath + '/login', params, httpOptions)
+                    .catch((error:HttpErrorResponse) => Observable.throw(error));
+  }
 }

@@ -67,6 +67,10 @@
       margin: 0 35px;
   }
 
+  .invalid {
+    border: 3px solid #fd3300 !important;
+  }
+
   /* .wm, .tm {
     font-size: 40px;
   } */
