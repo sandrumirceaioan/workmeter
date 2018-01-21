@@ -10,7 +10,7 @@ const routes: Routes = [
     component: DashboardComponent, 
     data: {title: 'Dashboard'},
     // resolve: {
-    //   contact: LoggedResolve
+    //   logged: LoggedResolve
     // }
   },
 ];

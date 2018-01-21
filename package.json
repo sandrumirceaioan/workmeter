@@ -30,6 +30,7 @@
     "core-js": "^2.4.1",
     "express": "^4.16.2",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
     "jsonwebtoken": "^8.1.0",
     "jwt-then": "^0.6.0",
     "lodash": "^4.17.4",

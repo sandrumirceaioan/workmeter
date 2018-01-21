@@ -19,11 +19,30 @@ export class UsersService {
 
   addUser(user: User): Observable<User> {
     return this.http.post(this.apiPath + '/register', user, httpOptions)
-                    .catch((error:HttpErrorResponse) => Observable.throw(error));
+                    .catch((error:HttpErrorResponse) => {
+                      return Observable.throw(error)
+                    });
   }
 
   loginUser(params){
-    return this.http.post(this.apiPath + '/login', params, httpOptions)
-                    .catch((error:HttpErrorResponse) => Observable.throw(error));
+    return this.http.post(this.apiPath + '/login', params, httpOptions).map((result: User) => {
+                    localStorage.setItem('wmtoken', result.token);
+                    this.logged = result;
+                    return result;
+                    })
+                   .catch((error:HttpErrorResponse) => {
+                      return Observable.throw(error)
+                    });
   }
+
+checkLogged(params){
+  return this.http.post(this.apiPath + '/checkLogged', params, httpOptions).map((result: User) => {
+                  this.logged = result;
+                  return result;
+                  })
+                  .catch((error:HttpErrorResponse) => {
+                      return Observable.throw(error)
+                    });
+}
+
 }

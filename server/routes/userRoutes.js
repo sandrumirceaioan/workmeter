@@ -40,7 +40,6 @@ router.get('/',function(req, res) {
 // register user
 //----------------------------------------------------------------------------------------------------
 router.post('/register', function (req, res) {
-
   let params = _.merge(req.body, req.query);
   let orArray = [];
 
@@ -77,7 +76,6 @@ router.post('/register', function (req, res) {
   }).catch(function(error){
     res.status(500).json(error);
   });
-
 });
 
 //----------------------------------------------------------------------------------------------------
@@ -89,16 +87,33 @@ router.post('/login', function (req, res) {
   params.password = md5(params.password+salt);
 
   users.findOne(params).then(function(user){
-    console.log(user);
     if (!user) throw {message:'User not found!'};
     return user;
   }).then(function(dbUser){
     res.status(200).json(dbUser);
   }).catch(function(error){
-    res.status(500).json(error);
+    console.log(error);
+    res.status(401).json(error);
   });
-
 });
 
+//----------------------------------------------------------------------------------------------------
+// check logged 
+//----------------------------------------------------------------------------------------------------
+router.post('/checkLogged', function (req, res) {
+  let params = _.merge(req.body, req.query);
+  let filter = {
+    token: params.token
+  };
+  users.findOne(filter).then(function(user){
+    if (!user) throw {message:'Please log in to continue!'};
+    return user;   
+  }).then(function(dbUser){
+    res.status(200).json(dbUser);
+  }).catch(function(error){
+    console.log(error);
+    res.status(401).json(error);
+  });
+});
 
 module.exports = router;

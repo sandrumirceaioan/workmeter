@@ -4,7 +4,7 @@ import { LoginComponent } from './modules/login/login.component';
 import { Page404Component } from './page404.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'register', loadChildren: './modules/register/register.module#RegisterModule'},
   { path: 'dashboard', loadChildren:'./modules/dashboard/dashboard.module#DashboardModule'},
   { path: 'login', component: LoginComponent, data: {title: 'Login'}},

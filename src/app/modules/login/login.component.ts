@@ -49,11 +49,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log('this.registerForm.value: ',this.loginForm.value);
     this.usersService.loginUser(this.loginForm.value).subscribe(
       (result)=>{
         this.toastService.toastTrigger({
-          message: 'User registered!',
+          message: 'Welcome ' + result.userName,
           options: {type: 'success'}
         });
         this.router.navigate(['dashboard']);

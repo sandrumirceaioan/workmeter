@@ -1,3 +1,35 @@
-<p>
-  dashboard works!
-</p>
+<div class="dashboard-container" [ngClass]="menu ? 'col-sm-10' : 'col-sm-12'">
+  <div class="row main-header">
+    <div class="col-sm-2">
+        <h3>tmwm</h3>
+    </div>
+    <div class="work-status col-sm-8">
+      <p>Today you worked for: 5 hours 45 minutes</p>
+    </div>
+    <div class="col-sm-2">
+        <img class="wm-logo tm-logo-small" src="assets/tm-logo-small.png" alt="" (click)="toggleMenu()">
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="row user-nav">
+    <div class="col-sm-12">
+      <ul>
+          <li><a class="is-active">Projects</a></li>
+          <li><a>Tasks</a></li>
+          <li><a>Users</a></li>
+      </ul>
+      </div>
+  </div>
+  <div class="row main-body">
+
+    <div class="clearfix"></div>
+  </div>
+  <div class="row main-footer">
+      <div class="col-sm-12">
+        <p>task management # work meter # 2018 </p>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+</div>
+<div class="overlay" [hidden]="menuState == 'out'" (click)="toggleMenu()"></div>
+<side-menu class="dashboard-side-menu" [@slideInOut]="menuState" (closeMenuEvent)="receiveStatus($event)"></side-menu>

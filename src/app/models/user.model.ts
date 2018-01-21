@@ -6,4 +6,5 @@ export class User {
     invitationCode: string;
     password: string;
     userType?: number;
+    token?: string
   }
