@@ -5,13 +5,13 @@ import { CanActivateAuthGuard } from './dashboard.authGuard';
 import { LoggedResolve } from './dashboard.logged.resolve';
 
 const routes: Routes = [
-  { 
+  {
     path: '', 
     component: DashboardComponent, 
     data: {title: 'Dashboard'},
-    // resolve: {
-    //   logged: LoggedResolve
-    // }
+    children: [
+      { path: 'projects', loadChildren: '../projects/projects.module#ProjectsModule'}
+    ]
   },
 ];
 

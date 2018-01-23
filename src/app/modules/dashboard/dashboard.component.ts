@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, animate, style, state, transition, query, stagger } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit {
   logged;
   menuState:string = 'out';
+  
   constructor(private route: ActivatedRoute) {
   }
 

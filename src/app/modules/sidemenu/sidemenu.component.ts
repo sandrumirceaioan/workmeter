@@ -8,14 +8,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidemenu.component.css'],
 })
 export class SidemenuComponent implements OnInit {
-  @Output() closeMenuEvent = new EventEmitter<string>();
+  @Output() toggle = new EventEmitter<string>();
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   closeMenu(): void {
-    this.closeMenuEvent.emit('out');
+    this.toggle.emit('out');
   }
 
   logout(){
