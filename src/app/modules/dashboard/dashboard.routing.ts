@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
-import { CanActivateAuthGuard } from './dashboard.authGuard';
 import { LoggedResolve } from './dashboard.logged.resolve';
 
 const routes: Routes = [
@@ -11,8 +10,11 @@ const routes: Routes = [
     data: {title: 'Dashboard'},
     children: [
       { path: 'projects', loadChildren: '../projects/projects.module#ProjectsModule'}
-    ]
-  },
+    ],
+    resolve: {
+      logged: LoggedResolve
+    }
+  }
 ];
 
 @NgModule({

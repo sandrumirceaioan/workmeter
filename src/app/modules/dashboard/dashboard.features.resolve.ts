@@ -5,19 +5,21 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import { UsersService } from '../../shared/services/users/users.service';
 import { ToastService } from '../../shared/services/toast/toast.service';
+import { FeaturesService } from '../../shared/services/features/features.service';
 
 @Injectable()
-export class LoggedResolve implements Resolve<any> {
-  checkLoggedData: string;
+export class FeaturesResolve implements Resolve<any> {
+  checkFeatureAccess: number;
   constructor(
     private usersService: UsersService,
+    private featuresService: FeaturesService,
     private toastService: ToastService,
-    private router: Router,
+    private router: Router
   ) {}
   
   resolve(route: ActivatedRouteSnapshot) {
-    this.checkLoggedData = localStorage.getItem('wmtoken');
-    return this.usersService.checkLogged({token: this.checkLoggedData}).catch(
+    console.log('userService logged: ', this.usersService.logged);
+    return this.featuresService.getFeatures({userType: this.usersService.logged.userType}).catch(
       (error) => {
         this.toastService.toastTrigger({
           message: error.error.message,

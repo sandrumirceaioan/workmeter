@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectsRoutingModule } from './projects.routing';
-import { UsersService } from '../../shared/services/users/users.service';
 import { ProjectsComponent } from './projects.component';
 
 @NgModule({
@@ -12,7 +11,7 @@ import { ProjectsComponent } from './projects.component';
     ProjectsRoutingModule
   ],
   declarations: [ProjectsComponent],
-  providers: [UsersService]
+  providers: []
 })
 
 export class ProjectsModule { }

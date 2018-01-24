@@ -5,7 +5,6 @@ import { RegisterComponent } from './register.component';
 import { ValidationErrors } from '../../shared/directives/validation-errors/validation-errors.component';
 import { ValidationService } from '../../shared/services/validation/validation.service';
 import { RegisterRoutingModule } from './register.routing';
-import { UsersService } from '../../shared/services/users/users.service';
 
 @NgModule({
   imports: [
@@ -14,7 +13,7 @@ import { UsersService } from '../../shared/services/users/users.service';
     RegisterRoutingModule
   ],
   declarations: [RegisterComponent, ValidationErrors],
-  providers: [ValidationService, UsersService],
+  providers: [ValidationService],
   exports: []
 })
 export class RegisterModule { }

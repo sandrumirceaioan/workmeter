@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-//var validate = require('mongoose-validator');
 var validate = require('mongoose-validator');
 var Schema = mongoose.Schema;
 

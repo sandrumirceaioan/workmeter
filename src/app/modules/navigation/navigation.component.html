@@ -1,10 +1,11 @@
 <div class="row user-nav">
     <div class="col-sm-12">
       <ul>
-          <li><a routerLink="./projects">Projects</a></li>
-          <li><a routerLink="/tasks">Tasks</a></li>
-          <li><a routerLink="/users">Users</a></li>
-          <li><a routerLink="/workmeter">Workmeter</a></li>
+          <div *ngFor="let item of items">
+            <li *ngIf="userAccess <= item.rank">
+              <a routerLink="{{item.url}}">{{item.title}}</a>
+            </li>
+          </div>
       </ul>
     </div>
   </div>

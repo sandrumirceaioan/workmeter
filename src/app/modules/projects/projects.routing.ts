@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectsComponent } from './projects.component';
+import { CanActivateAuthGuard } from '../dashboard/dashboard.authGuard';
 
 const routes: Routes = [
-  {path: '',  component: ProjectsComponent, data: {title: 'Register'}}
+  {
+    path: '',
+    component: ProjectsComponent,
+    data: {title: 'Projects', access: 0},
+    canActivate: [CanActivateAuthGuard],
+  }
 ];
 
 @NgModule({

@@ -28,6 +28,7 @@ export class UsersService {
     return this.http.post(this.apiPath + '/login', params, httpOptions).map((result: User) => {
                     localStorage.setItem('wmtoken', result.token);
                     this.logged = result;
+
                     return result;
                     })
                    .catch((error:HttpErrorResponse) => {

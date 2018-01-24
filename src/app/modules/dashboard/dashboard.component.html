@@ -3,7 +3,7 @@
   <header (toggle)="receiveStatus($event)"></header>
 
   <!-- dashboard navigation -->
-  <navigation></navigation>
+  <navigation [userAccess]="userService.logged.userType"></navigation>
   
   <!-- dashboard body -> to add child states inside -->
   <div class="row main-body">
@@ -19,5 +19,5 @@
 </div>
 
 <!-- dashboard side menu -->
-<div class="overlay" [hidden]="menuState == 'out'" (click)="toggleMenu()"></div>
+<!-- <div class="overlay" [hidden]="menuState == 'out'" (click)="toggleMenu()"></div> -->
 <side-menu class="dashboard-side-menu" [@slideInOut]="menuState" (toggle)="receiveStatus($event)"></side-menu>
