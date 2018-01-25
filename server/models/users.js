@@ -35,7 +35,7 @@ var usersSchema = new Schema({
         required: true
     },
     userType: {
-        type: Number
+        type: String
     },
     userStatus: {
         type: Number

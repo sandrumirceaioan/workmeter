@@ -36,7 +36,11 @@ export class UsersService {
                     });
   }
 
-checkLogged(params){
+checkLogged(){
+  if (this.logged) {
+    return Observable.of(this.logged);
+  }
+  let params = {token: localStorage.getItem('wmtoken')};
   return this.http.post(this.apiPath + '/checkLogged', params, httpOptions).map((result: User) => {
                   this.logged = result;
                   return result;

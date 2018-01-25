@@ -9,7 +9,6 @@ import { NavigationComponent } from '../navigation/navigation.component';
 
 import { ValidationService } from '../../shared/services/validation/validation.service';
 import { DashboardRoutingModule } from './dashboard.routing';
-import { LoggedResolve } from './dashboard.logged.resolve';
 import { CanActivateAuthGuard } from './dashboard.authGuard';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { CanActivateAuthGuard } from './dashboard.authGuard';
   declarations: [DashboardComponent, HeaderComponent, NavigationComponent, SidemenuComponent],
   providers: [
     ValidationService,
-    LoggedResolve,
     CanActivateAuthGuard
   ],
   exports: []

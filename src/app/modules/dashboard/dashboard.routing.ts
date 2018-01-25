@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
-import { LoggedResolve } from './dashboard.logged.resolve';
+import { CanActivateAuthGuard } from './dashboard.authGuard';
 
 const routes: Routes = [
   {
     path: '', 
     component: DashboardComponent, 
-    data: {title: 'Dashboard'},
+    data: {title: 'Dashboard', access: ['admin','user']},
     children: [
       { path: 'projects', loadChildren: '../projects/projects.module#ProjectsModule'}
     ],
-    resolve: {
-      logged: LoggedResolve
-    }
+    canActivate: [CanActivateAuthGuard]
   }
 ];
 

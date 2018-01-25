@@ -16,8 +16,7 @@ export class LoggedResolve implements Resolve<any> {
   ) {}
   
   resolve(route: ActivatedRouteSnapshot) {
-    this.checkLoggedData = localStorage.getItem('wmtoken');
-    return this.usersService.checkLogged({token: this.checkLoggedData}).catch(
+    return this.usersService.checkLogged().catch(
       (error) => {
         this.toastService.toastTrigger({
           message: error.error.message,
