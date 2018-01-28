@@ -4,9 +4,9 @@ import { LoginComponent } from './modules/login/login.component';
 import { Page404Component } from './page404.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: 'main', loadChildren:'./modules/main/main.module#MainModule'},
   { path: 'register', loadChildren: './modules/register/register.module#RegisterModule'},
-  { path: 'dashboard', loadChildren:'./modules/dashboard/dashboard.module#DashboardModule'},
   { path: 'login', component: LoginComponent, data: {title: 'Login'}},
   { path: '**', component: Page404Component}
 ];

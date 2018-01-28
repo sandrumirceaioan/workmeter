@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable} from 'rxjs/Observable';
 import { User } from '../../../models/user.model';
 import 'rxjs/add/observable/throw';
+import "rxjs/add/observable/of";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -37,7 +38,7 @@ export class UsersService {
   }
 
 checkLogged(){
-  if (this.logged) {
+  if (!!this.logged) {
     return Observable.of(this.logged);
   }
   let params = {token: localStorage.getItem('wmtoken')};
@@ -49,5 +50,4 @@ checkLogged(){
                       return Observable.throw(error)
                     });
 }
-
 }

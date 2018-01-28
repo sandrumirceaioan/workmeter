@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsersService } from '../../shared/services/users/users.service';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SidemenuComponent implements OnInit {
   @Output() toggle = new EventEmitter<string>();
-  constructor(private router: Router) { }
+  constructor(private router: Router, private usersService: UsersService) { }
 
   ngOnInit() {
   }
@@ -20,6 +21,7 @@ export class SidemenuComponent implements OnInit {
 
   logout(){
     localStorage.removeItem('wmtoken');
+    this.usersService.logged = null;
     this.router.navigate(['login']);
   }
 

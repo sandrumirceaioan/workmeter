@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
           message: 'Welcome ' + result.userName,
           options: {type: 'success'}
         });
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['main']);
       },
       (error)=>{
         this.toastService.toastTrigger({

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectsRoutingModule } from './projects.routing';
 import { ProjectsComponent } from './projects.component';
+import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 
 @NgModule({
   imports: [
@@ -11,7 +12,7 @@ import { ProjectsComponent } from './projects.component';
     ProjectsRoutingModule
   ],
   declarations: [ProjectsComponent],
-  providers: []
+  providers: [CanActivateAuthGuard]
 })
 
 export class ProjectsModule { }

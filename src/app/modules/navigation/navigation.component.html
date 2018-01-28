@@ -1,11 +1,21 @@
 <div class="row user-nav">
     <div class="col-sm-12">
-      <ul>
-          <div *ngFor="let item of items">
-            <li *ngIf="userAccess <= item.rank">
-              <a routerLink="{{item.url}}">{{item.title}}</a>
+      <ul>  
+          <li>
+              <a routerLink="./dashboard">Dashboard</a>
             </li>
-          </div>
+            <li *ngIf="userAccess == 'admin'">
+              <a routerLink="./projects">Projects</a>
+            </li>
+            <li *ngIf="userAccess == 'admin' || userAccess == 'manager'">
+              <a routerLink="./lists">Lists</a>
+            </li>
+            <li>
+              <a routerLink="./tasks">Tasks</a>
+            </li>
+            <li *ngIf="userAccess == 'admin'">
+              <a routerLink="./users">Users</a>
+            </li>
       </ul>
     </div>
   </div>

@@ -1,3 +1,10 @@
-<p>
-  projects works!
-</p>
+<div class="projects-container">
+  <a class="add-button"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+  <ul class="projects-list">
+    <li *ngFor="let project of projects">
+      <div class="project">
+        {{project.projectName}}
+      </div>
+    </li>
+  </ul>
+</div>

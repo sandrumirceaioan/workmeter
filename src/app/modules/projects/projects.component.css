@@ -1,0 +1,24 @@
+.projects-container {
+
+}
+
+.add-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 50px;
+    cursor: pointer;
+    color: #540181;
+}
+
+.add-button:hover {
+  color: #7501b0;
+}
+
+.projects-list {
+
+}
+
+.project {
+
+}

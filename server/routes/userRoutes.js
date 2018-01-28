@@ -67,6 +67,7 @@ router.post('/register', function (req, res) {
     });
   }).then(function(token){
     let salt = '4m0$pr4l3*s0!p3n~d3';
+    params['userType'] = "user";
     params.token = token;
     params.password = md5(params.password + salt);
     let user = new users(params);
@@ -102,6 +103,7 @@ router.post('/login', function (req, res) {
 //----------------------------------------------------------------------------------------------------
 router.post('/checkLogged', function (req, res) {
   let params = _.merge(req.body, req.query);
+  console.log('params: ', params);
   let filter = {
     token: params.token
   };
