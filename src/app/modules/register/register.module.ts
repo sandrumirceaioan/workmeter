@@ -9,8 +9,8 @@ import { RegisterRoutingModule } from './register.routing';
 @NgModule({
   imports: [
     CommonModule,
-    RegisterRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RegisterRoutingModule
   ],
   declarations: [RegisterComponent, ValidationErrors],
   providers: [ValidationService],

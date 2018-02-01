@@ -1,14 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+var Promise = require("bluebird");
+let _ = require('lodash');
+let async = require('async');
 
 /* GET users listing. */
 router.get('/',function(req, res) {
   res.render('index.html');
 });
-
-//#GetAll
-router.get('/greet', function (req, res) {
-  return res.status(200).json({greet: 'Hello!'});
- });
 
 module.exports = router;

@@ -1,0 +1,8 @@
+{
+    "watch": ["server"],
+    "ext": "js",
+    "ignore": ["server/**/*.spec.js"],
+    "exec": "node app.js",
+    "env": {
+    }
+  }

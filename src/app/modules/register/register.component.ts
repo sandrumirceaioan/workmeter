@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { trigger, animate, style, transition, query, stagger } from '@angular/animations';
 import { ValidationService } from '../../shared/services/validation/validation.service';
+import { ToastService } from '../../shared/services/toast/toast.service';
+import { UsersService } from '../../shared/services/users/users.service';
 import { User } from '../../models/user.model';
-import { trigger, state, animate, style, transition, keyframes, query, stagger, group } from '@angular/animations';
 
 @Component({
   selector: 'app-register',
@@ -26,41 +28,36 @@ import { trigger, state, animate, style, transition, keyframes, query, stagger, 
         ]))
       ])
     ])
-    // trigger('fadeIn', [
-    //   state('void', style({opacity: '0'})),
-    //   transition(':enter',
-    //     animate('0.5s 300ms ease-out', keyframes([
-    //       style({ opacity: '0', transform: 'translateX(-100px)', offset:0 }),
-    //       style({ opacity: '0.8', transform: 'translateX(30px)', offset:0.5 }),
-    //       style({ opacity: '1', transform: 'translateX(0)', offset:1 })
-    //     ])),
-    //   )
-    // ])
   ]
 })
 export class RegisterComponent implements OnInit {
-  rf: FormGroup;
+  registerForm: FormGroup;
   user: User = {
     firstName: '',
     lastName: '',
     userName: '',
-    email: '',
-    invitation: '77777',
+    emailAddress: '',
+    invitationCode: '77777',
     password: ''
   };
 
-  constructor(private validationService: ValidationService, private router: Router) { }
+  constructor(
+    private validationService: ValidationService,
+    private toastService: ToastService,
+    private usersService: UsersService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.rf = new FormGroup({
+    this.registerForm = new FormGroup({
       firstName: new FormControl(this.user.firstName, Validators.required),
       lastName: new FormControl(this.user.lastName,Validators.required),
       userName: new FormControl(this.user.userName,Validators.required),
-      email: new FormControl(this.user.email,[
+      emailAddress: new FormControl(this.user.emailAddress,[
         Validators.required,
         Validators.email
       ]),
-      invitation: new FormControl(this.user.invitation,Validators.required),
+      invitationCode: new FormControl(this.user.invitationCode,Validators.required),
       password: new FormControl(this.user.password,[
         Validators.required,
         Validators.minLength(8),
@@ -70,9 +67,22 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.rf.value);
-    this.rf.reset();
-    this.router.navigate(['login']);
+    this.usersService.addUser(this.registerForm.value).subscribe(
+      (result)=>{
+        this.toastService.toastTrigger({
+          message: 'User registered!',
+          options: {type: 'success'}
+        });
+        this.router.navigate(['login']);
+      },
+      (error)=>{
+        this.toastService.toastTrigger({
+          message: error.error.message,
+          options: {type: 'error'}
+        });
+      }
+    );
+
   }
 
 }
