@@ -1,5 +1,5 @@
 .projects-container {
-
+  padding: 10px;
 }
 
 .add-button {
@@ -16,9 +16,9 @@
 }
 
 .projects-list {
-
-}
-
-.project {
-
+  width: 100%;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
 }

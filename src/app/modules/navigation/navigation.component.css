@@ -12,6 +12,7 @@
   .is-active {
     background: #ffffff !important;
     color: #7302ad !important;
+    transition: all 0.2s;
   }
   
   .user-nav ul li a {

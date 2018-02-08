@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Project } from '../../models/project.model'; 
+import { Project } from '../../models/project.model';
 
 @Component({
   selector: 'app-projects',
@@ -7,12 +7,13 @@ import { Project } from '../../models/project.model';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
+  addButton: boolean = false;
   projects: Project[] = [
     {
       projectName: 'Alexandria',
       projectDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       projectCategory: 'other',
-      projectTags: 'search engine, platform',
+      projectTags: 'search engine',
       projectOwner: 'Rey',
       projectCreated: '01-01-2016'
     },
@@ -20,7 +21,7 @@ export class ProjectsComponent implements OnInit {
       projectName: 'DanSmoke',
       projectDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       projectCategory: 'ecommerce',
-      projectTags: 'search engine, platform',
+      projectTags: 'ecommerce, shop',
       projectOwner: 'Robin',
       projectCreated: '01-01-2010'
     },
@@ -28,7 +29,7 @@ export class ProjectsComponent implements OnInit {
       projectName: 'Javandi',
       projectDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       projectCategory: 'tracking',
-      projectTags: 'affiliate marketing, tracking, platform',
+      projectTags: 'affiliation, tracking',
       projectOwner: 'Chris',
       projectCreated: '24-06-2016'
     }
@@ -36,6 +37,20 @@ export class ProjectsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  addProject(){
+    this.addButton = !this.addButton;
+    if (this.projects[this.projects.length-1].newProject && !this.addButton) {
+      this.projects.pop();
+      return false;
+    }
+    this.projects.push({
+      newProject: true,
+      projectName: '',
+      projectDescription: '',
+      projectCreated: ''
+    });
   }
 
 }

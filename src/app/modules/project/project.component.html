@@ -1,0 +1,39 @@
+<!-- project component -->
+<div class="project" *ngIf="!details.newProject">
+  <div class="project-header">
+      <div class="row">
+        <div class="col-sm-6">
+          {{details.projectName}}
+        </div>
+        <div class="col-sm-6 text-right">
+          <a href="" ><i class="fa fa-edit"></i></a>
+        </div>
+      </div>
+  </div>
+  <div class="project-body">
+    {{details.projectDescription}}
+  </div>
+  <div class="project-footer">
+    <span class="project-tags" *ngFor="let tag of tags">{{tag}}</span>
+    <span class="clearfix"></span>
+  </div>
+</div>
+<!-- add project form -->
+<div class="project" *ngIf="details.newProject">
+    <form class="project-form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <div class="project-header">
+        <div class="row">
+          <div class="col-sm-12">
+            <input type="text" name="projectName" class="top form-control" placeholder="Project Name" formControlName="projectName" />
+          </div>
+        </div>
+    </div>
+    <div class="project-body">
+      <textarea type="text" name="projectDescription" class="top form-control" placeholder="Project description" formControlName="projectDescription" rows="2"></textarea>
+    </div>
+    <div class="project-footer-add">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Save project</button>
+      <span class="clearfix"></span>
+    </div>
+    </form>
+  </div>

@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectsRoutingModule } from './projects.routing';
 import { ProjectsComponent } from './projects.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
+import { ProjectComponent } from 'app/modules/project/project.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,7 @@ import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
     ReactiveFormsModule,
     ProjectsRoutingModule
   ],
-  declarations: [ProjectsComponent],
+  declarations: [ProjectsComponent, ProjectComponent],
   providers: [CanActivateAuthGuard]
 })
 
