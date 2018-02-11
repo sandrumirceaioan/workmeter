@@ -9,11 +9,10 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit {
   @Input() userAccess: number;
   active: string;
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
-    this.active = this.router.url;
-    console.log(this.active);
   }
 
 }
