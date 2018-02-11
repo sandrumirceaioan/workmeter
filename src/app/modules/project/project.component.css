@@ -1,10 +1,11 @@
 .project {
-    background: #600091;
-    color: #ffffff;
-    width: 300px;
-    float: left;
-    margin-right: 10px;
-    margin-bottom: 10px;
+  background: #600091;
+  color: #ffffff;
+  width: 100%;
+  float: left;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
   }
 
   .project-header {
@@ -48,7 +49,8 @@
     padding: 10px;
     background: #efeeee;
     color: #383838;
-    height: 80px;
+    height: 135px;
+    overflow: hidden;
   }
 
   .project-footer {
@@ -69,4 +71,8 @@
     background: #ffffff;
     color: #410062;
     margin-right: 5px;
+  }
+
+  .project-footer small {
+    font-size: 11px !important;
   }

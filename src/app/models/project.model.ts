@@ -1,5 +1,4 @@
 export class Project {
-  newProject?: boolean; 
   projectName: string;
   projectDescription: string;
   projectCategory?: string;

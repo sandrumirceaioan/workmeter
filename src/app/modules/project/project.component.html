@@ -1,5 +1,5 @@
 <!-- project component -->
-<div class="project" *ngIf="!details.newProject">
+<div class="project">
   <div class="project-header">
       <div class="row">
         <div class="col-sm-6">
@@ -11,29 +11,17 @@
       </div>
   </div>
   <div class="project-body">
-    {{details.projectDescription}}
+    {{details.projectDescription | slice:0:380}}
+    <span *ngIf="details.projectDescription.length > 380">...</span>
   </div>
   <div class="project-footer">
-    <span class="project-tags" *ngFor="let tag of tags">{{tag}}</span>
-    <span class="clearfix"></span>
-  </div>
-</div>
-<!-- add project form -->
-<div class="project" *ngIf="details.newProject">
-    <form class="project-form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-    <div class="project-header">
-        <div class="row">
-          <div class="col-sm-12">
-            <input type="text" name="projectName" class="top form-control" placeholder="Project Name" formControlName="projectName" />
-          </div>
+    <div class="row">
+      <div class="col-xs-6 text-left">
+        <small>#owner: <strong>{{details.projectOwner}}</strong></small>
+      </div>
+      <div class="col-xs-6 text-right">
+          <small>#category: <strong>{{details.projectCategory}}</strong></small>
         </div>
     </div>
-    <div class="project-body">
-      <textarea type="text" name="projectDescription" class="top form-control" placeholder="Project description" formControlName="projectDescription" rows="2"></textarea>
-    </div>
-    <div class="project-footer-add">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Save project</button>
-      <span class="clearfix"></span>
-    </div>
-    </form>
   </div>
+</div>

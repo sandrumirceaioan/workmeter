@@ -3,8 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProjectsRoutingModule } from './projects.routing';
 import { ProjectsComponent } from './projects.component';
+import { ToolbarComponent } from '../../shared/directives/toolbar/toolbar.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
-import { ProjectComponent } from 'app/modules/project/project.component';
+import { ProjectComponent } from '../project/project.component';
+import { ProjectsService } from '../../shared/services/projects/projects.service';
+import { ProjectsResolve } from './projects.resolve';
+import { ListFilterPipe } from '../../shared/filters/search-filter.pipe';
 
 @NgModule({
   imports: [
@@ -12,8 +16,8 @@ import { ProjectComponent } from 'app/modules/project/project.component';
     ReactiveFormsModule,
     ProjectsRoutingModule
   ],
-  declarations: [ProjectsComponent, ProjectComponent],
-  providers: [CanActivateAuthGuard]
+  declarations: [ProjectsComponent, ProjectComponent, ListFilterPipe, ToolbarComponent],
+  providers: [CanActivateAuthGuard, ProjectsService, ProjectsResolve]
 })
 
 export class ProjectsModule { }

@@ -1,11 +1,15 @@
 <div class="projects-container">
-  <a class="add-button" (click)="addProject();">
-    <i *ngIf="addButton" class="fa fa-minus-circle" aria-hidden="true"></i>
-    <i *ngIf="!addButton" class="fa fa-plus-circle" aria-hidden="true"></i>
-  </a>
-  <ul class="projects-list">
-    <li *ngFor="let project of projects">
-      <project [details]="project"></project>
-    </li>
-  </ul>
+  <toolbar (added)="pushProject($event)" (searched)="searchList($event)">
+  </toolbar>
+  <div class="list-container">
+    <ul class="projects-list">
+      <li *ngIf="(projects | listFilter:searchTerm).length === 0">
+        <span class="not-found">Sorry, no matches...</span>
+      </li>
+      <li *ngFor="let project of projects | listFilter:searchTerm">
+        <project class="col-sm-3" [details]="project"></project>
+      </li>
+    </ul>
+    <div class="clearfix"></div>
+  </div>
 </div>

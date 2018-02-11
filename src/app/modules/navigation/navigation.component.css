@@ -10,7 +10,7 @@
   }
   
   .is-active {
-    background: #ffffff !important;
+    background: #f9f9f9 !important;
     color: #7302ad !important;
     transition: all 0.2s;
   }
