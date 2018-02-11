@@ -4,14 +4,35 @@ import { ProjectsService } from '../../shared/services/projects/projects.service
 import { ToastService } from '../../shared/services/toast/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { ListFilterPipe } from '../../shared/filters/search-filter.pipe';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
 import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  styleUrls: ['./projects.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter',
+        animate('.3s ease-out', keyframes([
+          style({ opacity: '0', transform: 'translateY(0)', offset:0 }),
+          style({ opacity: '0.5', transform: 'translateY(25px)', offset:0.3 }),
+          style({ opacity: '1', transform: 'translateY(0)', offset:1 })
+        ])),
+      ),
+      transition(":leave", 
+      animate('.2s ease-out', keyframes([
+        style({ opacity: '1', transform: 'translateX(25%)', offset:0 }),
+        style({ opacity: '0.3', transform: 'translateX(50%)', offset:0.5 }),
+        style({ opacity: '0', transform: 'translateX(70%)', offset:1 })
+      ]))
+      )
+    ]),
+  ]
 })
 export class ProjectsComponent implements OnInit {
+  projectForm: FormGroup;
   addState: boolean = false;
   searchTerm: string;
   projects: Project[] = [];
@@ -28,14 +49,37 @@ export class ProjectsComponent implements OnInit {
     .subscribe((result) => {
       this.projects = result;
     });
+    this.projectForm = new FormGroup({
+      projectName: new FormControl('', Validators.required),
+      projectDescription: new FormControl('',Validators.required),
+      projectOwner: new FormControl('',Validators.required),
+      projectCategory: new FormControl('',Validators.required),
+      projectTags: new FormControl('',Validators.required)
+    });
   }
 
-  pushProject(object){
-    this.projects.unshift(object);
+  addProject(): void {
+    this.projectsService.addProject(this.projectForm.value).subscribe(
+      (result)=>{
+        this.toastService.toastTrigger({
+          message: 'Project added! ',
+          options: {type: 'success'}
+        });
+        this.projectForm.reset();
+        this.addState = false;
+        this.projects.unshift(result);
+      },
+      (error)=>{
+        this.toastService.toastTrigger({
+          message: error.error.message,
+          options: {type: 'error'}
+        });
+      }
+    );
   }
 
-  searchList(str){
-    this.searchTerm = str;
+  onSearchChange(e){
+    this.searchTerm = e;
   }
 
 }
