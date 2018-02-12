@@ -26,27 +26,6 @@
   margin-left: 15px;
 }
 
-.toolbar-container {
-  background: #f9f9f9;
-  padding: 10px;
-  border-bottom: 1px solid #d8d8d8;
-  box-shadow: 0px 10px 20px -10px #BEBEAD;
-}
-
-.toolbar-container span {
-  font-size: 20px;
-}
-
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-}
-
 .add-button {
   font-size: 30px;
   cursor: pointer;
@@ -54,20 +33,8 @@
   text-decoration: none;
 }
 
-.overlay {
-  position: absolute;
-  top: 63px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  opacity: 0.9;
-  background: #000000;
-  z-index: 1000;
-}
-
 .add-button:hover {
-color: #7501b0;
+  color: #7501b0;
 }
 
 /* add project form */

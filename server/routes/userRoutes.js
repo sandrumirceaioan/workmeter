@@ -103,7 +103,6 @@ router.post('/login', function (req, res) {
 //----------------------------------------------------------------------------------------------------
 router.post('/checkLogged', function (req, res) {
   let params = _.merge(req.body, req.query);
-  console.log('params: ', params);
   let filter = {
     token: params.token
   };

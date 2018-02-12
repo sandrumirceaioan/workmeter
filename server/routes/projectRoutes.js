@@ -4,6 +4,7 @@ var Promise = require("bluebird");
 let _ = require('lodash');
 let async = require('async');
 let projects = require('../models/projects.js');
+let ObjectId = require('mongoose').Types.ObjectId;
 
 //----------------------------------------------------------------------------------------------------
 // Model Schema Errors
@@ -62,6 +63,23 @@ router.post('/getAll', function (req, res) {
   }).catch(function(error){
     console.log(error);
     res.status(401).json(error);
+  });
+});
+
+//----------------------------------------------------------------------------------------------------
+// get one project 
+//----------------------------------------------------------------------------------------------------
+router.post('/getOne', function (req, res) {
+  let params = _.merge(req.body, req.query);
+  let query = { _id: new ObjectId(params.id) };
+  projects.findOne(query).then(function(project){
+    if (project === null) throw {message:'Project not found!'};
+    return project;   
+  }).then(function(dbproject){
+    res.status(200).json(dbproject);
+  }).catch(function(error){
+    console.log(error);
+    res.status(500).json(error);
   });
 });
 

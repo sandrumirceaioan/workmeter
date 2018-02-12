@@ -33,4 +33,13 @@ export class ProjectsService {
                       });
   }
 
+  getOne(params){
+    return this.http.post(this.apiPath + '/getOne', params, httpOptions).map((result: Project) => {
+      return result;
+    })
+    .catch((error:HttpErrorResponse) => {
+      return Observable.throw(error)
+    });
+  }
+
 }
