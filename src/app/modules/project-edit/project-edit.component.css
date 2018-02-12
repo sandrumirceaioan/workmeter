@@ -98,3 +98,16 @@
   .add-button:hover {
     color: #7501b0;
   }
+
+  .project-image {
+    width: 200px;
+    max-height: 200px;
+    float: left;
+    margin: 0 15px 15px 0px;
+  }
+
+  .project-info-box {
+    background: #50007b;
+    padding: 10px;
+    color: #ffffff;
+  }

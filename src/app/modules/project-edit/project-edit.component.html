@@ -2,7 +2,7 @@
 
   <!-- projects toolbar -->
   <div class="toolbar-container">
-      <div class="col-sm-6 text-left">
+      <div class="col-sm-2 text-left">
           <a class="add-button noselect" (click)="addState = !addState">
                 <small *ngIf="addState">
                     <i class="fa fa-minus-circle" aria-hidden="true"></i> 
@@ -13,21 +13,47 @@
                 <span>Update</span>
               </small>
           </a>
-      </div>
-      <div class="col-sm-6 text-right">
-        <a class="add-button noselect" (click)="goBack()">
-            <small>
-                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-              <span>Back</span>
-            </small>
-          </a>
-          <a class="add-button noselect" (click)="addState = !addState">
+        </div>
+        <div class="col-sm-2">
+            <a class="add-button noselect">
+                <small>
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                  <span>Lists</span>
+                </small>
+              </a>
+        </div>
+        <div class="col-sm-2">
+            <a class="add-button noselect">
+                <small>
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    <span>Tasks</span>
+                </small>
+            </a>
+        </div>
+      <div class="col-sm-2">
+            <a class="add-button noselect">
+                <small>
+                    <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                  <span>Stats</span>
+                </small>
+              </a>
+        </div>
+      <div class="col-sm-2">
+          <a class="add-button noselect">
             <small>
               <i class="fa fa-trash" aria-hidden="true"></i>
               <span>Remove</span>
             </small>
           </a>
       </div>
+            <div class="col-sm-2">
+                <a class="add-button noselect" (click)="goBack()">
+                    <small>
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                        <span>Back</span>
+                    </small>
+                </a>
+            </div>
       <div class="clearfix"></div>
   </div>
 
@@ -78,7 +104,36 @@
 
   <!-- show projects list -->
   <div class="project-container">
-    content here
+        <div class="col-sm-4">
+            <h2>{{project.projectName}}</h2>
+            <img src="./assets/project.jpg" alt="placeholder" class="project-image">
+            <p>{{project.projectDescription}}</p>
+            <div class="clearfix"></div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h4>Owner</h4>
+                    <div class="project-info-box">
+                        {{project.projectOwner}}
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Category</h4>
+                    <div class="project-info-box">
+                        {{project.projectCategory}}
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Tags</h4>
+                    <div class="project-info-box">
+                        {{project.projectTags}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <p>inner states here</p>
+        </div>
     <div class="clearfix"></div>
   </div>
 </div>

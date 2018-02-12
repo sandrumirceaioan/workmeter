@@ -55,7 +55,7 @@ export class ProjecteditComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate['/main/projects'];
+    this.router.navigate(['/main/projects']);
   } 
 
 }
