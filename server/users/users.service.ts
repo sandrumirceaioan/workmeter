@@ -16,9 +16,10 @@ export class UsersService {
         return this.userModel.find({});
     }
 
-    async loginUser(params): Promise<any> {
+    async loginUser(params): Promise<User> {
         let salt = '4m0$pr4l3*s0!p3n~d3';
         params.password = md5(params.password+salt);
+        console.log('params: ',params);
         return this.userModel.findOne({userName: params.userName});
     }
 
