@@ -1,8 +1,8 @@
-{
-    "watch": ["server"],
-    "ext": "js",
-    "ignore": ["server/**/*.spec.js"],
-    "exec": "node app.js",
-    "env": {
-    }
+ {
+  "watch": ["server"],
+  "ext": "ts",
+  "ignore": ["server/**/*.spec.ts"],
+  "exec": "node ./index",
+  "env": {
   }
+}
