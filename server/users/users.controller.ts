@@ -8,12 +8,17 @@ export class UsersController {
 
     constructor(private readonly usersService: UsersService){}
 
-    @Get('/getAll')
+    @Get('/get')
     async getAll(){
         return this.usersService.getAllUsers();
     }
 
-    @Post('/addOne')
+    @Post('/login')
+    async login(@Body() credentials){
+        return this.usersService.loginUser(credentials);
+    }
+
+    @Post('/add')
     async add(@Body() createUserDto: CreateUserDto){
         console.log(createUserDto);
         throw new HttpException('Forbidden', HttpStatus.NOT_FOUND);
