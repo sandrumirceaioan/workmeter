@@ -6,13 +6,13 @@ import { NestFactory } from '@nestjs/core';
 import { ApplicationModule } from './app.module';
 
 async function bootstrap() {
-	const app = await NestFactory.create(ApplicationModule);
-	
-	// body parser
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({ extended: true }));
+	/* body parser */
+	const instance = express();
+	instance.use(bodyParser.json());
+	instance.use(bodyParser.urlencoded({ extended: false }));
 
-	// set view engine to html
+	const app = await NestFactory.create(ApplicationModule);
+	/* set view engine to html */
 	app.use(express.static(path.join(__dirname, 'dist')));
 	app.set('views', __dirname + '/dist');
 	app.set('view engine', 'html');

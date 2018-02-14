@@ -13,7 +13,7 @@ const httpOptions = {
 
 @Injectable()
 export class UsersService {
-  apiPath: string = '/api/user';
+  apiPath: string = '/api/users';
   logged: User;
 
   constructor(private http: HttpClient) { }

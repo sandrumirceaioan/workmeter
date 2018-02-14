@@ -5,7 +5,7 @@ export class CreateUserDto  {
     emailAddress: string;
     invitationCode: string;
     password: string;
-    userType?: number;
+    userType?: string;
     token?: string;
     team?: any
   }
