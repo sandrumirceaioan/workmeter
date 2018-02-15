@@ -13,14 +13,9 @@ export class UsersController {
         return this.usersService.getAllUsers();
     }
 
-    @HttpCode(200)
     @Post('/login')
     async login(@Body() credentials){
-        if (!credentials.userName || !credentials.password) throw new HttpException('Username or password missing!', HttpStatus.BAD_REQUEST);
-
-        const user = await this.usersService.loginUser(credentials);
-        if (!user) throw new HttpException('User not found!', HttpStatus.UNAUTHORIZED);
-        return user;
+        return this.usersService.loginUser(credentials);
     }
 
     @Post('/register')

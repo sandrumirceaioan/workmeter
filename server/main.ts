@@ -12,6 +12,7 @@ async function bootstrap() {
 	instance.use(bodyParser.urlencoded({ extended: false }));
 
 	const app = await NestFactory.create(ApplicationModule);
+	/* app.useGlobalFilters(new HttpExceptionFilter()); */
 	/* set view engine to html */
 	app.use(express.static(path.join(__dirname, 'dist')));
 	app.set('views', __dirname + '/dist');
