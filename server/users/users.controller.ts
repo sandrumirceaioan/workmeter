@@ -8,11 +8,6 @@ export class UsersController {
 
     constructor(private readonly usersService: UsersService){}
 
-    @Get('/get')
-    async getAll(){
-        return this.usersService.getAllUsers();
-    }
-
     @Post('/login')
     async login(@Body() credentials){
         return this.usersService.loginUser(credentials);
@@ -21,6 +16,11 @@ export class UsersController {
     @Post('/register')
     async register(@Body() createUserDto: CreateUserDto){
         return this.usersService.registerUser(createUserDto);
+    }
+
+    @Post('checkLogged')
+    async check(@Body() token) {
+        return this.usersService.checkLogged(token);
     }
 }
 

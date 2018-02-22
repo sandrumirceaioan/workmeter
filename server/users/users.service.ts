@@ -14,8 +14,9 @@ export class UsersService {
         @InjectModel(UsersSchema) private readonly userModel: Model<User>
     ){}
 
+    /* register user */
     async registerUser(createUserDto: CreateUserDto): Promise<User> {
-        try {
+
         let orArray = [];
         orArray.push({userName: {$regex: new RegExp("^" + createUserDto.userName + "$", "i")}});
         orArray.push({emailAddress: {$regex: new RegExp("^" + createUserDto.emailAddress + "$")}});
@@ -38,21 +39,30 @@ export class UsersService {
         createUserDto['password'] = md5(createUserDto.password + salt);
         createUserDto['token'] = token;
         const newUser = new this.userModel(createUserDto);
-        const user = await newUser.save();
-        return user;
+        try {
+            const user = await newUser.save();
+            return user;
         } catch(e) {
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    async getAllUsers(): Promise<User[]> {
-        return this.userModel.find({}).exec();
-    }
-
+    /* login user */
     async loginUser(params): Promise<User> {
+        if (!params.userName || !params.password) throw new HttpException('Username and password required!', HttpStatus.BAD_REQUEST);
         let salt = '4m0$pr4l3*s0!p3n~d3';
         params.password = md5(params.password+salt);
-        return this.userModel.findOne(params).exec();
+        const loggedUser = await this.userModel.findOne(params);
+        if (!loggedUser) throw new HttpException('User not found!', HttpStatus.UNAUTHORIZED);
+        return loggedUser;
+    }
+
+    /* check logged */
+    async checkLogged(params): Promise<User> {
+        let filter = {token: params.token};
+        const logged = await this.userModel.findOne(filter);
+        if (!logged) throw new HttpException('Please log in to continue!', HttpStatus.UNAUTHORIZED);
+        return logged;
     }
 
 }

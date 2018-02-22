@@ -48,6 +48,6 @@ checkLogged(){
                   })
                   .catch((error:HttpErrorResponse) => {
                       return Observable.throw(error)
-                    });
+                  });
 }
 }
