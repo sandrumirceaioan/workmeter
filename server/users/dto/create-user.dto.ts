@@ -1,11 +1,12 @@
+import { IsString, IsInt, IsArray, MinLength, IsEmail } from 'class-validator';
+
 export class CreateUserDto  {
-    firstName: string;
-    lastName: string;
-    userName: string;
-    emailAddress: string;
-    invitationCode: string;
-    password: string;
-    userType?: string;
-    token?: string;
-    team?: any
+  @IsString() public readonly firstName: string;
+  @IsString() public readonly lastName: string;
+  @IsString() @MinLength(5) public readonly userName: string;
+  @IsString() @IsEmail() public readonly emailAddress: string;
+  @IsString() @MinLength(5) public readonly invitationCode: string;
+  @IsString() @MinLength(8) public password: string;
+  @IsString() public userType?: string;
+  @IsString() public token?: string;
   }

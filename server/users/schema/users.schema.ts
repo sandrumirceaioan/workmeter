@@ -1,44 +1,22 @@
 import * as mongoose from 'mongoose';
+import * as mongooseHidden from 'mongoose-hidden';
 
 export const UsersSchema = new mongoose.Schema({
-  firstName: {
+  firstName: String,
+  lastName: String,
+  userName:{
     type: String,
-    required: true
-  },
-  lastName: {
-      type: String,
-      required: true
-  },
-  userName: {
-      index: {
-          unique: true
-      },
-      type: String,
-      required: true
+    unique: true
   },
   emailAddress: {
-      index: {
-          unique: true
-      },
-      type: String,
-      required: true
+    type: String,
+    unique: true
   },
-  invitationCode: {
-      type: String,
-      required: true
-  },
-  password: {
-      type: String,
-      required: true
-  },
-  userType: {
-      type: String,
-      required: true
-  },
-  userStatus: {
-      type: Number
-  },
-  token: {
-      type: String
-  }
-});
+  invitationCode: String,
+  password: String,
+  userType: String,
+  userStatus: Number,
+  token: String
+}).plugin(mongooseHidden({
+    defaultHidden: {password: true}
+}));
