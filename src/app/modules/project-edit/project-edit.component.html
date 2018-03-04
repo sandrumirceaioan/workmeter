@@ -3,12 +3,12 @@
   <!-- projects toolbar -->
   <div class="toolbar-container">
       <div class="col-sm-2 text-left">
-          <a class="add-button noselect" (click)="addState = !addState">
-                <small *ngIf="addState">
+          <a class="add-button noselect" (click)="updateState = !updateState">
+                <small *ngIf="updateState">
                     <i class="fa fa-minus-circle" aria-hidden="true"></i> 
                 <span>Update</span>
               </small>
-              <small *ngIf="!addState">
+              <small *ngIf="!updateState">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> 
                 <span>Update</span>
               </small>
@@ -58,9 +58,9 @@
   </div>
 
   <!-- update project form -->
-  <div *ngIf="addState" class="overlay" (click)="addState = false"></div>
-  <div *ngIf="addState" class="project col-lg-4 col-md-6 col-sm-8" [@fadeIn]="''">
-      <form class="project-form" [formGroup]="projectForm" (ngSubmit)="addProject()">
+  <div *ngIf="updateState" class="overlay" (click)="updateState = false"></div>
+  <div *ngIf="updateState" class="project col-lg-4 col-md-6 col-sm-8" [@fadeIn]="''">
+      <form class="project-form" [formGroup]="projectForm" (ngSubmit)="updateProject()">
         <div class="project-header">
             <h3># update project</h3>
         </div>

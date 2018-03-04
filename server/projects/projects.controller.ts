@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, HttpCode } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 
@@ -20,6 +20,11 @@ export class ProjectsController {
     @Post('/one')
     async one(@Body() id: String){
         return this.projectsService.oneProject(id);
+    }
+
+    @Put('/update')
+    async update(@Body() data: CreateProjectDto){
+        return this.projectsService.updateProject(data);
     }
     
 }

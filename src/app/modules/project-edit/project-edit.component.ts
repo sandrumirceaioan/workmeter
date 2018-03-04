@@ -32,6 +32,7 @@ import { trigger, state, animate, style, transition, keyframes } from '@angular/
 export class ProjecteditComponent implements OnInit {
   project: Project;
   projectForm: FormGroup;
+  updateState: boolean = false;
   constructor(
     private projectsService: ProjectsService, 
     private toastService: ToastService,
@@ -52,6 +53,29 @@ export class ProjecteditComponent implements OnInit {
       projectCategory: new FormControl(this.project.projectCategory,Validators.required),
       projectTags: new FormControl(this.project.projectTags,Validators.required)
     });
+  }
+
+  updateProject(): void {
+    let updateData = this.projectForm.value;
+        updateData._id = this.project._id;
+    this.projectsService.updateOne(updateData).subscribe(
+      (result)=>{
+        this.toastService.toastTrigger({
+          message: 'Project updated! ',
+          options: {type: 'success'}
+        });
+        console.log(result);
+        this.projectForm.reset();
+        this.updateState = false;
+        this.project = result;
+      },
+      (error)=>{
+        this.toastService.toastTrigger({
+          message: error.error.message,
+          options: {type: 'error'}
+        });
+      }
+    );
   }
 
   goBack() {

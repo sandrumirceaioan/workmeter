@@ -24,7 +24,7 @@ export class ProjectsService {
     });
   }
 
-  getAll(){
+  getAll(): Observable<Project[]>{
     return this.http.post(this.apiPath + '/all', {}, httpOptions).map((result: Project[]) => {
                     return result;
                     })
@@ -33,12 +33,20 @@ export class ProjectsService {
                       });
   }
 
-  getOne(params){
+  getOne(params): Observable<Project>{
     return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: Project) => {
       return result;
     })
     .catch((error:HttpErrorResponse) => {
-      return Observable.throw(error)
+      return Observable.throw(error);
+    });
+  }
+
+  updateOne(project: Project): Observable<Project>{
+    return this.http.put(this.apiPath + '/update', project, httpOptions).map((result: Project) => {
+      return result;
+    }).catch((error: HttpErrorResponse) => {
+      return Observable.throw(error);
     });
   }
 
