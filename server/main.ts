@@ -4,6 +4,7 @@ import * as path from 'path';
 import { engines } from 'consolidate';
 import { NestFactory } from '@nestjs/core';
 import { ApplicationModule } from './app.module';
+import { AuthGuard } from './common/guards/auth.guard';
 
 async function bootstrap() {
 	/* body parser */
@@ -13,6 +14,8 @@ async function bootstrap() {
 
 	const app = await NestFactory.create(ApplicationModule);
 	/* app.useGlobalFilters(new HttpExceptionFilter()); */
+	app.useGlobalGuards(new AuthGuard());
+
 	/* set view engine to html */
 	app.use(express.static(path.join(__dirname, 'dist')));
 	app.set('views', __dirname + '/dist');

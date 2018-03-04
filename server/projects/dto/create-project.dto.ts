@@ -1,4 +1,4 @@
-import { IsString, IsInt, IsArray, MinLength, IsEmail } from 'class-validator';
+import { IsString, IsInt, IsArray, MinLength, IsEmail, IsDate } from 'class-validator';
 
 export class CreateProjectDto  {
   @IsString() readonly projectName: string;
@@ -6,5 +6,5 @@ export class CreateProjectDto  {
   @IsString() readonly projectCategory: string;
   @IsString() readonly projectTags: string;
   @IsString() readonly projectOwner: string;
-  @IsString() readonly projectCreated: string;
+  @IsDate() readonly projectCreated: Date;
   }

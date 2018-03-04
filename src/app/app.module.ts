@@ -2,8 +2,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { UsersService } from './shared/services/users/users.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestInterceptor } from './shared/interceptors/request.interceptor';
 
 /* main components */
 import { AppComponent } from './app.component';
@@ -15,6 +15,7 @@ import { Page404Component } from './page404.component';
 
 /* global services */
 import { ToastService } from './shared/services/toast/toast.service';
+import { UsersService } from './shared/services/users/users.service';
 
 /* routing module */
 import { AppRoutingModule } from './app.routing';
@@ -33,7 +34,11 @@ import { AppRoutingModule } from './app.routing';
     LoginModule,
     AppRoutingModule
   ],
-  providers: [ToastService, UsersService],
+  providers: [
+    ToastService,
+    UsersService,
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
