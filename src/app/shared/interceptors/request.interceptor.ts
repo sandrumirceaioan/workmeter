@@ -9,9 +9,9 @@ export class RequestInterceptor implements HttpInterceptor {
     constructor(){}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-        const token = localStorage.getItem('wmtoken');
+        const token = localStorage.getItem('wmtoken') || '';
         const authReq = req.clone({
-            headers: req.headers.set("x-access-token", token)
+            headers: req.headers.append("x-access-token", token)
         });
         return next.handle(authReq)
         .catch((error) => {

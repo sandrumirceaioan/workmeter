@@ -1,8 +1,11 @@
-import { Controller, Get, Post, Put, Body, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, HttpCode, UseGuards } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
+import { AuthGuard } from '../common/guards/auth.guard';
+
 
 @Controller('projects')
+@UseGuards(AuthGuard)
 export class ProjectsController {
     constructor(private readonly projectsService: ProjectsService){}
 
@@ -11,7 +14,6 @@ export class ProjectsController {
         return this.projectsService.addProject(createProjectDto);
     }
 
-    @HttpCode(200)
     @Post('/all')
     async all(){
         return this.projectsService.allProjects();
