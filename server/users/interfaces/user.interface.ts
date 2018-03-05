@@ -7,7 +7,7 @@ export interface User extends mongoose.Document {
     emailAddress: string;
     invitationCode: string;
     password: string;
-    userType?: number;
+    userType?: string;
     token?: string;
     team?: any
   }

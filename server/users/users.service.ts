@@ -24,18 +24,19 @@ export class UsersService {
 
         const JWT = {KEY: 's0!p3n~d34m0$pr4l3*',ALGORITHMS: 'HS512'};
         const salt = '4m0$pr4l3*s0!p3n~d3';
+        const userType = 'user';
             
         const userCheck = await this.userModel.findOne(filter);
         if (userCheck) throw new HttpException('User already registered!', 400);
         const token = await jwt.sign({
             u: createUserDto.userName,
-            i: createUserDto.invitationCode || '77777'
+            i: userType
         }, JWT.KEY, {
             algorithm: JWT.ALGORITHMS,
             noTimestamp: true
         });
         if (!token) throw new HttpException('Token could not be created!', HttpStatus.INTERNAL_SERVER_ERROR);
-        createUserDto['userType'] = 'user';
+        createUserDto['userType'] = userType;
         createUserDto['password'] = md5(createUserDto.password + salt);
         createUserDto['token'] = token;
         const newUser = new this.userModel(createUserDto);

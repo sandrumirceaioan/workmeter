@@ -50,4 +50,12 @@ export class ProjectsService {
     });
   }
 
+  deleteOne(params): Observable<Project>{
+    return this.http.post(this.apiPath + '/delete', params).map((result) => {
+      return result;
+    }).catch((error: HttpErrorResponse) => {
+      return Observable.throw(error);
+    });
+  }
+
 }

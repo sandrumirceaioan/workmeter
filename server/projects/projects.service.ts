@@ -44,7 +44,7 @@ export class ProjectsService {
         let query = {_id: new ObjectId(params.id)};
         try {
             let oneProject = await this.projectModel.findOne(query);
-            if (!oneProject) throw new HttpException('Project not found!', HttpStatus.BAD_REQUEST)
+            if (!oneProject) throw new HttpException('Project not found!', HttpStatus.BAD_REQUEST);
             return oneProject;
         } catch(e){
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -58,8 +58,19 @@ export class ProjectsService {
         let set = _.compactObject(params);
         try {
             let updatedProject = await this.projectModel.findOneAndUpdate(query, set, {new: true});
-            if (!updatedProject) throw new HttpException('Project not updated!', HttpStatus.INTERNAL_SERVER_ERROR)
+            if (!updatedProject) throw new HttpException('Project not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
             return updatedProject;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    async deleteProject(params): Promise<any>{
+        let query = {_id: new ObjectId(params._id)};
+        try {
+            let deletedProject = await this.projectModel.findOneAndRemove(query);
+            if (!deletedProject) throw new HttpException('Project not deleted!', HttpStatus.INTERNAL_SERVER_ERROR);
+            return deletedProject;
         } catch(e){
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }

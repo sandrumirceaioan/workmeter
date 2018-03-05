@@ -64,10 +64,27 @@ export class ProjecteditComponent implements OnInit {
           message: 'Project updated! ',
           options: {type: 'success'}
         });
-        console.log(result);
         this.projectForm.reset();
         this.updateState = false;
         this.project = result;
+      },
+      (error)=>{
+        this.toastService.toastTrigger({
+          message: error.error.message,
+          options: {type: 'error'}
+        });
+      }
+    );
+  }
+
+  deleteProject(id: string): void {
+    this.projectsService.deleteOne({_id: id}).subscribe(
+      (result)=>{
+        this.toastService.toastTrigger({
+          message: 'Project deleted! ',
+          options: {type: 'success'}
+        });
+        this.router.navigate(['/main/projects']);
       },
       (error)=>{
         this.toastService.toastTrigger({
