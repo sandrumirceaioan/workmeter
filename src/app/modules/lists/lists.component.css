@@ -1,0 +1,109 @@
+.lists-container {
+    padding: 0;
+  }
+  
+  .list-container {
+    position:relative;
+    padding-top: 10px;
+  }
+
+  .add-button {
+    font-size: 30px;
+    cursor: pointer;
+    color: #540181;
+    text-decoration: none;
+  }
+  
+  .add-button:hover {
+    color: #7501b0;
+  }
+
+  .search {
+    padding: 10px 10px;
+    outline: none;
+    border: none;
+    box-shadow: inset 0 0 27px -10px #000000;
+    -moz-box-shadow:    inset 0 0 27px -10px #000000;
+    -webkit-box-shadow: inset 0 0 27px -10px #000000;
+  }
+
+  .list {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+    z-index: 2000;
+    background: #340051;
+    padding-bottom: 10px;
+  }
+
+  .list-header {
+    color: #ffffff;
+  }
+  
+  .list-header a {
+    font-size: 15px;
+    color: #ffffff;
+  }
+  
+  .list-body input {
+    border-radius: 0px;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+  }
+  
+  .list-body textarea {
+    border-radius: 0px;
+    border: 1px solid #bebebe;
+    outline: none;
+    margin-bottom:10px;
+  }
+  
+  .list-body select {
+    border-radius: 0px;
+    outline: none;
+    border: none;
+    margin-bottom: 10px;
+  }
+  
+  .list-footer-add button {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+    color: #ffffff;
+    padding: 0px;
+    background: #00c10f;
+    height: 40px;
+  }
+
+  .list-footer-add {
+    font-size: 12px;
+    background: #00000052;
+  }
+
+  .lists-list {
+    width: 100%;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+  }
+  
+  .lists-list li .not-found {
+    display: block;
+    float: left;
+    padding: 5px 15px;
+    font-size: 20px;
+    color: #ffffff;
+    background: #4a0170;
+    margin-top:10px;
+    margin-left: 15px;
+  }
+
+  .invalid {
+    border: 2px solid #fd3300 !important;
+  }
