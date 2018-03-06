@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, HttpCode, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpCode, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
 import { Roles } from '../common/decorators/roles.decorator';
+import { Sign } from '../common/interceptors/sign.interceptor';
 
 
 @Controller('projects')
@@ -12,6 +13,7 @@ export class ProjectsController {
 
     @Post('/add')
     @Roles('admin')
+    @UseInterceptors(Sign)
     async add(@Body() createProjectDto: CreateProjectDto){
         return this.projectsService.addProject(createProjectDto);
     }

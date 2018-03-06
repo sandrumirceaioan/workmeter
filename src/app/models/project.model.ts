@@ -5,6 +5,6 @@ export class Project {
   projectCategory?: string;
   projectTags?: string;
   projectOwner?: string;
-  projectCreated: Date;
-  projectCreatedBy: string;
+  created: Date;
+  createdBy: string;
 }

@@ -13,7 +13,7 @@ const httpOptions = {
 
 @Injectable()
 export class ListsService {
-  apiPath: string = '/api/projects';
+  apiPath: string = '/api/lists';
 
   constructor(private http: HttpClient) { }
 

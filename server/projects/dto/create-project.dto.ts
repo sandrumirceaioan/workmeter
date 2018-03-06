@@ -6,5 +6,6 @@ export class CreateProjectDto  {
   @IsString() readonly projectCategory: string;
   @IsString() readonly projectTags: string;
   @IsString() readonly projectOwner: string;
-  @IsDate() readonly projectCreated: Date;
+  @IsDate() readonly created: Date;
+  @IsDate() readonly createdBy: string;
   }

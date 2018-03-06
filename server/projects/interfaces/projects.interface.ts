@@ -6,6 +6,6 @@ import * as mongoose from 'mongoose';
     projectCategory?: string;
     projectTags?: string;
     projectOwner?: string;
-    projectCreated: Date;
-    projectCreatedBy: string;
+    created: Date;
+    createdBy: string;
   }

@@ -7,5 +7,6 @@ export class User {
     password: string;
     userType?: string;
     token?: string;
-    team?: any
+    team?: any;
+    created?: string; 
   }

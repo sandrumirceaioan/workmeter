@@ -9,5 +9,6 @@ export interface User extends mongoose.Document {
     password: string;
     userType?: string;
     token?: string;
-    team?: any
+    team?: any;
+    created?: string;
   }

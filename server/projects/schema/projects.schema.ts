@@ -7,6 +7,6 @@ export const ProjectsSchema = new mongoose.Schema({
     projectCategory: String,
     projectTags: String,
     projectOwner: String,
-    projectCreated: Date,
-    projectCreatedBy: String
+    created: Date,
+    createdBy: String
 });

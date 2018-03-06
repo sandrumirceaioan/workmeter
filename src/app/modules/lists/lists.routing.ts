@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: '',
     component: ListsComponent,
-    data: {title: 'Lists', access: ['admin']},
+    data: {title: 'Lists', access: ['admin','manager']},
     canActivate: [CanActivateAuthGuard]
     // resolve: {
     //   projects: ProjectsResolve

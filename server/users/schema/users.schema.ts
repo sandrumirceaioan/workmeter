@@ -16,7 +16,8 @@ export const UsersSchema = new mongoose.Schema({
   password: String,
   userType: String,
   userStatus: Number,
-  token: String
+  token: String,
+  created: String
 }).plugin(mongooseHidden({
     defaultHidden: {password: true}
 }));
