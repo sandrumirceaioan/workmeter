@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { List } from '../../models/list.model';
+import { Project } from '../../models/project.model';
 import { ToastService } from '../../shared/services/toast/toast.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ListsService } from '../../shared/services/lists/lists.service';
+import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { ListsFilterPipe } from '../../shared/filters/lists-filter.pipe';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
@@ -37,14 +39,18 @@ export class ListsComponent implements OnInit {
   searchTerm: string;
   lists: List[] = [];
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
-    private listsService: ListsService
+    private listsService: ListsService,
+    private projectsService: ProjectsService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
+    // get lists for current project
     this.loader = true;
-    this.listsService.getAll().subscribe((result) => {
+    this.listsService.getAll({_id: this.projectsService.project._id}).subscribe((result) => {
         this.lists = result;
       },
       (error) => {
@@ -59,13 +65,18 @@ export class ListsComponent implements OnInit {
     );
     this.listForm = new FormGroup({
       listName: new FormControl('', Validators.required),
-      listDescription: new FormControl('',Validators.required),
-      listProject: new FormControl('',Validators.required)
+      listDescription: new FormControl('',Validators.required)
     });
   }
 
   addList(): void {
-    this.listsService.addList(this.listForm.value).subscribe(
+    let postData = {
+      listName: this.listForm.value.listName,
+      listDescription: this.listForm.value.listDescription,
+      listProject: this.projectsService.project._id
+    };
+
+    this.listsService.addList(postData).subscribe(
       (result) => {
         this.toastService.toastTrigger({
           message: 'List added! ',

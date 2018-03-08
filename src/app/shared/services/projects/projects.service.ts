@@ -14,11 +14,16 @@ const httpOptions = {
 @Injectable()
 export class ProjectsService {
   apiPath: string = '/api/projects';
+  projects: Project[] = [];
+  project: Project;
 
   constructor(private http: HttpClient) { }
 
   addProject(project: Project): Observable<Project>{
-    return this.http.post(this.apiPath + '/add', project, httpOptions)
+    return this.http.post(this.apiPath + '/add', project, httpOptions).map((result: Project) => {
+      this.projects.push(result);
+      return result;
+    })
     .catch((error:HttpErrorResponse) => {
       return Observable.throw(error)
     });
@@ -26,6 +31,7 @@ export class ProjectsService {
 
   getAll(): Observable<Project[]>{
     return this.http.post(this.apiPath + '/all', {}, httpOptions).map((result: Project[]) => {
+                    this.projects = result;
                     return result;
                     })
                     .catch((error:HttpErrorResponse) => {
@@ -35,6 +41,7 @@ export class ProjectsService {
 
   getOne(params): Observable<Project>{
     return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: Project) => {
+      this.project = result;
       return result;
     })
     .catch((error:HttpErrorResponse) => {
@@ -44,6 +51,7 @@ export class ProjectsService {
 
   updateOne(project: Project): Observable<Project>{
     return this.http.put(this.apiPath + '/update', project, httpOptions).map((result: Project) => {
+      this.project = result;
       return result;
     }).catch((error: HttpErrorResponse) => {
       return Observable.throw(error);

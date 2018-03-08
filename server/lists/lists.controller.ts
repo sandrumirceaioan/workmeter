@@ -18,8 +18,8 @@ export class ListsController {
     }
     
     @Post('/all')
-    async all(){
-        return this.listsService.allLists();
+    async all(@Body() params: any){
+        return this.listsService.allLists(params);
     }
 
     // @Post('/one')

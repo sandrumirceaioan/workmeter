@@ -17,6 +17,9 @@ export class ProjectsResolve implements Resolve<any>{
   ){ }
 
   resolve(route: ActivatedRouteSnapshot){
+    if (this.projectsService.projects.length > 0){
+      return Observable.of(this.projectsService.projects);
+    } 
     return this.projectsService.getAll().catch(
       (error)=>{
         this.toastService.toastTrigger({

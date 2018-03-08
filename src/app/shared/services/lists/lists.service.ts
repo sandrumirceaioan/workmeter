@@ -17,8 +17,8 @@ export class ListsService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<List[]>{
-    return this.http.post(this.apiPath + '/all', {}, httpOptions).map((result: List[]) => {
+  getAll(params): Observable<List[]>{
+    return this.http.post(this.apiPath + '/all', params, httpOptions).map((result: List[]) => {
                     return result;
                     })
                     .catch((error:HttpErrorResponse) => {

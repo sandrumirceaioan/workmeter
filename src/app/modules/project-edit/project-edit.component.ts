@@ -31,6 +31,7 @@ import { trigger, state, animate, style, transition, keyframes } from '@angular/
 })
 export class ProjecteditComponent implements OnInit {
   project: Project;
+  projects: Project[] = [];
   projectForm: FormGroup;
   updateState: boolean = false;
   constructor(

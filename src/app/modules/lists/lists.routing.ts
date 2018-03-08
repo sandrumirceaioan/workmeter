@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListsComponent } from './lists.component';
 import { ProjecteditComponent } from '../project-edit/project-edit.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
-//import { ProjectsResolve } from './projects.resolve';
+import { ProjectsResolve } from '../projects/projects.resolve';
 import { ProjectResolve } from '../project/project.resolve';
 
 const routes: Routes = [
@@ -12,9 +12,6 @@ const routes: Routes = [
     component: ListsComponent,
     data: {title: 'Lists', access: ['admin','manager']},
     canActivate: [CanActivateAuthGuard]
-    // resolve: {
-    //   projects: ProjectsResolve
-    // }
   }
 ];
 

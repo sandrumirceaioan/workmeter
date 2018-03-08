@@ -21,6 +21,7 @@ export class ListsService {
     constructor(@InjectModel(ListsSchema) private readonly listModel: Model<List>){}
 
     async addProject(CreateListDto: CreateListDto): Promise<List>{
+        console.log(CreateListDto);
         let query = {listName: CreateListDto.listName};
         let checkList = await this.listModel.findOne(query);
         if (checkList) throw new HttpException('List already exists!', HttpStatus.BAD_REQUEST);
@@ -33,8 +34,10 @@ export class ListsService {
         }
     }
 
-    async allLists(): Promise<List[]>{
-        let lists = await this.listModel.find().sort({created: -1});
+    async allLists(params): Promise<List[]>{
+        let query = {};
+        if(params._id) query = {listProject: params._id}; 
+        let lists = await this.listModel.find(query).sort({created: -1});
         return lists;
     }
 

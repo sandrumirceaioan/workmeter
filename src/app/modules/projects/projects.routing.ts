@@ -4,6 +4,7 @@ import { ProjectsComponent } from './projects.component';
 import { ProjecteditComponent } from '../project-edit/project-edit.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { ProjectResolve } from '../project/project.resolve';
+import { ProjectsResolve } from '../projects/projects.resolve';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     },
     children: [
       { path: '', redirectTo: 'lists'},
-      { path: 'lists', loadChildren: '../lists/lists.module#ListsModule'}
+      { path: 'lists', loadChildren: '../lists/lists.module#ListsModule'
+      }
     ],
   }
 ];

@@ -38,17 +38,6 @@
                     <textarea type="text" name="listDescription" class="form-control" placeholder="List description" formControlName="listDescription" rows="5" [class.invalid]="listForm.controls.listDescription.invalid && listForm.controls.listDescription.dirty"></textarea>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <select name="listProject" class="form-control" id="listProject" formControlName="listProject" [class.invalid]="listForm.controls.listProject.invalid && listForm.controls.listProject.dirty">
-                            <option value="">Select Project</option>
-                            <option value="ecommerce">Ecommerce</option>
-                            <option value="tracking">Tracking</option>
-                            <option value="landing pages">Landing pages</option>
-                            <option value="other">Other</option>
-                    </select>
-                </div>
-            </div>
         </div>
         <div class="list-footer-add">
             <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="listForm.invalid">Save project</button>
