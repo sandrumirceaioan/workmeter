@@ -46,7 +46,7 @@ export class UsersService {
         if (!params.userName || !params.password) throw new HttpException('Username and password required!', HttpStatus.BAD_REQUEST);
         let salt = '4m0$pr4l3*s0!p3n~d3';
         params.password = md5(params.password+salt);
-        let loggedUser = await this.userModel.findOne(params).lean();
+        let loggedUser = await this.userModel.findOne(params);
         if (!loggedUser) throw new HttpException('User not found!', HttpStatus.UNAUTHORIZED);
 
         const JWT = {KEY: 's0!p3n~d34m0$pr4l3*',ALGORITHMS: 'HS256'};
@@ -60,7 +60,8 @@ export class UsersService {
         });
 
         if (!token) throw new HttpException('Token could not be created!', HttpStatus.INTERNAL_SERVER_ERROR);
-
+        
+        loggedUser = loggedUser.toJSON();
         loggedUser.token = token;
         return loggedUser;
     }

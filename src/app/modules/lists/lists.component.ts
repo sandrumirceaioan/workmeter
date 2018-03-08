@@ -3,7 +3,7 @@ import { List } from '../../models/list.model';
 import { ToastService } from '../../shared/services/toast/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { ListsService } from '../../shared/services/lists/lists.service';
-import { ListFilterPipe } from '../../shared/filters/search-filter.pipe';
+import { ListsFilterPipe } from '../../shared/filters/lists-filter.pipe';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
 
@@ -33,6 +33,7 @@ import { trigger, state, animate, style, transition, keyframes } from '@angular/
 export class ListsComponent implements OnInit {
   listForm: FormGroup;
   addState: boolean = false;
+  loader: boolean;
   searchTerm: string;
   lists: List[] = [];
   constructor(
@@ -42,11 +43,20 @@ export class ListsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.activatedRoute.data
-    // .map((result) => {return result.projects})
-    // .subscribe((result) => {
-    //   this.projects = result;
-    // });
+    this.loader = true;
+    this.listsService.getAll().subscribe((result) => {
+        this.lists = result;
+      },
+      (error) => {
+        this.toastService.toastTrigger({
+          message: error.error.message,
+          options: {type: 'error'}
+        });
+      },
+      () => {
+        this.loader = false;
+      }
+    );
     this.listForm = new FormGroup({
       listName: new FormControl('', Validators.required),
       listDescription: new FormControl('',Validators.required),
@@ -71,8 +81,10 @@ export class ListsComponent implements OnInit {
           options: {type: 'error'}
         });
       });
+  }
 
-
+  onSearchChange(e){
+    this.searchTerm = e;
   }
 
 }

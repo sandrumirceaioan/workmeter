@@ -5,6 +5,7 @@ import { ListsRoutingModule } from './lists.routing';
 import { ListsService } from '../../shared/services/lists/lists.service';
 import { ListsComponent } from './lists.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
+import { ListsFilterPipe } from '../../shared/filters/lists-filter.pipe';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
     ReactiveFormsModule,
     ListsRoutingModule
   ],
-  declarations: [ListsComponent],
+  declarations: [ListsComponent, ListsFilterPipe],
   providers: [CanActivateAuthGuard, ListsService]
 })
 

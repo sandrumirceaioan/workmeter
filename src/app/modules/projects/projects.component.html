@@ -67,8 +67,9 @@
 
   <!-- show projects list -->
   <div class="list-container">
+    <img src="./assets/spinner.gif" *ngIf="loader" class="spinner">
     <ul class="projects-list">
-      <li *ngFor="let project of projects | listFilter:searchTerm">
+      <li *ngFor="let project of projects | projectsFilter:searchTerm">
         <project class="col-sm-3" [details]="project"></project>
       </li>
     </ul>

@@ -1,24 +1,24 @@
 <div class="lists-container">
 
-  <!-- lists toolbar -->
-  <div class="toolbar-container">
-      <div class="col-sm-6 text-left">
+    <!-- lists toolbar -->
+    <div class="row view-toolbar-container">
+        <div class="col-sm-6">
+            <h2>Project Lists</h2>
+        </div>
+        <div class="col-sm-6 text-right">
           <a class="add-button noselect" (click)="addState = !addState">
                 <small *ngIf="addState">
                     <i class="fa fa-minus-circle" aria-hidden="true"></i> 
-                <span>Add</span>
+                <span>Create new list</span>
               </small>
               <small *ngIf="!addState">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> 
-                <span>Add</span>
+                <span>Create new list</span>
               </small>
               </a>
-      </div>
-      <div class="col-sm-6 text-right">
-          <input type="text" class="search" placeholder="search...">
-      </div>
-      <div class="clearfix"></div>
-  </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
 
   <!-- add list form -->
   <div *ngIf="addState" class="overlay" (click)="addState = false"></div>
@@ -59,11 +59,23 @@
 
   <!-- show lists -->
   <div class="list-container">
-    <ul class="lists-list">
-      <li>
-        <span class="not-found">Sorry, no matches...</span>
-      </li>
-    </ul>
+    <div class="col-xs-12">
+        <img src="./assets/spinner.gif" *ngIf="loader" class="spinner">
+        <ul class="lists-list">
+        <li *ngFor="let list of lists | listsFilter:searchTerm">
+            <div class="list-body">
+                <div class="row">
+                    <div class="col-xs-6 text-left">
+                        <a href="">{{list.listName}}</a>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <a href="">View</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        </ul>
+    </div>
     <div class="clearfix"></div>
   </div>
 </div>

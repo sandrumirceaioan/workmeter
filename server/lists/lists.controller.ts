@@ -17,10 +17,10 @@ export class ListsController {
         return this.listsService.addProject(createProjectDto);
     }
     
-    // @Post('/all')
-    // async all(){
-    //     return this.projectsService.allProjects();
-    // }
+    @Post('/all')
+    async all(){
+        return this.listsService.allLists();
+    }
 
     // @Post('/one')
     // async one(@Body() id: string){

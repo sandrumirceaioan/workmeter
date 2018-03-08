@@ -52,4 +52,7 @@ body {
     z-index: 1000;
   }
 
+  .spinner {
+    width:100px;
+  }
   

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Project } from '../../models/project.model';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { ToastService } from '../../shared/services/toast/toast.service';
-import { ActivatedRoute } from '@angular/router';
-import { ListFilterPipe } from '../../shared/filters/search-filter.pipe';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProjectsFilterPipe } from '../../shared/filters/projects-filter.pipe';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
 import 'rxjs/add/operator/map';
@@ -34,16 +34,18 @@ import 'rxjs/add/operator/map';
 export class ProjectsComponent implements OnInit {
   projectForm: FormGroup;
   addState: boolean = false;
+  loader: boolean;
   searchTerm: string;
   projects: Project[] = [];
   
   constructor(
     private projectsService: ProjectsService, 
     private toastService: ToastService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
+    this.loader = true;
     this.projectsService.getAll().subscribe((result) => {
       this.projects = result;
     },
@@ -52,6 +54,9 @@ export class ProjectsComponent implements OnInit {
         message: error.error.message,
         options: {type: 'error'}
       });
+    },
+    () => {
+      this.loader = false;
     });
     this.projectForm = new FormGroup({
       projectName: new FormControl('', Validators.required),

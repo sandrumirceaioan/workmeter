@@ -9,7 +9,7 @@ import { ProjecteditComponent } from '../project-edit/project-edit.component';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { ProjectsResolve } from './projects.resolve';
 import { ProjectResolve } from '../project/project.resolve';
-import { ListFilterPipe } from '../../shared/filters/search-filter.pipe';
+import { ProjectsFilterPipe } from '../../shared/filters/projects-filter.pipe';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { ListFilterPipe } from '../../shared/filters/search-filter.pipe';
     ReactiveFormsModule,
     ProjectsRoutingModule
   ],
-  declarations: [ProjectsComponent, ProjectComponent, ProjecteditComponent, ListFilterPipe],
+  declarations: [ProjectsComponent, ProjectComponent, ProjecteditComponent, ProjectsFilterPipe],
   providers: [CanActivateAuthGuard, ProjectsService, ProjectsResolve, ProjectResolve]
 })
 

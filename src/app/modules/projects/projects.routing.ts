@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectsComponent } from './projects.component';
 import { ProjecteditComponent } from '../project-edit/project-edit.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
-import { ProjectsResolve } from './projects.resolve';
 import { ProjectResolve } from '../project/project.resolve';
 
 const routes: Routes = [
@@ -19,10 +18,13 @@ const routes: Routes = [
     canActivate: [CanActivateAuthGuard],
     resolve: {
       project: ProjectResolve
-    }
+    },
+    children: [
+      { path: '', redirectTo: 'lists'},
+      { path: 'lists', loadChildren: '../lists/lists.module#ListsModule'}
+    ],
   }
 ];
-
 @NgModule({
   imports: [ RouterModule.forChild(routes)],
   exports: [ RouterModule ]

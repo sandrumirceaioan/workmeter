@@ -1,5 +1,6 @@
 .lists-container {
     padding: 0;
+    min-height: 500px;
   }
   
   .list-container {
@@ -8,12 +9,13 @@
   }
 
   .add-button {
-    font-size: 30px;
+    display: block;
+    padding: 16px;
+    font-size: 20px;
     cursor: pointer;
     color: #540181;
     text-decoration: none;
   }
-  
   .add-button:hover {
     color: #7501b0;
   }
@@ -106,4 +108,26 @@
 
   .invalid {
     border: 2px solid #fd3300 !important;
+  }
+
+  .list-body {
+    padding: 10px;
+    background: #410062;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: #ffffff;
+  }
+
+  .list-body a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+  }
+
+  .view-toolbar-container {
+    border-bottom: 1px solid #d8d8d8;
+  }
+  
+  .view-toolbar-container span {
+    font-size: 20px;
   }

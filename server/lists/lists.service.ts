@@ -33,10 +33,10 @@ export class ListsService {
         }
     }
 
-    // async allProjects(): Promise<Project[]>{
-    //     let projects = await this.listModel.find().sort({projectCreated: 1});
-    //     return projects;
-    // }
+    async allLists(): Promise<List[]>{
+        let lists = await this.listModel.find().sort({created: -1});
+        return lists;
+    }
 
     // async oneProject(params): Promise<Project>{
     //     let query = {_id: new ObjectId(params.id)};
