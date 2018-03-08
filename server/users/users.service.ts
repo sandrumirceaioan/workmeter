@@ -6,6 +6,7 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from "./dto/create-user.dto";
 import * as md5 from 'md5';
 import * as jwt from "jwt-then";
+const ObjectId = require('mongoose').Types.ObjectId;
 
 @Component()
 export class UsersService {
@@ -22,23 +23,15 @@ export class UsersService {
         orArray.push({emailAddress: {$regex: new RegExp("^" + createUserDto.emailAddress + "$")}});
         let filter = {$or: orArray};
 
-        const JWT = {KEY: 's0!p3n~d34m0$pr4l3*',ALGORITHMS: 'HS512'};
         const salt = '4m0$pr4l3*s0!p3n~d3';
-        const userType = 'user';
+        const userType = 'admin';
             
         const userCheck = await this.userModel.findOne(filter);
         if (userCheck) throw new HttpException('User already registered!', 400);
-        const token = await jwt.sign({
-            u: createUserDto.userName,
-            i: userType
-        }, JWT.KEY, {
-            algorithm: JWT.ALGORITHMS,
-            noTimestamp: true
-        });
-        if (!token) throw new HttpException('Token could not be created!', HttpStatus.INTERNAL_SERVER_ERROR);
-        createUserDto['userType'] = userType;
-        createUserDto['password'] = md5(createUserDto.password + salt);
-        createUserDto['token'] = token;
+        
+        createUserDto.userType = userType;
+        createUserDto.password = md5(createUserDto.password + salt);
+
         const newUser = new this.userModel(createUserDto);
         try {
             const user = await newUser.save();
@@ -53,17 +46,36 @@ export class UsersService {
         if (!params.userName || !params.password) throw new HttpException('Username and password required!', HttpStatus.BAD_REQUEST);
         let salt = '4m0$pr4l3*s0!p3n~d3';
         params.password = md5(params.password+salt);
-        const loggedUser = await this.userModel.findOne(params);
+        let loggedUser = await this.userModel.findOne(params).lean();
         if (!loggedUser) throw new HttpException('User not found!', HttpStatus.UNAUTHORIZED);
+
+        const JWT = {KEY: 's0!p3n~d34m0$pr4l3*',ALGORITHMS: 'HS256'};
+        let token = await jwt.sign({
+            id: loggedUser._id,
+            user: loggedUser.userName,
+            type: loggedUser.userType
+        }, JWT.KEY, {
+            algorithm: JWT.ALGORITHMS,
+            expiresIn: 60*60*24
+        });
+
+        if (!token) throw new HttpException('Token could not be created!', HttpStatus.INTERNAL_SERVER_ERROR);
+
+        loggedUser.token = token;
         return loggedUser;
     }
 
     /* check logged */
     async checkLogged(params): Promise<User> {
-        let filter = {token: params.token};
-        const logged = await this.userModel.findOne(filter);
-        if (!logged) throw new HttpException('Please log in to continue!', HttpStatus.UNAUTHORIZED);
-        return logged;
+        try {
+            const token = await jwt.verify(params.token, 's0!p3n~d34m0$pr4l3*');
+            const logged = await this.userModel.findOne({_id: new ObjectId(token.id)});
+            if (!logged) throw new HttpException('Please log in to continue!', HttpStatus.UNAUTHORIZED);
+            return logged;
+        } catch(e) {
+            if (e.name == 'TokenExpiredError') throw new HttpException('Session expired!', HttpStatus.UNAUTHORIZED);
+            if (e.name == 'JsonWebTokenError') throw new HttpException('Token wrong or missing!', HttpStatus.UNAUTHORIZED);
+            throw new HttpException(e, HttpStatus.UNAUTHORIZED);
+        }
     }
-
 }

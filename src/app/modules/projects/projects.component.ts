@@ -44,10 +44,14 @@ export class ProjectsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.data
-    .map((result) => {return result.projects})
-    .subscribe((result) => {
+    this.projectsService.getAll().subscribe((result) => {
       this.projects = result;
+    },
+    (error) => {
+      this.toastService.toastTrigger({
+        message: error.error.message,
+        options: {type: 'error'}
+      });
     });
     this.projectForm = new FormGroup({
       projectName: new FormControl('', Validators.required),

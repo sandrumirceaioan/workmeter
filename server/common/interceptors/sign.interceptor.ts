@@ -9,7 +9,7 @@ export class Sign implements NestInterceptor {
     let token = req.headers['x-access-token'];
     let decoded = jwt_decode(token);
     req.body.created = new Date();
-    req.body.createdBy = decoded.u;
+    req.body.createdBy = decoded.user;
     return stream$;
   }
 }

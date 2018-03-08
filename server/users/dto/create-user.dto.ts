@@ -8,6 +8,6 @@ export class CreateUserDto  {
   @IsString() @MinLength(5) public readonly invitationCode: string;
   @IsString() @MinLength(8) public password: string;
   @IsString() public userType?: string;
-  @IsString() public token?: string;
   @IsString() public created?: string;
+  @IsString() public token?: string;
   }

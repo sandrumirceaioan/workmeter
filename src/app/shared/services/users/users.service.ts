@@ -29,7 +29,6 @@ export class UsersService {
     return this.http.post(this.apiPath + '/login', params, httpOptions).map((result: User) => {
                     localStorage.setItem('wmtoken', result.token);
                     this.logged = result;
-
                     return result;
                     })
                    .catch((error:HttpErrorResponse) => {
@@ -38,7 +37,7 @@ export class UsersService {
   }
 
 checkLogged(){
-  if (!!this.logged) {
+  if (this.logged) {
     return Observable.of(this.logged);
   }
   let params = {token: localStorage.getItem('wmtoken')};

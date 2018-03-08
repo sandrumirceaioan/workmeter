@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
         var decodedToken = jwt_decode(token);
         const roles = this.reflector.get<string[]>('roles', context.handler);
         if (!roles) return true;
-        if (roles.indexOf(decodedToken.i) > -1) {
+        if (roles.indexOf(decodedToken.type) > -1) {
             return true;
         } else {
             throw new HttpException('Access denied!', HttpStatus.UNAUTHORIZED);
