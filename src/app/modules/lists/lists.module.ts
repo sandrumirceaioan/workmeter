@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ListsRoutingModule } from './lists.routing';
 import { ListsService } from '../../shared/services/lists/lists.service';
 import { ListsComponent } from './lists.component';
+import { ListEditComponent } from '../list-edit/list-edit.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { ListsFilterPipe } from '../../shared/filters/lists-filter.pipe';
 
@@ -13,7 +14,7 @@ import { ListsFilterPipe } from '../../shared/filters/lists-filter.pipe';
     ReactiveFormsModule,
     ListsRoutingModule
   ],
-  declarations: [ListsComponent, ListsFilterPipe],
+  declarations: [ListsComponent, ListEditComponent, ListsFilterPipe],
   providers: [CanActivateAuthGuard, ListsService]
 })
 

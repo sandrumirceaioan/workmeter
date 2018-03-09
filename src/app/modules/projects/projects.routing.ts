@@ -21,10 +21,8 @@ const routes: Routes = [
       project: ProjectResolve
     },
     children: [
-      { path: '', redirectTo: 'lists'},
-      { path: 'lists', loadChildren: '../lists/lists.module#ListsModule'
-      }
-    ],
+      { path: 'lists', loadChildren: '../lists/lists.module#ListsModule' },
+    ]
   }
 ];
 @NgModule({

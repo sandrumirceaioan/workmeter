@@ -12,25 +12,7 @@ import { trigger, state, animate, style, transition, keyframes } from '@angular/
 @Component({
   selector: 'lists',
   templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.css'],
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter',
-        animate('.3s ease-out', keyframes([
-          style({ opacity: '0', transform: 'translateY(0)', offset:0 }),
-          style({ opacity: '0.5', transform: 'translateY(25px)', offset:0.3 }),
-          style({ opacity: '1', transform: 'translateY(0)', offset:1 })
-        ])),
-      ),
-      transition(":leave", 
-      animate('.2s ease-out', keyframes([
-        style({ opacity: '1', transform: 'translateX(25%)', offset:0 }),
-        style({ opacity: '0.3', transform: 'translateX(50%)', offset:0.5 }),
-        style({ opacity: '0', transform: 'translateX(70%)', offset:1 })
-      ]))
-      )
-    ]),
-  ]
+  styleUrls: ['./lists.component.css']
 })
 export class ListsComponent implements OnInit {
   listForm: FormGroup;
@@ -47,7 +29,6 @@ export class ListsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     // get lists for current project
     this.loader = true;
     this.listsService.getAll({_id: this.projectsService.project._id}).subscribe((result) => {

@@ -14,16 +14,25 @@ const httpOptions = {
 @Injectable()
 export class ListsService {
   apiPath: string = '/api/lists';
+  mappedResults: object = {};
 
   constructor(private http: HttpClient) { }
 
   getAll(params): Observable<List[]>{
     return this.http.post(this.apiPath + '/all', params, httpOptions).map((result: List[]) => {
+                    this.mapedResults(result);
                     return result;
                     })
                     .catch((error:HttpErrorResponse) => {
                         return Observable.throw(error)
                       });
+  }
+
+  mapedResults(results){
+    let length = results.length;
+    for (let i=0;i<length;i++) {
+      this.mappedResults[results[i]._id] = results[i];
+    }
   }
 
   addList(list: List): Observable<List>{

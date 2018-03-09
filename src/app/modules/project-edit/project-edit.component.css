@@ -90,7 +90,7 @@
 .add-button {
     font-size: 30px;
     cursor: pointer;
-    color: #540181;
+    color: #424242;
     text-decoration: none;
     margin-right: 20px;
   }
@@ -114,4 +114,8 @@
 
   .child-views {
     border-left: 1px solid #eaeaea
+  }
+
+  .is-active {
+    color:#7501b0;
   }
