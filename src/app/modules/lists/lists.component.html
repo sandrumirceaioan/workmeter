@@ -47,7 +47,7 @@
         <li *ngFor="let list of lists | listsFilter:searchTerm">
             <div class="list-body">
                     <div class="col-xs-10 text-left">
-                        <a href="">{{list.listName}}</a>
+                        <span>{{list.listName}} - <small><i>{{list.listDescription}}</i></small></span>
                     </div>
                     <div class="col-xs-2 text-center list-options">
                         <div class="col-xs-6">

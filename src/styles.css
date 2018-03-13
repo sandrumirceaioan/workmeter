@@ -55,4 +55,12 @@ body {
   .spinner {
     width:100px;
   }
-  
+
+  .gray .modal-content{
+    border-radius: 0px !important;
+  }
+
+  .gray .modal-header {
+    color: #ffffff !important;
+    background: #ff5e00 !important;
+  }

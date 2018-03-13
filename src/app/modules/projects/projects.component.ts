@@ -76,7 +76,6 @@ export class ProjectsComponent implements OnInit {
         });
         this.projectForm.reset();
         this.addState = false;
-        this.projects.unshift(result);
       },
       (error)=>{
         this.toastService.toastTrigger({
