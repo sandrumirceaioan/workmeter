@@ -12,6 +12,7 @@ import { ToastComponent } from '../app/shared/directives/toast/toast.component';
 /* app modules */
 import { LoginModule } from './modules/login/login.module';
 import { Page404Component } from './page404.component';
+import { AppBootstrapModule } from './shared/modules/app-bootstrap.module';
 
 /* global services */
 import { ToastService } from './shared/services/toast/toast.service';
@@ -32,7 +33,8 @@ import { AppRoutingModule } from './app.routing';
     BrowserModule,
     BrowserAnimationsModule,
     LoginModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AppBootstrapModule
   ],
   providers: [
     ToastService,

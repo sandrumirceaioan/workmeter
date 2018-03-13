@@ -21,7 +21,9 @@ const routes: Routes = [
       project: ProjectResolve
     },
     children: [
+      { path: '', redirectTo: 'stats' },
       { path: 'lists', loadChildren: '../lists/lists.module#ListsModule' },
+      { path: 'stats', loadChildren: '../stats/stats.module#StatsModule'}
     ]
   }
 ];
