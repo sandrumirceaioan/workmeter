@@ -18,7 +18,7 @@ import { ProjectsFilterPipe } from '../../shared/filters/projects-filter.pipe';
     ProjectsRoutingModule
   ],
   declarations: [ProjectsComponent, ProjectComponent, ProjecteditComponent, ProjectsFilterPipe],
-  providers: [CanActivateAuthGuard, ProjectsService, ProjectsResolve, ProjectResolve]
+  providers: [CanActivateAuthGuard, ProjectsService, ProjectsResolve, ProjectResolve],
 })
 
 export class ProjectsModule { }

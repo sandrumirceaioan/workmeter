@@ -1,5 +1,4 @@
 <div class="projects-container">
-
   <!-- projects toolbar -->
   <div class="toolbar-container">
       <div class="col-sm-2 text-left">
@@ -39,12 +38,24 @@
               </a>
         </div>
       <div class="col-sm-2">
-          <a class="add-button noselect" (click)="deleteProject(project._id)">
+          <a class="add-button noselect" (click)="openModal(template)">
             <small>
               <i class="fa fa-trash" aria-hidden="true"></i>
               <span>Remove</span>
             </small>
           </a>
+          <ng-template #template>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Delete project</h4>
+            </div>
+            <div class="modal-body text-left">
+                <p>Are you sure do you want to delete <i>{{project.projectName}}</i> ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="confirm()" >Yes</button>
+                <button type="button" class="btn btn-default" (click)="decline()" >No</button>
+            </div>
+          </ng-template>
       </div>
             <div class="col-sm-2">
                 <a class="add-button noselect" (click)="goBack()">

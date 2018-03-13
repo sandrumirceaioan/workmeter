@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Project } from '../../models/project.model';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { ToastService } from '../../shared/services/toast/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'projectedit',
@@ -34,11 +36,13 @@ export class ProjecteditComponent implements OnInit {
   projects: Project[] = [];
   projectForm: FormGroup;
   updateState: boolean = false;
+  modalRef: BsModalRef;
   constructor(
     private projectsService: ProjectsService, 
     private toastService: ToastService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit() {
@@ -78,8 +82,16 @@ export class ProjecteditComponent implements OnInit {
     );
   }
 
-  deleteProject(id: string): void {
-    this.projectsService.deleteOne({_id: id}).subscribe(
+  goBack() {
+    this.router.navigate(['/main/projects']);
+  }
+ 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirm(): void {
+    this.projectsService.deleteOne({_id: this.project._id}).subscribe(
       (result)=>{
         this.toastService.toastTrigger({
           message: 'Project deleted! ',
@@ -94,10 +106,11 @@ export class ProjecteditComponent implements OnInit {
         });
       }
     );
+    this.modalRef.hide();
   }
-
-  goBack() {
-    this.router.navigate(['/main/projects']);
-  } 
+ 
+  decline(): void {
+    this.modalRef.hide();
+  }
 
 }
