@@ -7,6 +7,7 @@ import { ListsComponent } from './lists.component';
 import { ListEditComponent } from '../list-edit/list-edit.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { ListsFilterPipe } from '../../shared/filters/lists-filter.pipe';
+import { ListResolve } from './list.resolve';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { ListsFilterPipe } from '../../shared/filters/lists-filter.pipe';
     ListsRoutingModule
   ],
   declarations: [ListsComponent, ListEditComponent, ListsFilterPipe],
-  providers: [CanActivateAuthGuard, ListsService]
+  providers: [CanActivateAuthGuard, ListsService, ListResolve]
 })
 
 export class ListsModule { }

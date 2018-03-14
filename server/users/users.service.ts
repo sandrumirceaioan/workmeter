@@ -24,7 +24,7 @@ export class UsersService {
         let filter = {$or: orArray};
 
         const salt = '4m0$pr4l3*s0!p3n~d3';
-        const userType = 'admin';
+        const userType = 'user';
             
         const userCheck = await this.userModel.findOne(filter);
         if (userCheck) throw new HttpException('User already registered!', 400);

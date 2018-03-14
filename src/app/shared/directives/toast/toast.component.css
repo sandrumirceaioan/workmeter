@@ -1,6 +1,6 @@
 .toast-container {
     position: absolute;
-    width: 450px;
+    width: 400px;
     float: right;
     background: none;
     color: #ffffff;
@@ -19,27 +19,28 @@
 }
 
 .toast-body {
-    margin: 10px;
+    margin: 20px 0;
     padding: 10px;
     margin-bottom: 10px;
     width: 100%;
-    border: 2px solid #ffffff;
+    border: 0px solid #ffffff;
+    -webkit-box-shadow: -1px 1px 10px -2px #545454;
     box-shadow: -1px 1px 10px -2px #545454;
     border-top-left-radius: 80px;
     border-bottom-left-radius: 80px;
 }
 
 .toast-body .icon {
-    width:60px;
+    width: 60px;
     text-align: center;
-    font-size: 50px;
+    font-size: 30px;
+    padding: 10px 0;
     float: left;
 }
 .toast-body .message {
-    margin-left: 10px;
     float: left;
-    padding: 15px;
-    font-size: 25px;
+    padding: 16px;
+    font-size: 20px;
 }
 
 .success {

@@ -64,3 +64,11 @@ body {
     color: #ffffff !important;
     background: #ff5e00 !important;
   }
+
+  .view-toolbar-container {
+    border-bottom: 1px solid #d8d8d8;
+  }
+  
+  .view-toolbar-container span {
+    font-size: 18px;
+  }

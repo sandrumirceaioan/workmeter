@@ -22,16 +22,16 @@ export class ListsController {
         return this.listsService.allLists(params);
     }
 
-    // @Post('/one')
-    // async one(@Body() id: string){
-    //     return this.projectsService.oneProject(id);
-    // }
+    @Post('/one')
+    async one(@Body() id: string){
+        return this.listsService.oneList(id);
+    }
 
-    // @Put('/update')
-    // @Roles('admin')
-    // async update(@Body() data: CreateProjectDto){
-    //     return this.projectsService.updateProject(data);
-    // }
+    @Put('/update')
+    @Roles('admin','manager')
+    async update(@Body() data: CreateListDto){
+        return this.listsService.updateList(data);
+    }
 
     // @Post('/delete')
     // @Roles('admin')

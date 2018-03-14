@@ -5,9 +5,7 @@ import { ToastService } from '../../shared/services/toast/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListsService } from '../../shared/services/lists/lists.service';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
-import { ListsFilterPipe } from '../../shared/filters/lists-filter.pipe';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'lists',
@@ -18,7 +16,6 @@ export class ListsComponent implements OnInit {
   listForm: FormGroup;
   addState: boolean = false;
   loader: boolean;
-  searchTerm: string;
   lists: List[] = [];
   constructor(
     private router: Router,
@@ -73,10 +70,6 @@ export class ListsComponent implements OnInit {
           options: {type: 'error'}
         });
       });
-  }
-
-  onSearchChange(e){
-    this.searchTerm = e;
   }
 
 }

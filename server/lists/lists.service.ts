@@ -41,30 +41,30 @@ export class ListsService {
         return lists;
     }
 
-    // async oneProject(params): Promise<Project>{
-    //     let query = {_id: new ObjectId(params.id)};
-    //     try {
-    //         let oneProject = await this.listModel.findOne(query);
-    //         if (!oneProject) throw new HttpException('Project not found!', HttpStatus.BAD_REQUEST);
-    //         return oneProject;
-    //     } catch(e){
-    //         throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+    async oneList(params): Promise<List>{
+        let query = {_id: new ObjectId(params.id)};
+        try {
+            let oneProject = await this.listModel.findOne(query);
+            if (!oneProject) throw new HttpException('List not found!', HttpStatus.BAD_REQUEST);
+            return oneProject;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-    // async updateProject(params): Promise<Project>{
-    //     let query = {
-    //         _id: new ObjectId(params._id)
-    //     };
-    //     let set = _.compactObject(params);
-    //     try {
-    //         let updatedProject = await this.listModel.findOneAndUpdate(query, set, {new: true});
-    //         if (!updatedProject) throw new HttpException('Project not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
-    //         return updatedProject;
-    //     } catch(e){
-    //         throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+    async updateList(params): Promise<List>{
+        let query = {
+            _id: new ObjectId(params._id)
+        };
+        let set = _.compactObject(params);
+        try {
+            let updatedProject = await this.listModel.findOneAndUpdate(query, set, {new: true});
+            if (!updatedProject) throw new HttpException('List not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
+            return updatedProject;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // async deleteProject(params): Promise<any>{
     //     let query = {_id: new ObjectId(params._id)};

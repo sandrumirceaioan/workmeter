@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListsComponent } from './lists.component';
 import { ListEditComponent } from '../list-edit/list-edit.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
-import { ProjectsResolve } from '../projects/projects.resolve';
-import { ProjectResolve } from '../project/project.resolve';
+import { ListResolve } from './list.resolve';
 
 const routes: Routes = [
   {
@@ -17,7 +16,10 @@ const routes: Routes = [
     path: ':id',
     component: ListEditComponent,
     data: {title: 'List', access: ['admin', 'manager']},
-    canActivate: [CanActivateAuthGuard]
+    canActivate: [CanActivateAuthGuard],
+    resolve: {
+      project: ListResolve
+    },
   }
 ];
 

@@ -101,14 +101,6 @@
     font-size: 15px;
   }
 
-  .view-toolbar-container {
-    border-bottom: 1px solid #d8d8d8;
-  }
-  
-  .view-toolbar-container span {
-    font-size: 20px;
-  }
-
   .list-options {
     max-width:200px;
   }

@@ -14,6 +14,7 @@ const httpOptions = {
 @Injectable()
 export class ListsService {
   apiPath: string = '/api/lists';
+  list: List;
   mappedResults: object = {};
 
   constructor(private http: HttpClient) { }
@@ -39,6 +40,25 @@ export class ListsService {
     return this.http.post(this.apiPath + '/add', list, httpOptions)
     .catch((error:HttpErrorResponse) => {
       return Observable.throw(error)
+    });
+  }
+
+  getOne(params): Observable<List>{
+    return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: List) => {
+      this.list = result;
+      return result;
+    })
+    .catch((error:HttpErrorResponse) => {
+      return Observable.throw(error);
+    });
+  }
+
+  updateOne(list): Observable<List>{
+    return this.http.put(this.apiPath + '/update', list,httpOptions).map((result: List) => {
+      this.list = result;
+      return result;
+    }).catch((error: HttpErrorResponse) => {
+      return Observable.throw(error);
     });
   }
 

@@ -21,7 +21,7 @@ export class ProjectsService {
 
   addProject(project: Project): Observable<Project>{
     return this.http.post(this.apiPath + '/add', project, httpOptions).map((result: Project) => {
-      this.projects.push(result);
+      this.projects.unshift(result);
       return result;
     })
     .catch((error:HttpErrorResponse) => {
