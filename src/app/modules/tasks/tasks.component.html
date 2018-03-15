@@ -1,3 +1,67 @@
-<p>
-  tasks works!
-</p>
+<div class="tasks-container">
+  <!-- tasks toolbar -->
+  <div class="toolbar-container">
+      <div class="col-sm-2 text-left">
+          <a class="add-button noselect" (click)="addState = !addState">
+                <small *ngIf="addState">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i> 
+                <span>Add</span>
+              </small>
+              <small *ngIf="!addState">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> 
+                <span>Add</span>
+              </small>
+          </a>
+        </div>
+        <div class="col-sm-2">
+          <a routerLink="./mine" class="add-button noselect" [routerLinkActive]="'is-active'">
+              <small>
+                  <i class="fa fa-tasks" aria-hidden="true"></i>
+                  <span>Mine</span>
+              </small>
+          </a>
+        </div>
+        <div class="col-sm-2">
+          <a routerLink="./completed" class="add-button noselect" [routerLinkActive]="'is-active'">
+              <small>
+                  <i class="fa fa-check-square" aria-hidden="true"></i>
+                <span>Completed</span>
+              </small>
+            </a>
+      </div>
+        <div class="col-sm-2">
+            <a routerLink="./assigned" class="add-button noselect" [routerLinkActive]="'is-active'">
+                <small>
+                    <i class="fa fa-share-square" aria-hidden="true"></i>
+                  <span>Assigned</span>
+                </small>
+              </a>
+        </div>
+      <div class="col-sm-2">
+          <a routerLink="./help" class="add-button noselect">
+            <small>
+              <i class="fa fa-question-circle" aria-hidden="true"></i>
+              <span>Help</span>
+            </small>
+          </a>
+      </div>
+            <div class="col-sm-2">
+                <a routerLink="./score" class="add-button noselect">
+                    <small>
+                        <i class="fa fa-trophy" aria-hidden="true"></i>
+                        <span>Score</span>
+                    </small>
+                </a>
+            </div>
+      <div class="clearfix"></div>
+  </div>
+
+  <!-- show tasks list -->
+  <div class="task-container">
+
+        <div class="col-sm-8 child-views">
+            <router-outlet></router-outlet>
+        </div>
+    <div class="clearfix"></div>
+  </div>
+</div>

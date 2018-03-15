@@ -75,10 +75,6 @@
     margin-right: 5px;
   }
   
-  .invalid {
-    border: 2px solid #fd3300 !important;
-  }
-  
   .search {
     padding: 10px 10px;
     outline: none;
@@ -86,17 +82,6 @@
     box-shadow: inset 0 0 27px -10px #000000;
     -moz-box-shadow:    inset 0 0 27px -10px #000000;
     -webkit-box-shadow: inset 0 0 27px -10px #000000;
-  }
-.add-button {
-    font-size: 30px;
-    cursor: pointer;
-    color: #424242;
-    text-decoration: none;
-    margin-right: 20px;
-  }
-  
-  .add-button:hover {
-    color: #7501b0;
   }
 
   .project-image {
@@ -110,12 +95,4 @@
     background: #50007b;
     padding: 10px;
     color: #ffffff;
-  }
-
-  .child-views {
-    border-left: 1px solid #eaeaea
-  }
-
-  .is-active {
-    color:#7501b0;
   }

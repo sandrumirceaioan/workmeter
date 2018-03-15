@@ -1,4 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { UsersService } from '../../shared/services/users/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'header',
@@ -6,15 +8,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-@Output() toggle = new EventEmitter<string>(); 
 
-  constructor() { }
+  constructor(private usersService: UsersService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  toggleMenu(): void {
-    this.toggle.emit('in')
+  logout(){
+    localStorage.removeItem('wmtoken');
+    this.usersService.logged = null;
+    this.router.navigate(['login']);
   }
 
 }

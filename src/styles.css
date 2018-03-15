@@ -72,3 +72,28 @@ body {
   .view-toolbar-container span {
     font-size: 18px;
   }
+
+  .add-button {
+    font-size: 30px;
+    cursor: pointer;
+    color: #424242;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  
+  .add-button:hover {
+    color: #7501b0;
+    text-decoration: none;
+  }
+
+  .child-views {
+    border-left: 1px solid #eaeaea
+  }
+
+  .is-active {
+    color:#7501b0;
+  }
+
+  .invalid {
+    border: 2px solid #fd3300 !important;
+  }

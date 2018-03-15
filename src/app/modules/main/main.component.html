@@ -1,6 +1,5 @@
-
     <!-- dashboard header -->
-    <header (toggle)="receiveStatus($event)"></header>
+    <header></header>
     
     <!-- dashboard navigation -->
     <navigation [userAccess]="userService.logged.userType"></navigation>
@@ -16,8 +15,3 @@
         </div>
         <div class="clearfix"></div>
     </div>
-
-  
-  <!-- dashboard side menu -->
-  <!-- <div class="overlay" [hidden]="menuState == 'out'" (click)="toggleMenu()"></div> -->
-  <side-menu class="main-side-menu" [@slideInOut]="menuState" (toggle)="receiveStatus($event)"></side-menu>
