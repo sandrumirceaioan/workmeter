@@ -86,6 +86,12 @@ body {
     text-decoration: none;
   }
 
+  .add-button:focus {
+    color: #7501b0;
+    text-decoration: none;
+    outline: none;
+  }
+
   .child-views {
     border-left: 1px solid #eaeaea
   }
