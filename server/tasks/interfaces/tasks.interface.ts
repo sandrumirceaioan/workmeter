@@ -1,5 +1,6 @@
-export class Task {
-    _id?: string;
+import * as mongoose from 'mongoose';
+
+  export interface Task extends mongoose.Document {
     taskName: string;
     taskDescription: string;
     taskList: string;
@@ -14,4 +15,4 @@ export class Task {
     taskAssignedTo: string;
     created?: Date;
     createdBy?: string;
-}
+  }

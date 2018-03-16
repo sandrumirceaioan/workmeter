@@ -7,6 +7,7 @@ import { ListsSchema } from './schema/lists.schema';
 @Module({
     imports: [MongooseModule.forFeature([{name: 'lists', schema: ListsSchema}])],
     controllers: [ListsController],
-    components: [ListsService]
+    components: [ListsService],
+    exports: [ListsService]
 })
 export class ListsModule {}

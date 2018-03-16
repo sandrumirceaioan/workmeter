@@ -13,8 +13,8 @@ export class ListsController {
     @Post('/add')
     @Roles('admin', 'manager')
     @UseInterceptors(Sign)
-    async add(@Body() createProjectDto: CreateListDto){
-        return this.listsService.addProject(createProjectDto);
+    async add(@Body() CreateListDto: CreateListDto){
+        return this.listsService.addList(CreateListDto);
     }
     
     @Post('/all')

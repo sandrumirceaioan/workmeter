@@ -8,7 +8,6 @@ export class Sign implements NestInterceptor {
   intercept(req, context: ExecutionContext, stream$: Observable<any>): Observable<any> {
     let token = req.headers['x-access-token'];
     let decoded = jwt_decode(token);
-    req.body.created = new Date();
     req.body.createdBy = decoded.user;
     return stream$;
   }

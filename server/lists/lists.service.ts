@@ -20,8 +20,7 @@ _.mixin({
 export class ListsService {
     constructor(@InjectModel(ListsSchema) private readonly listModel: Model<List>){}
 
-    async addProject(CreateListDto: CreateListDto): Promise<List>{
-        console.log(CreateListDto);
+    async addList(CreateListDto: CreateListDto): Promise<List>{
         let query = {listName: CreateListDto.listName};
         let checkList = await this.listModel.findOne(query);
         if (checkList) throw new HttpException('List already exists!', HttpStatus.BAD_REQUEST);
@@ -66,15 +65,25 @@ export class ListsService {
         }
     }
 
-    // async deleteProject(params): Promise<any>{
-    //     let query = {_id: new ObjectId(params._id)};
-    //     try {
-    //         let deletedProject = await this.listModel.findOneAndRemove(query);
-    //         if (!deletedProject) throw new HttpException('Project not deleted!', HttpStatus.INTERNAL_SERVER_ERROR);
-    //         return deletedProject;
-    //     } catch(e){
-    //         throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+    async addDefaultList(list): Promise<List>{
+        let defaultList = new this.listModel(list);
+        try {
+            let list = await defaultList.save();
+            return list;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    async deleteProjectLists(param): Promise<any>{
+        let query = {listProject: param._id};
+        try {
+            let deletedProject = await this.listModel.remove(query);
+            if (!deletedProject) throw new HttpException('List not deleted!', HttpStatus.INTERNAL_SERVER_ERROR);
+            return deletedProject;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

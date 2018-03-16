@@ -5,6 +5,9 @@ export const ListsSchema = new mongoose.Schema({
     listName: String,
     listDescription: String,
     listProject: String,
-    created: Date,
+    created: {
+        type: Date,
+        default: new Date()
+      },
     createdBy: String
 });

@@ -4,6 +4,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ProjectsSchema } from "./schema/projects.schema";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { Project } from "./interfaces/projects.interface";
+import { ListsService } from '../lists/lists.service';
+import { List } from '../lists/interfaces/lists.interface';
 import * as _ from 'underscore';
 const ObjectId = require('mongoose').Types.ObjectId;
 
@@ -18,9 +20,10 @@ _.mixin({
 
 @Component()
 export class ProjectsService {
-    constructor(@InjectModel(ProjectsSchema) private readonly projectModel: Model<Project>){}
-
-
+    constructor(
+        @InjectModel(ProjectsSchema) private readonly projectModel: Model<Project>,
+        private listsService: ListsService
+    ){}
 
     async addProject(createProjectDto: CreateProjectDto): Promise<Project>{
         let query = {projectName: createProjectDto.projectName};
@@ -29,6 +32,12 @@ export class ProjectsService {
         let newProject = new this.projectModel(createProjectDto);
         try {
             let project = await newProject.save();
+            let list = await this.listsService.addDefaultList({
+                listName: `${project.projectName} default`,
+                listDescription: `Other ${project.projectName} tasks`,
+                listProject: project._id
+            });
+            if (!list) throw new HttpException('Default list not created!', HttpStatus.BAD_REQUEST);
             return project;
         } catch(e){
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -70,6 +79,8 @@ export class ProjectsService {
         try {
             let deletedProject = await this.projectModel.findOneAndRemove(query);
             if (!deletedProject) throw new HttpException('Project not deleted!', HttpStatus.INTERNAL_SERVER_ERROR);
+            let deletedList = await this.listsService.deleteProjectLists({_id:deletedProject._id});
+            if (!deletedList) throw new HttpException('Lists not deleted!', HttpStatus.BAD_REQUEST);
             return deletedProject;
         } catch(e){
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
