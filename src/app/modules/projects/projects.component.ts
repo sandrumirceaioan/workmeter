@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Project } from '../../models/project.model';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { ToastService } from '../../shared/services/toast/toast.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectsFilterPipe } from '../../shared/filters/projects-filter.pipe';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
@@ -40,8 +39,7 @@ export class ProjectsComponent implements OnInit {
   
   constructor(
     private projectsService: ProjectsService, 
-    private toastService: ToastService,
-    private activatedRoute: ActivatedRoute,
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {

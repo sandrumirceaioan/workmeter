@@ -26,17 +26,6 @@
   margin-left: 15px;
 }
 
-.add-button {
-  font-size: 30px;
-  cursor: pointer;
-  color: #540181;
-  text-decoration: none;
-}
-
-.add-button:hover {
-  color: #7501b0;
-}
-
 /* add project form */
 .project {
   position: absolute;
@@ -112,10 +101,6 @@
   background: #ffffff;
   color: #410062;
   margin-right: 5px;
-}
-
-.invalid {
-  border: 2px solid #fd3300 !important;
 }
 
 .search {

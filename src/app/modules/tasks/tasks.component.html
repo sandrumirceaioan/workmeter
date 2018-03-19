@@ -14,10 +14,10 @@
           </a>
         </div>
         <div class="col-sm-2">
-          <a routerLink="./mine" class="add-button noselect" [routerLinkActive]="'is-active'">
+          <a routerLink="./in-progress" class="add-button noselect" [routerLinkActive]="'is-active'">
               <small>
                   <i class="fa fa-tasks" aria-hidden="true"></i>
-                  <span>Mine</span>
+                  <span>In progress</span>
               </small>
           </a>
         </div>
@@ -56,9 +56,88 @@
       <div class="clearfix"></div>
   </div>
 
+    <!-- add tasks form -->
+    <div *ngIf="addState" class="overlay" (click)="addState = false"></div>
+    <div *ngIf="addState" class="task col-lg-4 col-md-6 col-sm-8" [@fadeIn]="''">
+        <form class="task-form" [formGroup]="taskForm" (ngSubmit)="addTask()">
+          <div class="task-header">
+              <h3># add task</h3>
+          </div>
+          <div class="task-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="text" name="taskName" class="form-control" placeholder="Task Name" formControlName="taskName" autofocus [class.invalid]="taskForm.controls.taskName.invalid && taskForm.controls.taskName.dirty"/>
+                     </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                      <textarea type="text" name="taskDescription" class="form-control" placeholder="task description" formControlName="taskDescription" rows="5" [class.invalid]="taskForm.controls.taskDescription.invalid && taskForm.controls.taskDescription.dirty"></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                            <select name="taskProject" class="form-control" id="taskProject" formControlName="taskProject" [class.invalid]="taskForm.controls.taskProject.invalid && taskForm.controls.taskProject.dirty">
+                                    <option value="">Select Project</option>
+                                    <option value="ecommerce">Ecommerce</option>
+                                    <option value="tracking">Tracking</option>
+                                    <option value="landing pages">Landing pages</option>
+                                    <option value="other">Other</option>
+                            </select>
+                        </div>
+                    <div class="col-sm-6">
+                        <select name="taskList" class="form-control" id="taskList" formControlName="taskList" [class.invalid]="taskForm.controls.taskList.invalid && taskForm.controls.taskList.dirty">
+                                <option value="">Select List</option>
+                                <option value="ecommerce">Ecommerce</option>
+                                <option value="tracking">Tracking</option>
+                                <option value="landing pages">Landing pages</option>
+                                <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" name="taskAssignedTo" class="form-control" placeholder="Task Assigned To" formControlName="taskAssignedTo" autofocus [class.invalid]="taskForm.controls.taskAssignedTo.invalid && taskForm.controls.taskAssignedTo.dirty"/>
+                        </div>
+                        <div class="col-sm-6">
+                                <input type="text" name="taskDeadline" class="form-control" placeholder="Task Deadline" formControlName="taskDeadline" autofocus [class.invalid]="taskForm.controls.taskDeadline.invalid && taskForm.controls.taskDeadline.dirty"/>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="btn-check noselect" for="taskScored"><input type="checkbox" id="taskScored" formControlName="taskScored"> Scored Task
+                        <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <select *ngIf="taskForm.controls.taskScored.value" name="taskDifficulty" class="form-control task-body" id="taskDifficulty" formControlName="taskDifficulty">
+                                <option value="">Select Difficulty</option>
+                                <option value="5">Easy</option>
+                                <option value="10">Normal</option>
+                                <option value="25">Hard</option>
+                                <option value="50">Insane</option>
+                        </select>
+                    </div>
+                </div>
+          </div>
+          <div class="task-footer-add">
+              <div class="row">
+                <div class="col-sm-10">
+                    <button class="btn btn-lg btn-primary btn-block col-sm-10" type="submit" [disabled]="taskForm.invalid">Add task</button>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-lg btn-primary btn-block col-sm-10" type="submit">Draft</button>
+                </div>
+                </div>
+            <span class="clearfix"></span>
+          </div>
+        </form>
+    </div>
+
   <!-- show tasks list -->
   <div class="task-container">
-
+        <div class="col-sm-4">
+            gg
+        </div>
         <div class="col-sm-8 child-views">
             <router-outlet></router-outlet>
         </div>
