@@ -21,4 +21,9 @@ export class UsersController {
     async check(@Body() token: String) {
         return this.usersService.checkLogged(token);
     }
+
+    @Post('/all')
+    async all(@Body() params: any){
+        return this.usersService.allUsers(params);
+    }
 }

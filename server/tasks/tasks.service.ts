@@ -5,6 +5,8 @@ import { TasksSchema } from "./schema/tasks.schema";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { Task } from "./interfaces/tasks.interface";
 import * as _ from 'underscore';
+import * as moment from 'moment';
+
 const ObjectId = require('mongoose').Types.ObjectId;
 
 _.mixin({
@@ -18,32 +20,34 @@ _.mixin({
 
 @Component()
 export class TasksService {
-    constructor(@InjectModel(TasksSchema) private readonly listModel: Model<Task>){}
+    constructor(@InjectModel(TasksSchema) private readonly taskModel: Model<Task>){}
+    
+    async addTask(task): Promise<Task>{
+        if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day');
+        if (task.taskDraft) task.taskStatus = 'Draft';
+            task = _.compactObject(task);
+        let newTask = new this.taskModel(task);
+        try {
+            let task = await newTask.save();
+            return task;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-    // async addList(CreateListDto: CreateListDto): Promise<List>{
-    //     let query = {listName: CreateListDto.listName};
-    //     let checkList = await this.listModel.findOne(query);
-    //     if (checkList) throw new HttpException('List already exists!', HttpStatus.BAD_REQUEST);
-    //     let newList = new this.listModel(CreateListDto);
-    //     try {
-    //         let list = await newList.save();
-    //         return list;
-    //     } catch(e){
-    //         throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-
-    // async allLists(params): Promise<List[]>{
-    //     let query = {};
-    //     if(params._id) query = {listProject: params._id}; 
-    //     let lists = await this.listModel.find(query).sort({created: -1});
-    //     return lists;
-    // }
+    async allTasks(params): Promise<Task[]>{
+        let query = {
+            taskAssignedTo: params._id,
+            taskDraft: false
+        }; 
+        let tasks = await this.taskModel.find(query).sort({created: -1});
+        return tasks;
+    }
 
     // async oneList(params): Promise<List>{
     //     let query = {_id: new ObjectId(params.id)};
     //     try {
-    //         let oneProject = await this.listModel.findOne(query);
+    //         let oneProject = await this.taskModel.findOne(query);
     //         if (!oneProject) throw new HttpException('List not found!', HttpStatus.BAD_REQUEST);
     //         return oneProject;
     //     } catch(e){
@@ -57,7 +61,7 @@ export class TasksService {
     //     };
     //     let set = _.compactObject(params);
     //     try {
-    //         let updatedProject = await this.listModel.findOneAndUpdate(query, set, {new: true});
+    //         let updatedProject = await this.taskModel.findOneAndUpdate(query, set, {new: true});
     //         if (!updatedProject) throw new HttpException('List not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
     //         return updatedProject;
     //     } catch(e){
@@ -66,7 +70,7 @@ export class TasksService {
     // }
 
     // async addDefaultList(list): Promise<List>{
-    //     let defaultList = new this.listModel(list);
+    //     let defaultList = new this.taskModel(list);
     //     try {
     //         let list = await defaultList.save();
     //         return list;
@@ -78,7 +82,7 @@ export class TasksService {
     // async deleteProjectLists(param): Promise<any>{
     //     let query = {listProject: param._id};
     //     try {
-    //         let deletedProject = await this.listModel.remove(query);
+    //         let deletedProject = await this.taskModel.remove(query);
     //         if (!deletedProject) throw new HttpException('List not deleted!', HttpStatus.INTERNAL_SERVER_ERROR);
     //         return deletedProject;
     //     } catch(e){

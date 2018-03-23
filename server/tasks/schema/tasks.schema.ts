@@ -14,6 +14,7 @@ export const TasksSchema = new mongoose.Schema({
       },
     taskDifficulty: Number,
     taskScored: Boolean,
+    taskDraft: Boolean,
     taskAttachments: [],
     taskAssignedBy: String,
     taskAssignedTo: String,

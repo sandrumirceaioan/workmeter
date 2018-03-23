@@ -10,6 +10,7 @@ import * as mongoose from 'mongoose';
     taskStatus: string;
     taskDifficulty: number;
     taskScored: boolean;
+    taskDraft: boolean;
     taskAttachments?: string[];
     taskAssignedBy: string;
     taskAssignedTo: string;

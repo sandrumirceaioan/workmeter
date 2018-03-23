@@ -23,7 +23,7 @@ export class ProjectResolve implements Resolve<any>{
           message: error.error.message,
           options: {type: 'error'}
         });
-      this.router.navigate(['/main/projects']);
+      this.router.navigate(['/main/dashboard']);
       return Observable.of(null);
     });    
   }

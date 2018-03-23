@@ -12,6 +12,9 @@ const routes: Routes = [
     component: ProjectsComponent,
     data: {title: 'Projects', access: ['admin', 'manager']},
     canActivate: [CanActivateAuthGuard]
+    // resolve: {
+    //   projects: ProjectsResolve
+    // }
   },
   { path: ':id',
     component: ProjecteditComponent,

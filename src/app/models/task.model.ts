@@ -9,6 +9,7 @@ export class Task {
     taskStatus: string;
     taskDifficulty: number;
     taskScored: boolean;
+    taskDraft: boolean;
     taskAttachments?: string[];
     taskAssignedBy: string;
     taskAssignedTo: string;

@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { ProjectsService } from '../../shared/services/projects/projects.service';
+import { ListsService } from '../../shared/services/lists/lists.service';
 import { ToastService } from '../../shared/services/toast/toast.service';
-import { Project } from '../../models/project.model';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
 @Injectable()
-export class ProjectsResolve implements Resolve<any>{
+export class ListsResolve implements Resolve<any>{
 
   constructor(
-    private projectsService: ProjectsService, 
+    private listsService: ListsService, 
     private toastService: ToastService,
     private router: Router    
   ){ }
 
   resolve(route: ActivatedRouteSnapshot){ 
-    return this.projectsService.getAll().catch(
+    return this.listsService.getAll({}).catch(
       (error)=>{
         this.toastService.toastTrigger({
           message: error.error.message,

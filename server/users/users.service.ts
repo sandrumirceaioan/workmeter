@@ -79,4 +79,10 @@ export class UsersService {
             throw new HttpException(e, HttpStatus.UNAUTHORIZED);
         }
     }
+
+    async allUsers(params): Promise<User[]>{
+        let query = {}; 
+        let users = await this.userModel.find(query).sort({userName: -1}).select({ "userName": 1, "_id": 1});
+        return users;
+    }
 }

@@ -59,7 +59,7 @@
     <!-- add tasks form -->
     <div *ngIf="addState" class="overlay" (click)="addState = false"></div>
     <div *ngIf="addState" class="task col-lg-4 col-md-6 col-sm-8" [@fadeIn]="''">
-        <form class="task-form" [formGroup]="taskForm" (ngSubmit)="addTask()">
+        <form class="task-form" [formGroup]="taskForm" (ngSubmit)="addTask(false)">
           <div class="task-header">
               <h3># add task</h3>
           </div>
@@ -99,7 +99,7 @@
                             <input type="text" name="taskAssignedTo" class="form-control" placeholder="Task Assigned To" formControlName="taskAssignedTo" autofocus [class.invalid]="taskForm.controls.taskAssignedTo.invalid && taskForm.controls.taskAssignedTo.dirty"/>
                         </div>
                         <div class="col-sm-6">
-                                <input type="text" name="taskDeadline" class="form-control" placeholder="Task Deadline" formControlName="taskDeadline" autofocus [class.invalid]="taskForm.controls.taskDeadline.invalid && taskForm.controls.taskDeadline.dirty"/>
+                                <input class="form-control" placeholder="Task Deadline" ngx-mydatepicker name="taskDeadline" formControlName="taskDeadline" [options]="myOptions" #dp="ngx-mydatepicker" (click)="dp.toggleCalendar()" [class.invalid]="taskForm.controls.taskDeadline.errors && taskForm.controls.taskDeadline.dirty"/>
                         </div>
                     </div>
                 <div class="row">
@@ -125,7 +125,7 @@
                     <button class="btn btn-lg btn-primary btn-block col-sm-10" type="submit" [disabled]="taskForm.invalid">Add task</button>
                 </div>
                 <div class="col-sm-2">
-                    <button class="btn btn-lg btn-primary btn-block col-sm-10" type="submit">Draft</button>
+                    <button [disabled]="!taskForm.controls.taskName.value" class="btn btn-lg btn-primary btn-block col-sm-10" type="button" (click)="addTask(true)">Draft</button>
                 </div>
                 </div>
             <span class="clearfix"></span>
@@ -136,7 +136,10 @@
   <!-- show tasks list -->
   <div class="task-container">
         <div class="col-sm-4">
-            gg
+            <ul>
+                <li *ngIf="tasks.length == 0 "><span>No tasks ??? Omg !!!</span></li>
+                <li *ngFor="let task of tasks">{{task.taskName}}</li>
+            </ul>
         </div>
         <div class="col-sm-8 child-views">
             <router-outlet></router-outlet>

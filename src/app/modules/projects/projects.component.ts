@@ -6,6 +6,7 @@ import { ProjectsFilterPipe } from '../../shared/filters/projects-filter.pipe';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
 import 'rxjs/add/operator/map';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -39,10 +40,19 @@ export class ProjectsComponent implements OnInit {
   
   constructor(
     private projectsService: ProjectsService, 
-    private toastService: ToastService
+    private toastService: ToastService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    // // load resolved data
+    // this.activatedRoute.data
+    // .map((result) => {return result.projects})
+    // .subscribe((result) => {
+    //   this.projects = result;
+    // });
+
+    // load lazy data
     this.loader = true;
     this.projectsService.getAll().subscribe((result) => {
       this.projects = result;

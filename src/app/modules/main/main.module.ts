@@ -5,6 +5,8 @@ import { HeaderComponent } from '../header/header.component';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { MainRoutingModule } from './main.routing';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
+import { ProjectsService } from '../../shared/services/projects/projects.service';
+import { ListsService } from '../../shared/services/lists/lists.service';
 
 @NgModule({
   imports: [
@@ -13,7 +15,9 @@ import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
   ],
   declarations: [MainComponent, HeaderComponent, NavigationComponent],
   providers: [
-    CanActivateAuthGuard
+    CanActivateAuthGuard,
+    ProjectsService,
+    ListsService
   ],
   exports: []
 })

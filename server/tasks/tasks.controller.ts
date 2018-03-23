@@ -5,22 +5,22 @@ import { AuthGuard } from '../common/guards/auth.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Sign } from '../common/interceptors/sign.interceptor';
 
-@Controller('lists')
+@Controller('tasks')
 @UseGuards(AuthGuard)
 export class TasksController {
     constructor(private readonly tasksService: TasksService){}
 
-    // @Post('/add')
-    // @Roles('admin', 'manager')
-    // @UseInterceptors(Sign)
-    // async add(@Body() CreateListDto: CreateTaskDto){
-    //     return this.tasksService.addList(CreateListDto);
-    // }
+    @Post('/add')
+    @Roles('admin', 'manager', 'user')
+    @UseInterceptors(Sign)
+    async add(@Body() CreateTaskDto: CreateTaskDto){
+        return this.tasksService.addTask(CreateTaskDto);
+    }
     
-    // @Post('/all')
-    // async all(@Body() params: any){
-    //     return this.tasksService.allLists(params);
-    // }
+    @Post('/all')
+    async all(@Body() params: any){
+        return this.tasksService.allTasks(params);
+    }
 
     // @Post('/one')
     // async one(@Body() id: string){

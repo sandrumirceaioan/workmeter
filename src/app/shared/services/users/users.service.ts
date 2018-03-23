@@ -15,6 +15,7 @@ const httpOptions = {
 export class UsersService {
   apiPath: string = '/api/users';
   logged: User;
+  users: User[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -49,4 +50,15 @@ checkLogged(){
                       return Observable.throw(error)
                   });
 }
+
+getAll(): Observable<User[]>{
+  return this.http.post(this.apiPath + '/all', {}, httpOptions).map((result: User[]) => {
+                  this.users = result;
+                  return result;
+                  })
+                  .catch((error:HttpErrorResponse) => {
+                      return Observable.throw(error)
+                    });
+}
+
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../../../models/task.model';
+import { User } from '../../../models/user.model';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -13,7 +14,7 @@ const httpOptions = {
 
 @Injectable()
 export class TasksService {
-  apiPath: string = '/api/projects';
+  apiPath: string = '/api/tasks';
   tasks: Task[] = [];
   task: Task;
 
@@ -29,15 +30,15 @@ export class TasksService {
     });
   }
 
-  // getAll(): Observable<Task[]>{
-  //   return this.http.post(this.apiPath + '/all', {}, httpOptions).map((result: Task[]) => {
-  //                   this.tasks = result;
-  //                   return result;
-  //                   })
-  //                   .catch((error:HttpErrorResponse) => {
-  //                       return Observable.throw(error)
-  //                     });
-  // }
+  getAll(user: User): Observable<Task[]>{
+    return this.http.post(this.apiPath + '/all', user, httpOptions).map((result: Task[]) => {
+                    this.tasks = result;
+                    return result;
+                    })
+                    .catch((error:HttpErrorResponse) => {
+                        return Observable.throw(error)
+                      });
+  }
 
   // getOne(params): Observable<Task>{
   //   return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: Task) => {
