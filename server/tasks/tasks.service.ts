@@ -25,7 +25,6 @@ export class TasksService {
     async addTask(task): Promise<Task>{
         if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day');
         if (task.taskDraft) task.taskStatus = 'Draft';
-            task = _.compactObject(task);
         let newTask = new this.taskModel(task);
         try {
             let task = await newTask.save();
@@ -39,8 +38,9 @@ export class TasksService {
         let query = {
             taskAssignedTo: params._id,
             taskDraft: false
-        }; 
+        };
         let tasks = await this.taskModel.find(query).sort({created: -1});
+        console.log(tasks);
         return tasks;
     }
 

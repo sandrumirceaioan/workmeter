@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
+import { INgxMyDpOptions } from 'ngx-mydatepicker';
+import { User } from '../../models/user.model';
+import { Project } from '../../models/project.model';
+import { List } from '../../models/list.model';
 import { Task } from '../../models/task.model';
 import { ToastService } from '../../shared/services/toast/toast.service';
-import { TasksService } from '../../shared/services/tasks/tasks.service';
 import { UsersService } from '../../shared/services/users/users.service';
-import { INgxMyDpOptions } from 'ngx-mydatepicker';
+import { ListsService } from '../../shared/services/lists/lists.service';
+import { ProjectsService } from '../../shared/services/projects/projects.service';
+import { TasksService } from '../../shared/services/tasks/tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -35,12 +40,17 @@ export class TasksComponent implements OnInit {
   addState: boolean = false;
   loader: boolean;
   tasks: Task[] = [];
+  users: User[] = [];
+  projects: Project[] = [];
+  lists: List[] = [];
   myOptions: INgxMyDpOptions;
 
   constructor(
     private tasksService: TasksService,
     private toastService: ToastService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private listsService: ListsService,
+    private projectsService: ProjectsService
   ) { }
 
   ngOnInit() {
@@ -51,7 +61,7 @@ export class TasksComponent implements OnInit {
       satHighlight: true
     };
 
-    // load lazy data
+    // load lazy tasks
     this.loader = true;
     this.tasksService.getAll(this.usersService.logged).subscribe((result) => {
       this.tasks = result;
@@ -66,6 +76,7 @@ export class TasksComponent implements OnInit {
       this.loader = false;
     });
 
+    // init reactive form
     let date = new Date();
     this.taskForm = new FormGroup({
       taskName: new FormControl('', Validators.required),
@@ -78,9 +89,24 @@ export class TasksComponent implements OnInit {
       taskAssignedTo: new FormControl('',Validators.required),
       taskDeadline: new FormControl(null,Validators.required)
     });
+
+    this.onProjectChanges();
   }
 
-  addTask(draft): void{
+  onProjectChanges(): void{
+    this.taskForm.get('taskProject').valueChanges.subscribe((value) => {
+      if (value) {
+        this.listsService.getAll({_id: value}).subscribe(
+          (result) => {
+            this.lists = result;
+          }, 
+          (error) => {console.log(error.error.message)});
+      }
+        this.lists = [];
+    });
+  }
+
+  addTask(draft):void{
     this.taskForm.value.taskDraft = draft;
     this.tasksService.addTask(this.taskForm.value).subscribe(
       (result) => {
@@ -100,4 +126,10 @@ export class TasksComponent implements OnInit {
     );
   }
 
+  loadUsersAndProjects(): void{
+    if (this.addState) {
+      this.usersService.getAll().subscribe((result) => {this.users = result}, (error) => {console.log(error.error.message)});
+      this.projectsService.getAll().subscribe((result) => {this.projects = result}, (error) => {console.log(error.error.message)});
+    }
+  }
 }

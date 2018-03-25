@@ -2,7 +2,7 @@
   <!-- tasks toolbar -->
   <div class="toolbar-container">
       <div class="col-sm-2 text-left">
-          <a class="add-button noselect" (click)="addState = !addState">
+          <a class="add-button noselect" (click)="addState = !addState; loadUsersAndProjects()">
                 <small *ngIf="addState">
                     <i class="fa fa-minus-circle" aria-hidden="true"></i> 
                 <span>Add</span>
@@ -71,35 +71,35 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                      <textarea type="text" name="taskDescription" class="form-control" placeholder="task description" formControlName="taskDescription" rows="5" [class.invalid]="taskForm.controls.taskDescription.invalid && taskForm.controls.taskDescription.dirty"></textarea>
+                      <textarea type="text" name="taskDescription" class="form-control" placeholder="Task description" formControlName="taskDescription" rows="5" [class.invalid]="taskForm.controls.taskDescription.invalid && taskForm.controls.taskDescription.dirty"></textarea>
                   </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                             <select name="taskProject" class="form-control" id="taskProject" formControlName="taskProject" [class.invalid]="taskForm.controls.taskProject.invalid && taskForm.controls.taskProject.dirty">
                                     <option value="">Select Project</option>
-                                    <option value="ecommerce">Ecommerce</option>
-                                    <option value="tracking">Tracking</option>
-                                    <option value="landing pages">Landing pages</option>
-                                    <option value="other">Other</option>
+                                    <option *ngFor="let project of projects" 
+                                        value="{{project._id}}">
+                                        {{project.projectName}}
+                                    </option>
                             </select>
                         </div>
                     <div class="col-sm-6">
-                        <select name="taskList" class="form-control" id="taskList" formControlName="taskList" [class.invalid]="taskForm.controls.taskList.invalid && taskForm.controls.taskList.dirty">
+                        <select *ngIf="lists.length" name="taskList" class="form-control" id="taskList" formControlName="taskList" [class.invalid]="taskForm.controls.taskList.invalid && taskForm.controls.taskList.dirty">
                                 <option value="">Select List</option>
-                                <option value="ecommerce">Ecommerce</option>
-                                <option value="tracking">Tracking</option>
-                                <option value="landing pages">Landing pages</option>
-                                <option value="other">Other</option>
+                                <option *ngFor="let list of lists" value="{{list._id}}">{{list.listName}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                         <div class="col-sm-6">
-                            <input type="text" name="taskAssignedTo" class="form-control" placeholder="Task Assigned To" formControlName="taskAssignedTo" autofocus [class.invalid]="taskForm.controls.taskAssignedTo.invalid && taskForm.controls.taskAssignedTo.dirty"/>
+                            <select name="taskAssignedTo" class="form-control" id="taskAssignedTo" formControlName="taskAssignedTo" [class.invalid]="taskForm.controls.taskAssignedTo.invalid && taskForm.controls.taskAssignedTo.dirty">
+                                <option value="">Assign to</option>
+                                <option *ngFor="let user of users" value="{{user._id}}">{{user.userName}}</option>
+                            </select>
                         </div>
                         <div class="col-sm-6">
-                                <input class="form-control" placeholder="Task Deadline" ngx-mydatepicker name="taskDeadline" formControlName="taskDeadline" [options]="myOptions" #dp="ngx-mydatepicker" (click)="dp.toggleCalendar()" [class.invalid]="taskForm.controls.taskDeadline.errors && taskForm.controls.taskDeadline.dirty"/>
+                            <input *ngIf="taskForm.controls.taskAssignedTo.value" class="form-control" placeholder="Task Deadline" ngx-mydatepicker name="taskDeadline" formControlName="taskDeadline" [options]="myOptions" #dp="ngx-mydatepicker" (click)="dp.toggleCalendar()" [class.invalid]="taskForm.controls.taskDeadline.errors && taskForm.controls.taskDeadline.dirty"/>
                         </div>
                     </div>
                 <div class="row">
@@ -136,9 +136,28 @@
   <!-- show tasks list -->
   <div class="task-container">
         <div class="col-sm-4">
-            <ul>
-                <li *ngIf="tasks.length == 0 "><span>No tasks ??? Omg !!!</span></li>
-                <li *ngFor="let task of tasks">{{task.taskName}}</li>
+            <img src="./assets/spinner.gif" *ngIf="loader" class="spinner">
+            <ul class="tasks-list">
+                <li *ngIf="tasks.length == 0 && !loader">
+                        <div class="tsk-body">
+                            <span>No tasks in the list...</span>
+                        </div>
+                        <div class="clearfix"></div>
+                </li>
+                <li *ngFor="let task of tasks">
+                    <div class="tsk-body">
+                            <div class="col-xs-10 text-left">
+                                <span>{{task.taskName}}</span>
+                            </div>
+                            <div class="col-xs-2 text-center list-options">
+                                <div class="col-xs-12 text-right">
+                                    Edit
+                                    <!-- <a href="" [routerLink]="['./', list._id]"><i class="fa fa-edit"></i> Edit</a> -->
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="col-sm-8 child-views">

@@ -10,12 +10,12 @@ const routes: Routes = [
   {
     path: '',
     component: TasksComponent,
-    data: {title: 'Tasks', access: ['admin','manager', 'user']},
-    resolve: {
-      projects: ProjectsResolve,
-      lists: ListsResolve,
-      users: UsersResolve
-    }
+    data: {title: 'Tasks', access: ['admin','manager', 'user']}
+    // resolve: {
+    //   projects: ProjectsResolve,
+    //   lists: ListsResolve,
+    //   users: UsersResolve
+    // }
   }
 //   {
 //     path: ':id',

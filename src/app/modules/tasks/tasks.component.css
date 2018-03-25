@@ -2,8 +2,8 @@
   padding: 0;
 }
 
-.list-container {
-  position:relative;
+.task-container {
+  position: relative;
   padding-top: 10px;
 }
 
@@ -129,4 +129,12 @@
 
 .form-control[disabled], fieldset[disabled] .form-control {
   background: #b3b3b3;
+}
+
+.tsk-body {
+  padding: 10px;
+  background: #410062;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  color: #ffffff;
 }

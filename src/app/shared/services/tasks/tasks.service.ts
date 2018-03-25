@@ -22,7 +22,6 @@ export class TasksService {
 
   addTask(task: Task): Observable<Task>{
     return this.http.post(this.apiPath + '/add', task, httpOptions).map((result: Task) => {
-      this.tasks.unshift(result);
       return result;
     })
     .catch((error:HttpErrorResponse) => {
