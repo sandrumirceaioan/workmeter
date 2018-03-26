@@ -1,4 +1,4 @@
-<div class="tasks-container">
+<div class="page-container">
   <!-- tasks toolbar -->
   <div class="toolbar-container">
       <div class="col-sm-2 text-left">
@@ -139,7 +139,7 @@
             <img src="./assets/spinner.gif" *ngIf="loader" class="spinner">
             <ul class="tasks-list">
                 <li *ngIf="tasks.length == 0 && !loader">
-                        <div class="tsk-body">
+                        <div class="tsk-body" [ngClass]="{active: 1==1}">
                             <span>No tasks in the list...</span>
                         </div>
                         <div class="clearfix"></div>

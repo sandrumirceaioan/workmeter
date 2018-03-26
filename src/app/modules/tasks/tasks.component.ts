@@ -38,12 +38,13 @@ import { TasksService } from '../../shared/services/tasks/tasks.service';
 export class TasksComponent implements OnInit {
   taskForm: FormGroup;
   addState: boolean = false;
+  myOptions: INgxMyDpOptions;
   loader: boolean;
-  tasks: Task[] = [];
-  users: User[] = [];
+  status: string = 'New';
   projects: Project[] = [];
   lists: List[] = [];
-  myOptions: INgxMyDpOptions;
+  tasks: Task[] = [];
+  users: User[] = [];
 
   constructor(
     private tasksService: TasksService,
