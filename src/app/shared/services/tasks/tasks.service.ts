@@ -39,15 +39,15 @@ export class TasksService {
                       });
   }
 
-  // getOne(params): Observable<Task>{
-  //   return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: Task) => {
-  //     this.task = result;
-  //     return result;
-  //   })
-  //   .catch((error:HttpErrorResponse) => {
-  //     return Observable.throw(error);
-  //   });
-  // }
+  getOne(params): Observable<Task>{
+    return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: Task) => {
+      this.task = result;
+      return result;
+    })
+    .catch((error:HttpErrorResponse) => {
+      return Observable.throw(error);
+    });
+  }
 
   // updateOne(task: Task): Observable<Task>{
   //   return this.http.put(this.apiPath + '/update', task, httpOptions).map((result: Task) => {

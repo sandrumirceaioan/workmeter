@@ -25,7 +25,7 @@ export class ListEditComponent implements OnInit {
 
   ngOnInit() {
         this.activatedRoute.data
-        .map((result) => {return result.project})
+        .map((result) => {return result.list})
         .subscribe((result) => {
           this.list = result;
         });

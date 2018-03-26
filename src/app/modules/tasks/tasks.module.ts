@@ -9,6 +9,8 @@ import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 import { ProjectsResolve } from '../projects/projects.resolve';
 import { ListsResolve } from '../lists/lists.resolve';
 import { UsersResolve } from '../users/users.resolve';
+import { TasksViewComponent } from '../tasks-view/tasks-view.component';
+import { TaskResolve } from './task.resolve';
 
 @NgModule({
   imports: [
@@ -17,7 +19,7 @@ import { UsersResolve } from '../users/users.resolve';
     TasksRoutingModule,
     NgxMyDatePickerModule.forRoot()
   ],
-  declarations: [TasksComponent],
-  providers: [CanActivateAuthGuard,TasksService, ProjectsResolve, ListsResolve, UsersResolve]
+  declarations: [TasksComponent, TasksViewComponent],
+  providers: [CanActivateAuthGuard,TasksService, TaskResolve]
 })
 export class TasksModule { }

@@ -16,6 +16,7 @@ export class ProjectsService {
   apiPath: string = '/api/projects';
   projects: Project[] = [];
   project: Project;
+  mappedResults: object = {};
 
   constructor(private http: HttpClient) { }
 
@@ -32,11 +33,19 @@ export class ProjectsService {
   getAll(): Observable<Project[]>{
     return this.http.post(this.apiPath + '/all', {}, httpOptions).map((result: Project[]) => {
                     this.projects = result;
+                    this.mapedResults(result);
                     return result;
                     })
                     .catch((error:HttpErrorResponse) => {
                         return Observable.throw(error)
                       });
+  }
+
+  mapedResults(results){
+    let length = results.length;
+    for (let i=0;i<length;i++) {
+      this.mappedResults[results[i]._id] = results[i];
+    }
   }
 
   getOne(params): Observable<Project>{

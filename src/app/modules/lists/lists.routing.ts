@@ -18,7 +18,7 @@ const routes: Routes = [
     data: {title: 'List', access: ['admin', 'manager']},
     canActivate: [CanActivateAuthGuard],
     resolve: {
-      project: ListResolve
+      list: ListResolve
     },
   }
 ];

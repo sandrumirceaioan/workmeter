@@ -4,7 +4,6 @@
 
 .task-container {
   position: relative;
-  padding-top: 10px;
 }
 
 .tasks-list {
@@ -132,9 +131,59 @@
 }
 
 .tsk-body {
+  display:block;
   padding: 10px;
   background: #410062;
   margin-top: 10px;
   margin-bottom: 0px;
   color: #ffffff;
+  font-size: 13px;
+}
+
+.new {
+  font-weight: normal;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 0px;
+  margin-right: 10px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.started {
+  font-weight: normal;
+  background: #2ab300;
+  color: #ffffff;
+  border-radius: 0px;
+  margin-right: 10px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.paused {
+  font-weight: normal;
+  background: #b6b6b6;
+  color: #000000;
+  border-radius: 0px;
+  margin-right: 10px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.list-options a {
+  color: #ffffff;
+  font-size: 20px;
+  padding: 0 0 0 15px;
+}
+
+.status-title {
+  padding: 5px;
+}
+
+.is-active-body {
+  background: #3c3b3a;
+}
+
+.top-ten {
+  margin-top:10px;
 }

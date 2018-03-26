@@ -3,7 +3,9 @@ export class Task {
     taskName: string;
     taskDescription: string;
     taskList: string;
+    taskListName: string;
     taskProject: string;
+    taskProjectName: string;
     taskDeadline: Date;
     taskStarted: boolean;
     taskStatus: string;

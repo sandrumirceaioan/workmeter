@@ -24,7 +24,8 @@ export class TasksService {
     
     async addTask(task): Promise<Task>{
         if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day');
-        if (task.taskDraft) task.taskStatus = 'Draft';
+        if (task.taskDraft) task.taskStatus = 'draft';
+        if (task.createdBy) task.taskAssignedBy = task.createdBy;
         let newTask = new this.taskModel(task);
         try {
             let task = await newTask.save();
@@ -40,20 +41,19 @@ export class TasksService {
             taskDraft: false
         };
         let tasks = await this.taskModel.find(query).sort({created: -1});
-        console.log(tasks);
         return tasks;
     }
 
-    // async oneList(params): Promise<List>{
-    //     let query = {_id: new ObjectId(params.id)};
-    //     try {
-    //         let oneProject = await this.taskModel.findOne(query);
-    //         if (!oneProject) throw new HttpException('List not found!', HttpStatus.BAD_REQUEST);
-    //         return oneProject;
-    //     } catch(e){
-    //         throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+    async oneTask(params): Promise<Task>{
+        let query = {_id: new ObjectId(params.id)};
+        try {
+            let oneTask = await this.taskModel.findOne(query);
+            if (!oneTask) throw new HttpException('Task not found!', HttpStatus.BAD_REQUEST);
+            return oneTask;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // async updateList(params): Promise<List>{
     //     let query = {

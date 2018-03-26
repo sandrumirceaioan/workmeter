@@ -14,14 +14,6 @@
           </a>
         </div>
         <div class="col-sm-2">
-          <a routerLink="./in-progress" class="add-button noselect" [routerLinkActive]="'is-active'">
-              <small>
-                  <i class="fa fa-tasks" aria-hidden="true"></i>
-                  <span>In progress</span>
-              </small>
-          </a>
-        </div>
-        <div class="col-sm-2">
           <a routerLink="./completed" class="add-button noselect" [routerLinkActive]="'is-active'">
               <small>
                   <i class="fa fa-check-square" aria-hidden="true"></i>
@@ -136,27 +128,27 @@
   <!-- show tasks list -->
   <div class="task-container">
         <div class="col-sm-4">
-            <img src="./assets/spinner.gif" *ngIf="loader" class="spinner">
+            <img src="./assets/spinner.gif" *ngIf="loader" class="spinner top-ten">
             <ul class="tasks-list">
                 <li *ngIf="tasks.length == 0 && !loader">
-                        <div class="tsk-body" [ngClass]="{active: 1==1}">
+                        <div class="tsk-body">
                             <span>No tasks in the list...</span>
                         </div>
                         <div class="clearfix"></div>
                 </li>
                 <li *ngFor="let task of tasks">
-                    <div class="tsk-body">
-                            <div class="col-xs-10 text-left">
-                                <span>{{task.taskName}}</span>
-                            </div>
-                            <div class="col-xs-2 text-center list-options">
-                                <div class="col-xs-12 text-right">
-                                    Edit
-                                    <!-- <a href="" [routerLink]="['./', list._id]"><i class="fa fa-edit"></i> Edit</a> -->
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                    </div>
+                    <a [routerLink]="['./', task._id]" class="tsk-body" [routerLinkActive]="'is-active-body'">
+                        <div class="col-xs-10 status-title text-left">
+                            <span class="badge" [ngClass]="setClass(task.taskStatus)">{{task.taskStatus}}</span>
+                            <span>{{task.taskName}}</span>
+                        </div>
+                        <div class="col-xs-2 list-options">
+                            <a href="" class="noselect pull-right">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
                 </li>
             </ul>
         </div>

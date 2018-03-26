@@ -11,6 +11,7 @@ import { UsersService } from '../../shared/services/users/users.service';
 import { ListsService } from '../../shared/services/lists/lists.service';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { TasksService } from '../../shared/services/tasks/tasks.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -40,19 +41,26 @@ export class TasksComponent implements OnInit {
   addState: boolean = false;
   myOptions: INgxMyDpOptions;
   loader: boolean;
-  status: string = 'New';
+  status: string = 'new';
   projects: Project[] = [];
   lists: List[] = [];
   tasks: Task[] = [];
   users: User[] = [];
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private tasksService: TasksService,
     private toastService: ToastService,
     private usersService: UsersService,
     private listsService: ListsService,
     private projectsService: ProjectsService
   ) { }
+
+  setClass(status){
+    let classes = {};
+    classes[status] = true;
+    return classes;
+  }
 
   ngOnInit() {
     // datepicker options
@@ -83,7 +91,9 @@ export class TasksComponent implements OnInit {
       taskName: new FormControl('', Validators.required),
       taskDescription: new FormControl('',Validators.required),
       taskProject: new FormControl('',Validators.required),
+      taskProjectName: new FormControl(''),
       taskList: new FormControl('',Validators.required),
+      taskListName: new FormControl(''),
       taskScored: new FormControl(false),
       taskDraft: new FormControl(false),
       taskDifficulty: new FormControl(''),
@@ -92,6 +102,7 @@ export class TasksComponent implements OnInit {
     });
 
     this.onProjectChanges();
+
   }
 
   onProjectChanges(): void{
@@ -109,6 +120,8 @@ export class TasksComponent implements OnInit {
 
   addTask(draft):void{
     this.taskForm.value.taskDraft = draft;
+    this.taskForm.value.taskListName =  this.listsService.mappedResults[this.taskForm.value.taskList].listName;
+    this.taskForm.value.taskProjectName =  this.projectsService.mappedResults[this.taskForm.value.taskProject].projectName; 
     this.tasksService.addTask(this.taskForm.value).subscribe(
       (result) => {
         this.toastService.toastTrigger({
@@ -133,4 +146,5 @@ export class TasksComponent implements OnInit {
       this.projectsService.getAll().subscribe((result) => {this.projects = result}, (error) => {console.log(error.error.message)});
     }
   }
+
 }

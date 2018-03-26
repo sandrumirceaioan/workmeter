@@ -5,12 +5,14 @@ export const TasksSchema = new mongoose.Schema({
     taskName: String,
     taskDescription: String,
     taskList: String,
+    taskListName: String,
     taskProject: String,
+    taskProjectName: String,
     taskDeadline: Date,
     taskStarted: Boolean,
     taskStatus: {
         type: String,
-        default: 'New'
+        default: 'new'
       },
     taskDifficulty: Number,
     taskScored: Boolean,

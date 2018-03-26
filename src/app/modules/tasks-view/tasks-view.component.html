@@ -1,0 +1,99 @@
+<div class="sub-page-container">
+
+    <!-- lists toolbar -->
+    <div class="row view-toolbar-container">
+        <div class="col-sm-6">
+            <h2>{{task.taskName}}</h2>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a class="add-button noselect" (click)="goBack()">
+                <small>
+                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                    <span>Back to lists</span>
+                </small>
+            </a>
+            <a class="add-button noselect" (click)="goBack()">
+                    <small>
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                        <span>Back to lists</span>
+                    </small>
+            </a>
+            <a class="add-button noselect" (click)="goBack()">
+                    <small>
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                        <span>Back to lists</span>
+                    </small>
+            </a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="task-body">
+        <div class="row task-box">
+            <div class="col-xs-3 task-info">
+                <div class="box-heading"><i class="fa fa-info" aria-hidden="true"></i> General</div>
+                <ul>
+                    <li><small>project:</small> <span>{{task.taskProjectName}}</span></li>
+                    <li><small>list:</small> <span>{{task.taskListName}}</span></li>
+                </ul>
+            </div>
+            <div class="col-xs-3 task-info">
+                <div class="box-heading"><i class="fa fa-exchange" aria-hidden="true"></i> Assigned</div>
+                <ul>
+                    <li><small>created by:</small> <span>{{task.createdBy}}</span></li>
+                    <li><small>assigned by:</small> <span>{{task.taskAssignedBy}}</span></li>
+                </ul>
+            </div>
+            <div class="col-xs-3 task-info">
+                <div class="box-heading"><i class="fa fa-sliders" aria-hidden="true"></i> Status</div>
+                <ul>
+                    <li><small>status:</small> <span>{{task.taskStatus}}</span></li>
+                    <li><small>priority:</small> <span>Medium</span></li>
+                </ul>
+            </div>
+            <div class="col-xs-3 task-info">
+                <div class="box-heading"><i class="fa fa-clock-o" aria-hidden="true"></i> Deadline</div>
+                <ul>
+                    <li><small>deadline:</small> <span>{{task.taskDeadline | date:'yyyy-MM-dd'}}</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row task-box">
+            <div class="col-xs-12 task-description">
+                <div class="box-heading"><i class="fa fa-file-text-o" aria-hidden="true"></i> Description</div>
+                <p>{{task.taskDescription}}</p>
+            </div>
+        </div>
+        <div class="row task-box">
+            <div class="col-xs-12 task-attachments">
+                <div class="box-heading"><i class="fa fa-paperclip" aria-hidden="true"></i> Attachments</div>
+                <p>Feature not implemented yet.</p>
+            </div>
+        </div>
+        <div class="row task-box">
+            <div class="col-xs-12 task-comments">
+                <div class="box-heading"><i class="fa fa-comments-o" aria-hidden="true"></i> Comments</div>
+                <p>Feature not implemented yet.</p>
+            </div>
+        </div>
+    </div>
+
+<!-- update list form -->
+<!-- <div class="list">
+    <form class="list-form" [formGroup]="listForm" (ngSubmit)="updateList()">
+      <div class="list-body">
+          <div class="row">
+              <div class="col-sm-4">
+                  <input type="text" name="listName" class="form-control" placeholder="List Name" formControlName="listName" autofocus [class.invalid]="listForm.controls.listName.invalid && listForm.controls.listName.dirty"/>
+              </div>
+              <div class="col-sm-4">
+                  <input type="text" name="listDescription" class="form-control" placeholder="List description" formControlName="listDescription" [class.invalid]="listForm.controls.listDescription.invalid && listForm.controls.listDescription.dirty">
+              </div>
+              <div class="col-sm-4">
+                  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="listForm.invalid">Update List</button>
+                <span class="clearfix"></span>
+              </div>
+          </div>
+      </div>
+    </form>
+</div> -->
+</div>

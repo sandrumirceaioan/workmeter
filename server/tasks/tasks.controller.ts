@@ -22,10 +22,10 @@ export class TasksController {
         return this.tasksService.allTasks(params);
     }
 
-    // @Post('/one')
-    // async one(@Body() id: string){
-    //     return this.tasksService.oneList(id);
-    // }
+    @Post('/one')
+    async one(@Body() id: string){
+        return this.tasksService.oneTask(id);
+    }
 
     // @Put('/update')
     // @Roles('admin','manager')

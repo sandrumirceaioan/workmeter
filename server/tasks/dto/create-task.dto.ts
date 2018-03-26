@@ -4,7 +4,9 @@ export class CreateTaskDto  {
   @IsString() readonly taskName: string;
   @IsString() readonly taskDescription: string;
   @IsString() readonly taskList: string;
+  @IsString() readonly taskListName: string;
   @IsString() readonly taskProject: string;
+  @IsString() readonly taskProjectName: string;
   @IsDate() taskDeadline: Date;
   @IsBoolean() readonly taskStarted: boolean;
   @IsString() readonly taskStatus: string;

@@ -33,8 +33,8 @@ export class ProjectsService {
         try {
             let project = await newProject.save();
             let list = await this.listsService.addDefaultList({
-                listName: `${project.projectName} default`,
-                listDescription: `Other ${project.projectName} tasks`,
+                listName: `${project.projectName} Default`,
+                listDescription: `Other ${project.projectName} Tasks`,
                 listProject: project._id
             });
             if (!list) throw new HttpException('Default list not created!', HttpStatus.BAD_REQUEST);
