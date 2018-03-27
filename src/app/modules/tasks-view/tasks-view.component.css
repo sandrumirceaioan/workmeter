@@ -38,3 +38,11 @@
   padding: 3px 10px;
   cursor: pointer;
 }
+
+.start {
+  color: #29b302;
+}
+
+.pause {
+  color: #fbae00;
+}

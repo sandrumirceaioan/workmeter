@@ -9,10 +9,10 @@
             <a class="task-buttons noselect" (click)="goBack()">
                 <i class="fa fa-cog" aria-hidden="true"></i>
             </a>
-            <a *ngIf="task.taskStatus != 'started'" class="task-buttons noselect" (click)="updateTask('started')">
+            <a *ngIf="task.taskStatus != 'started'" class="task-buttons start noselect" (click)="updateTask('started')">
                     <i class="fa fa-play" aria-hidden="true"></i>
             </a>
-            <a *ngIf="task.taskStatus == 'started'" class="task-buttons noselect" (click)="updateTask('paused')">
+            <a *ngIf="task.taskStatus == 'started'" class="task-buttons pause noselect" (click)="updateTask('paused')">
                 <i class="fa fa-pause" aria-hidden="true"></i>
             </a>
         </div>
