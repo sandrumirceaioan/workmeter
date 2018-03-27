@@ -25,7 +25,6 @@ export class TasksService {
     async addTask(task): Promise<Task>{
         if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day');
         if (task.taskDraft) task.taskStatus = 'draft';
-        if (task.createdBy) task.taskAssignedBy = task.createdBy;
         let newTask = new this.taskModel(task);
         try {
             let task = await newTask.save();
@@ -55,19 +54,18 @@ export class TasksService {
         }
     }
 
-    // async updateList(params): Promise<List>{
-    //     let query = {
-    //         _id: new ObjectId(params._id)
-    //     };
-    //     let set = _.compactObject(params);
-    //     try {
-    //         let updatedProject = await this.taskModel.findOneAndUpdate(query, set, {new: true});
-    //         if (!updatedProject) throw new HttpException('List not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
-    //         return updatedProject;
-    //     } catch(e){
-    //         throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+    async updateTask(params): Promise<Task>{
+        let query = {
+            _id: new ObjectId(params._id)
+        };
+        try {
+            let updatedProject = await this.taskModel.findOneAndUpdate(query, params, {new: true});
+            if (!updatedProject) throw new HttpException('Task not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
+            return updatedProject;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // async addDefaultList(list): Promise<List>{
     //     let defaultList = new this.taskModel(list);

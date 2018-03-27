@@ -14,7 +14,7 @@ export class CreateTaskDto  {
   @IsBoolean() readonly taskScored: boolean;
   @IsBoolean() readonly taskDraft: boolean;
   @IsString() readonly taskAttachments?: string[];
-  @IsString() readonly taskAssignedBy: string;
+  @IsString() readonly taskModifiedBy: string;
   @IsString() readonly taskAssignedTo: string;
   @IsDate() readonly created?: Date;
   @IsString() readonly createdBy?: string;

@@ -20,6 +20,6 @@ import { TaskResolve } from './task.resolve';
     NgxMyDatePickerModule.forRoot()
   ],
   declarations: [TasksComponent, TasksViewComponent],
-  providers: [CanActivateAuthGuard,TasksService, TaskResolve]
+  providers: [CanActivateAuthGuard, TasksService, TaskResolve, ProjectsResolve, ListsResolve, UsersResolve]
 })
 export class TasksModule { }

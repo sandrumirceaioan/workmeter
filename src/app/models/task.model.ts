@@ -13,8 +13,10 @@ export class Task {
     taskScored: boolean;
     taskDraft: boolean;
     taskAttachments?: string[];
-    taskAssignedBy: string;
+    taskModifiedBy?: string;
+    taskModifiedByName?: string;
     taskAssignedTo: string;
     created?: Date;
     createdBy?: string;
+    createdByName?: string;
 }

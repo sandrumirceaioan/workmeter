@@ -6,23 +6,14 @@
             <h2>{{task.taskName}}</h2>
         </div>
         <div class="col-sm-6 text-right">
-            <a class="add-button noselect" (click)="goBack()">
-                <small>
-                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-                    <span>Back to lists</span>
-                </small>
+            <a class="task-buttons noselect" (click)="goBack()">
+                <i class="fa fa-cog" aria-hidden="true"></i>
             </a>
-            <a class="add-button noselect" (click)="goBack()">
-                    <small>
-                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-                        <span>Back to lists</span>
-                    </small>
+            <a *ngIf="task.taskStatus != 'started'" class="task-buttons noselect" (click)="updateTask('started')">
+                    <i class="fa fa-play" aria-hidden="true"></i>
             </a>
-            <a class="add-button noselect" (click)="goBack()">
-                    <small>
-                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-                        <span>Back to lists</span>
-                    </small>
+            <a *ngIf="task.taskStatus == 'started'" class="task-buttons noselect" (click)="updateTask('paused')">
+                <i class="fa fa-pause" aria-hidden="true"></i>
             </a>
         </div>
         <div class="clearfix"></div>
@@ -39,8 +30,8 @@
             <div class="col-xs-3 task-info">
                 <div class="box-heading"><i class="fa fa-exchange" aria-hidden="true"></i> Assigned</div>
                 <ul>
-                    <li><small>created by:</small> <span>{{task.createdBy}}</span></li>
-                    <li><small>assigned by:</small> <span>{{task.taskAssignedBy}}</span></li>
+                    <li><small>created by:</small> <span>{{task.createdByName}}</span></li>
+                    <li><small>last modified by:</small> <span>{{task.taskModifiedByName}}</span></li>
                 </ul>
             </div>
             <div class="col-xs-3 task-info">

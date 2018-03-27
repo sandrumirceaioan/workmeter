@@ -16,6 +16,7 @@ export class UsersService {
   apiPath: string = '/api/users';
   logged: User;
   users: User[] = [];
+  mappedResults: object = {};
 
   constructor(private http: HttpClient) { }
 
@@ -54,11 +55,19 @@ checkLogged(){
 getAll(): Observable<User[]>{
   return this.http.post(this.apiPath + '/all', {}, httpOptions).map((result: User[]) => {
                   this.users = result;
+                  this.mapedResults(result);
                   return result;
                   })
                   .catch((error:HttpErrorResponse) => {
                       return Observable.throw(error)
                     });
+}
+
+mapedResults(results){
+  let length = results.length;
+  for (let i=0;i<length;i++) {
+    this.mappedResults[results[i]._id] = results[i];
+  }
 }
 
 }

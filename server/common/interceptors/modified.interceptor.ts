@@ -4,11 +4,11 @@ import 'rxjs/add/observable/of';
 import * as jwt_decode from "jwt-decode";
 
 @Interceptor()
-export class Sign implements NestInterceptor {
+export class ModifiedBy implements NestInterceptor {
   intercept(req, context: ExecutionContext, stream$: Observable<any>): Observable<any> {
     let token = req.headers['x-access-token'];
     let decoded = jwt_decode(token);
-    req.body.createdBy = decoded.id;
+    req.body.taskModifiedBy = decoded.id;
     return stream$;
   }
 }

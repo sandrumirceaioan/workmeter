@@ -4,6 +4,9 @@ import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { TasksComponent } from './tasks.component';
 import { TasksViewComponent } from '../tasks-view/tasks-view.component';
 import { TaskResolve } from './task.resolve';
+import { ProjectsResolve } from '../projects/projects.resolve';
+import { ListsResolve } from '../lists/lists.resolve';
+import { UsersResolve } from '../users/users.resolve';
 
 const routes: Routes = [
   {
@@ -15,22 +18,17 @@ const routes: Routes = [
         path: ':id', 
         component: TasksViewComponent,
         data: {title: 'Task', access: ['admin', 'manager', 'user']},
-        canActivate: [CanActivateAuthGuard],
         resolve: {
           task: TaskResolve
         }
       },
-    ]
+    ],
+    resolve: {
+      projects: ProjectsResolve,
+      lists: ListsResolve,
+      users: UsersResolve
+    }
   }
-//   {
-//     path: ':id',
-//     component: ListEditComponent,
-//     data: {title: 'List', access: ['admin', 'manager']},
-//     canActivate: [CanActivateAuthGuard],
-//     resolve: {
-//       project: ListResolve
-//     },
-//   }
 ];
 
 @NgModule({

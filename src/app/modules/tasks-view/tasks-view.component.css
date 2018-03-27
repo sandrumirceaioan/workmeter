@@ -29,3 +29,12 @@
   color: #797979;
   padding: 0px 5px;
 }
+
+.task-buttons {
+  display: block;
+  color: #585858;
+  float: right;
+  font-size: 40px;
+  padding: 3px 10px;
+  cursor: pointer;
+}

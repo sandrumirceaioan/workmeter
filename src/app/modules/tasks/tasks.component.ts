@@ -44,6 +44,7 @@ export class TasksComponent implements OnInit {
   status: string = 'new';
   projects: Project[] = [];
   lists: List[] = [];
+  filteredLists: List[] = [];
   tasks: Task[] = [];
   users: User[] = [];
 
@@ -63,6 +64,13 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit() {
+    // load resolved data
+    this.activatedRoute.data.subscribe((result) => {
+      this.projects = result.projects;
+      this.lists = result.lists;
+      this.users = result.users;
+    });
+
     // datepicker options
     this.myOptions = {
       dateFormat: 'yyyy-mm-dd',
@@ -72,8 +80,9 @@ export class TasksComponent implements OnInit {
 
     // load lazy tasks
     this.loader = true;
-    this.tasksService.getAll(this.usersService.logged).subscribe((result) => {
-      this.tasks = result;
+    this.tasksService.getAll(this.usersService.logged).subscribe(() => {
+      /* tasks from service variable */
+      this.tasks = this.tasksService.tasks;
     },
     (error) => {
       this.toastService.toastTrigger({
@@ -91,9 +100,7 @@ export class TasksComponent implements OnInit {
       taskName: new FormControl('', Validators.required),
       taskDescription: new FormControl('',Validators.required),
       taskProject: new FormControl('',Validators.required),
-      taskProjectName: new FormControl(''),
       taskList: new FormControl('',Validators.required),
-      taskListName: new FormControl(''),
       taskScored: new FormControl(false),
       taskDraft: new FormControl(false),
       taskDifficulty: new FormControl(''),
@@ -110,18 +117,16 @@ export class TasksComponent implements OnInit {
       if (value) {
         this.listsService.getAll({_id: value}).subscribe(
           (result) => {
-            this.lists = result;
+            this.filteredLists = result;
           }, 
           (error) => {console.log(error.error.message)});
       }
-        this.lists = [];
+        this.filteredLists = [];
     });
   }
 
   addTask(draft):void{
     this.taskForm.value.taskDraft = draft;
-    this.taskForm.value.taskListName =  this.listsService.mappedResults[this.taskForm.value.taskList].listName;
-    this.taskForm.value.taskProjectName =  this.projectsService.mappedResults[this.taskForm.value.taskProject].projectName; 
     this.tasksService.addTask(this.taskForm.value).subscribe(
       (result) => {
         this.toastService.toastTrigger({
@@ -138,13 +143,6 @@ export class TasksComponent implements OnInit {
         });
       }
     );
-  }
-
-  loadUsersAndProjects(): void{
-    if (this.addState) {
-      this.usersService.getAll().subscribe((result) => {this.users = result}, (error) => {console.log(error.error.message)});
-      this.projectsService.getAll().subscribe((result) => {this.projects = result}, (error) => {console.log(error.error.message)});
-    }
   }
 
 }

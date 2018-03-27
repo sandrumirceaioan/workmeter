@@ -14,7 +14,7 @@ import * as mongoose from 'mongoose';
     taskScored: boolean;
     taskDraft: boolean;
     taskAttachments?: string[];
-    taskAssignedBy: string;
+    taskModifiedBy: string;
     taskAssignedTo: string;
     created?: Date;
     createdBy?: string;

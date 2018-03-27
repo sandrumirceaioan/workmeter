@@ -18,7 +18,7 @@ export const TasksSchema = new mongoose.Schema({
     taskScored: Boolean,
     taskDraft: Boolean,
     taskAttachments: [],
-    taskAssignedBy: String,
+    taskModifiedBy: String,
     taskAssignedTo: String,
     created: {
         type: Date,

@@ -4,6 +4,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { AuthGuard } from '../common/guards/auth.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Sign } from '../common/interceptors/sign.interceptor';
+import { ModifiedBy } from '../common/interceptors/modified.interceptor';
 
 @Controller('tasks')
 @UseGuards(AuthGuard)
@@ -12,7 +13,7 @@ export class TasksController {
 
     @Post('/add')
     @Roles('admin', 'manager', 'user')
-    @UseInterceptors(Sign)
+    @UseInterceptors(Sign, ModifiedBy)
     async add(@Body() CreateTaskDto: CreateTaskDto){
         return this.tasksService.addTask(CreateTaskDto);
     }
@@ -27,11 +28,13 @@ export class TasksController {
         return this.tasksService.oneTask(id);
     }
 
-    // @Put('/update')
-    // @Roles('admin','manager')
-    // async update(@Body() data: CreateTaskDto){
-    //     return this.tasksService.updateList(data);
-    // }
+    @Put('/update')
+    @Roles('admin','manager', 'user')
+    @UseInterceptors(ModifiedBy)
+    async update(@Body() data: CreateTaskDto){
+        return this.tasksService.updateTask(data);
+    }
+
 
     // @Post('/delete')
     // @Roles('admin')
