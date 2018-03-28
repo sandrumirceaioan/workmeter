@@ -181,7 +181,7 @@
 }
 
 .is-active-body {
-  background: #440066;
+  background: #440066 url(/assets/arright.png) no-repeat right center;
   margin-right: -15px;
 }
 
