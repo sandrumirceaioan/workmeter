@@ -133,7 +133,7 @@
 .tsk-body {
   display:block;
   padding: 10px;
-  background: #410062;
+  background: #3c3b3a;
   margin-top: 10px;
   margin-bottom: 0px;
   color: #ffffff;
@@ -181,7 +181,8 @@
 }
 
 .is-active-body {
-  background: #3c3b3a;
+  background: #440066;
+  margin-right: -15px;
 }
 
 .top-ten {

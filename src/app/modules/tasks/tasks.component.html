@@ -78,7 +78,7 @@
                         </div>
                     <div class="col-sm-6">
                         <select *ngIf="filteredLists.length" name="taskList" class="form-control" id="taskList" formControlName="taskList" [class.invalid]="taskForm.controls.taskList.invalid && taskForm.controls.taskList.dirty">
-                                <option value="">Select List</option>
+                                <option value="" disabled selected>Select List</option>
                                 <option *ngFor="let list of filteredLists" value="{{list._id}}">{{list.listName}}</option>
                         </select>
                     </div>

@@ -114,6 +114,7 @@ export class TasksComponent implements OnInit {
 
   onProjectChanges(): void{
     this.taskForm.get('taskProject').valueChanges.subscribe((value) => {
+      this.taskForm.controls.taskList.setValue('');
       if (value) {
         this.listsService.getAll({_id: value}).subscribe(
           (result) => {
