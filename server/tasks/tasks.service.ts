@@ -54,13 +54,23 @@ export class TasksService {
         }
     }
 
-    async updateTask(params): Promise<Task>{
+    async updateTaskStatus(params): Promise<Task>{
+        if (params.status == 'started') {
+            let check = {
+                taskAssignedTo: params.task.taskAssignedTo,
+                taskStatus: params.status,
+                taskDraft: false
+            };
+            let started = await this.taskModel.findOne(check);
+            if (started) throw new HttpException('One task already started!', HttpStatus.BAD_REQUEST);
+        }
         let query = {
-            _id: new ObjectId(params._id)
+            _id: new ObjectId(params.task._id)
         };
+        params.task.taskStatus = params.status;
         try {
-            let updatedProject = await this.taskModel.findOneAndUpdate(query, params, {new: true});
-            if (!updatedProject) throw new HttpException('Task not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
+            let updatedProject = await this.taskModel.findOneAndUpdate(query, params.task, {new: true});
+            if (!updatedProject) throw new HttpException('Status not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
             return updatedProject;
         } catch(e){
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);

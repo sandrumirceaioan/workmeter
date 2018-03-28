@@ -32,12 +32,11 @@ export class TasksViewComponent implements OnInit {
     });
   }
 
-  updateTask(param): void{
-    this.task.taskStatus = param;
-    this.tasksService.updateStatus(this.task);
-    this.tasksService.updateOne(this.task).subscribe(
+  updateTaskStatus(param): void{
+    this.tasksService.updateOneStatus(this.task, param).subscribe(
       (result) => {
         this.task = result;
+        this.tasksService.updateStatusView(this.task);
         this.translateIds();
       },
       (error) => {

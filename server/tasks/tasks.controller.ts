@@ -5,6 +5,7 @@ import { AuthGuard } from '../common/guards/auth.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Sign } from '../common/interceptors/sign.interceptor';
 import { ModifiedBy } from '../common/interceptors/modified.interceptor';
+import { IsYours } from '../common/interceptors/is-yours.interceptor';
 
 @Controller('tasks')
 @UseGuards(AuthGuard)
@@ -28,11 +29,10 @@ export class TasksController {
         return this.tasksService.oneTask(id);
     }
 
-    @Put('/update')
-    @Roles('admin','manager', 'user')
-    @UseInterceptors(ModifiedBy)
+    @Put('/updateStatus')
+    @UseInterceptors(ModifiedBy, IsYours)
     async update(@Body() data: CreateTaskDto){
-        return this.tasksService.updateTask(data);
+        return this.tasksService.updateTaskStatus(data);
     }
 
 

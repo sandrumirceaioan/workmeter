@@ -9,10 +9,10 @@
             <a class="task-buttons noselect" (click)="goBack()">
                 <i class="fa fa-cog" aria-hidden="true"></i>
             </a>
-            <a *ngIf="task.taskStatus != 'started'" class="task-buttons start noselect" (click)="updateTask('started')">
+            <a *ngIf="task.taskStatus != 'started'" class="task-buttons start noselect" (click)="updateTaskStatus('started')">
                     <i class="fa fa-play" aria-hidden="true"></i>
             </a>
-            <a *ngIf="task.taskStatus == 'started'" class="task-buttons pause noselect" (click)="updateTask('paused')">
+            <a *ngIf="task.taskStatus == 'started'" class="task-buttons pause noselect" (click)="updateTaskStatus('paused')">
                 <i class="fa fa-pause" aria-hidden="true"></i>
             </a>
         </div>
@@ -23,28 +23,28 @@
             <div class="col-xs-3 task-info">
                 <div class="box-heading"><i class="fa fa-info" aria-hidden="true"></i> General</div>
                 <ul>
-                    <li><small>project:</small> <span>{{task.taskProjectName}}</span></li>
-                    <li><small>list:</small> <span>{{task.taskListName}}</span></li>
+                    <li><small>Project:</small> <span>{{task.taskProjectName}}</span></li>
+                    <li><small>List:</small> <span>{{task.taskListName}}</span></li>
                 </ul>
             </div>
             <div class="col-xs-3 task-info">
                 <div class="box-heading"><i class="fa fa-exchange" aria-hidden="true"></i> Assigned</div>
                 <ul>
-                    <li><small>created by:</small> <span>{{task.createdByName}}</span></li>
-                    <li><small>last modified by:</small> <span>{{task.taskModifiedByName}}</span></li>
+                    <li><small>Created by:</small> <span>{{task.createdByName}}</span></li>
+                    <li><small>Last modified by:</small> <span>{{task.taskModifiedByName}}</span></li>
                 </ul>
             </div>
             <div class="col-xs-3 task-info">
                 <div class="box-heading"><i class="fa fa-sliders" aria-hidden="true"></i> Status</div>
                 <ul>
-                    <li><small>status:</small> <span>{{task.taskStatus}}</span></li>
-                    <li><small>priority:</small> <span>Medium</span></li>
+                    <li><small>Status:</small> <span>{{task.taskStatus}}</span></li>
+                    <li><small>Priority:</small> <span>Medium</span></li>
                 </ul>
             </div>
             <div class="col-xs-3 task-info">
                 <div class="box-heading"><i class="fa fa-clock-o" aria-hidden="true"></i> Deadline</div>
                 <ul>
-                    <li><small>deadline:</small> <span>{{task.taskDeadline | date:'yyyy-MM-dd'}}</span></li>
+                    <li><small>Deadline:</small> <span>{{task.taskDeadline | date:'yyyy-MM-dd'}}</span></li>
                 </ul>
             </div>
         </div>

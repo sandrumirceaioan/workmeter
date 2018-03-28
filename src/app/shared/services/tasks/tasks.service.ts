@@ -49,8 +49,12 @@ export class TasksService {
     });
   }
 
-  updateOne(task: Task): Observable<Task>{
-    return this.http.put(this.apiPath + '/update', task, httpOptions).map((result: Task) => {
+  updateOneStatus(task: Task, status: string): Observable<Task>{
+    let params = {
+      task,
+      status
+    };
+    return this.http.put(this.apiPath + '/updateStatus', params, httpOptions).map((result: Task) => {
       this.task = result;
       return result;
     }).catch((error: HttpErrorResponse) => {
@@ -58,8 +62,8 @@ export class TasksService {
     });
   }
 
-  updateStatus(task: Task): void{
-      /* update task status in tasks list */
+  // update task status in tasks list
+  updateStatusView(task: Task): void{
       let length = this.tasks.length;
       for (let i=0; i < length; i++) {
         if (task._id == this.tasks[i]._id) {
