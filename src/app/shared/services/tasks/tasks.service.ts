@@ -8,6 +8,7 @@ import "rxjs/add/observable/of";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { UsersService } from '../users/users.service';
+import { Socket } from 'ng-socket-io';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type':'application/json'})
@@ -18,10 +19,12 @@ export class TasksService {
   apiPath: string = '/api/tasks';
   tasks: Task[] = [];
   task: Task;
+  newTasksSubscription;
 
   constructor(
     private http: HttpClient, 
-    private usersService: UsersService
+    private usersService: UsersService,
+    private socket: Socket
   ) { }
 
   addTask(task: Task): Observable<Task>{
@@ -31,6 +34,19 @@ export class TasksService {
     .catch((error:HttpErrorResponse) => {
       return Observable.throw(error)
     });
+  }
+
+  startGetTasks(){
+    // start receive new tasks subscription
+    this.newTasksSubscription = this.socket.fromEvent("tasks").map((result: Task) => {
+      return result;
+    }).subscribe((result) => {
+      if (result.taskAssignedTo == this.usersService.logged._id) this.tasks.unshift(result);
+    });
+  }
+
+  stopGetTasks(): void{
+    this.newTasksSubscription.unsubscribe();
   }
 
   getAll(user: User): Observable<Task[]>{

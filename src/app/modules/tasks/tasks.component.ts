@@ -12,7 +12,6 @@ import { ListsService } from '../../shared/services/lists/lists.service';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { TasksService } from '../../shared/services/tasks/tasks.service';
 import { ActivatedRoute } from '@angular/router';
-import { Socket } from 'ng-socket-io';
 
 @Component({
   selector: 'app-tasks',
@@ -57,7 +56,6 @@ export class TasksComponent implements OnInit {
     private usersService: UsersService,
     private listsService: ListsService,
     private projectsService: ProjectsService,
-    private socket: Socket
   ) { }
 
   setClass(status){
@@ -115,15 +113,12 @@ export class TasksComponent implements OnInit {
     this.onProjectChanges();
     
     // start receive new tasks subscription
-      this.newTasksSubscription = this.socket.fromEvent("tasks").map((result: Task) => {
-        return result;
-      }).subscribe((result) => {
-        if (result.taskAssignedTo == this.usersService.logged._id) this.tasks.unshift(result);
-      });
+    this.tasksService.startGetTasks();
   }
 
   ngOnDestroy() {
-    this.newTasksSubscription.unsubscribe();
+    // stop receive new tasks subscription
+    this.tasksService.stopGetTasks();
   }
 
   onProjectChanges(): void{
