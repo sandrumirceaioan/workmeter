@@ -6,6 +6,17 @@ import { CreateTaskDto } from "./dto/create-task.dto";
 import { Task } from "./interfaces/tasks.interface";
 import * as _ from 'underscore';
 import * as moment from 'moment';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/map';
+
+import {
+    WebSocketGateway,
+    SubscribeMessage,
+    WsResponse,
+    WebSocketServer,
+    WsException,
+  } from '@nestjs/websockets';
 
 const ObjectId = require('mongoose').Types.ObjectId;
 
@@ -19,15 +30,19 @@ _.mixin({
 });
 
 @Component()
+@WebSocketGateway()
 export class TasksService {
+    @WebSocketServer() private server;
+
     constructor(@InjectModel(TasksSchema) private readonly taskModel: Model<Task>){}
-    
+
     async addTask(task): Promise<Task>{
         if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day');
         if (task.taskDraft) task.taskStatus = 'draft';
         let newTask = new this.taskModel(task);
         try {
             let task = await newTask.save();
+            this.server.emit('tasks', task);
             return task;
         } catch(e){
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,27 +69,44 @@ export class TasksService {
         }
     }
 
-    async updateTaskStatus(params): Promise<Task>{
-        if (params.status == 'started') {
-            let check = {
-                taskAssignedTo: params.task.taskAssignedTo,
-                taskStatus: params.status,
+    async updateTaskStatus(params): Promise<any>{
+        // cannot start/pause drafts
+        if (params.taskDraft) throw new HttpException('This is a draft!', HttpStatus.BAD_REQUEST);
+
+            // pause started task
+            if (!params.taskStarted) {
+                let check = {
+                    taskAssignedTo: params.taskAssignedTo,
+                    taskStarted: true,
+                    taskStatus: 'started',
+                    taskDraft: false
+                };
+                let set = {
+                    taskStarted: false,
+                    taskStatus: 'paused',
+                    taskModifiedBy: params.taskModifiedBy
+                };
+                try {
+                    let pausedTask = await this.taskModel.findOneAndUpdate(check, set, {new: true});
+                } catch(e) {
+                    throw new HttpException(e.message, HttpStatus.I_AM_A_TEAPOT);
+                }
+            }
+
+            // start paused task
+            params.taskStarted = !params.taskStarted;
+            params.taskStatus = params.taskStarted ? 'started' : 'paused'; 
+            let query = {
+                _id: new ObjectId(params._id),
                 taskDraft: false
-            };
-            let started = await this.taskModel.findOne(check);
-            if (started) throw new HttpException('One task already started!', HttpStatus.BAD_REQUEST);
-        }
-        let query = {
-            _id: new ObjectId(params.task._id)
-        };
-        params.task.taskStatus = params.status;
-        try {
-            let updatedProject = await this.taskModel.findOneAndUpdate(query, params.task, {new: true});
-            if (!updatedProject) throw new HttpException('Status not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
-            return updatedProject;
-        } catch(e){
-            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+            }; 
+            try {
+                let startedTask = await this.taskModel.findOneAndUpdate(query, params, {new: true});
+                if (!startedTask) throw new HttpException('Status not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
+                return startedTask;
+            } catch(e){
+                throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
     }
 
     // async addDefaultList(list): Promise<List>{

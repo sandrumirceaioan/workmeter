@@ -139,7 +139,8 @@
                 <li *ngFor="let task of tasks">
                     <a [routerLink]="['./', task._id]" class="tsk-body" [routerLinkActive]="'is-active-body'">
                         <div class="col-xs-10 status-title text-left">
-                            <span class="badge" [ngClass]="setClass(task.taskStatus)">{{task.taskStatus}}</span>
+                            <span class="badge" [ngClass]="setClass(task.taskStatus)">                               {{task.taskStatus}}
+                            </span>
                             <span>{{task.taskName}}</span>
                         </div>
                         <div class="col-xs-2 list-options">

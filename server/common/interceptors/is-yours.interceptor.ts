@@ -13,7 +13,7 @@ export class IsYours implements NestInterceptor {
   intercept(req, context: ExecutionContext, stream$: Observable<any>): Observable<any> {
     let token = req.headers['x-access-token'];
     let decoded = jwt_decode(token);
-    if (decoded.id != req.body.task.taskAssignedTo) 
+    if (decoded.id != req.body.taskAssignedTo) 
     throw new HttpException('Task not yours!', HttpStatus.FORBIDDEN);
     return stream$;
   }

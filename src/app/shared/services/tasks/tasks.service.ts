@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import "rxjs/add/observable/of";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { UsersService } from '../users/users.service';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type':'application/json'})
@@ -18,7 +19,10 @@ export class TasksService {
   tasks: Task[] = [];
   task: Task;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient, 
+    private usersService: UsersService
+  ) { }
 
   addTask(task: Task): Observable<Task>{
     return this.http.post(this.apiPath + '/add', task, httpOptions).map((result: Task) => {
@@ -49,12 +53,8 @@ export class TasksService {
     });
   }
 
-  updateOneStatus(task: Task, status: string): Observable<Task>{
-    let params = {
-      task,
-      status
-    };
-    return this.http.put(this.apiPath + '/updateStatus', params, httpOptions).map((result: Task) => {
+  updateStartedPaused(task: Task): Observable<Task>{
+    return this.http.put(this.apiPath + '/updateStatus', task, httpOptions).map((result: Task) => {
       this.task = result;
       return result;
     }).catch((error: HttpErrorResponse) => {
@@ -66,6 +66,10 @@ export class TasksService {
   updateStatusView(task: Task): void{
       let length = this.tasks.length;
       for (let i=0; i < length; i++) {
+        if (this.tasks[i].taskStatus != 'new') {
+          this.tasks[i].taskStarted = false;
+          this.tasks[i].taskStatus = 'paused';
+        }
         if (task._id == this.tasks[i]._id) {
           this.tasks[i].taskStatus = task.taskStatus;
         }

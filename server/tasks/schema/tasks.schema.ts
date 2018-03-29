@@ -9,7 +9,10 @@ export const TasksSchema = new mongoose.Schema({
     taskProject: String,
     taskProjectName: String,
     taskDeadline: Date,
-    taskStarted: Boolean,
+    taskStarted: {
+      type: Boolean,
+      default: false
+    },
     taskStatus: {
         type: String,
         default: 'new'

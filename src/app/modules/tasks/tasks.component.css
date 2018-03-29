@@ -133,7 +133,7 @@
 .tsk-body {
   display:block;
   padding: 10px;
-  background: #3c3b3a;
+  background: #45006c;
   margin-top: 10px;
   margin-bottom: 0px;
   color: #ffffff;
@@ -144,6 +144,16 @@
   font-weight: normal;
   background: #ffffff;
   color: #000000;
+  border-radius: 0px;
+  margin-right: 10px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.new {
+  font-weight: normal;
+  background: #ffffff;
+  color: #585858;
   border-radius: 0px;
   margin-right: 10px;
   min-width: 60px;
@@ -181,7 +191,7 @@
 }
 
 .is-active-body {
-  background: #440066 url(/assets/arright.png) no-repeat right center;
+  background: #4e4e4e url(/assets/arright.png) no-repeat right center;
   margin-right: -15px;
 }
 

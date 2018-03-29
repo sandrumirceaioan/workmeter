@@ -32,8 +32,14 @@ export class TasksViewComponent implements OnInit {
     });
   }
 
-  updateTaskStatus(param): void{
-    this.tasksService.updateOneStatus(this.task, param).subscribe(
+  setClass(status){
+    let classes = {};
+      classes[status] = true;
+    return classes;
+  }
+
+  updateStartedPaused(): void{
+    this.tasksService.updateStartedPaused(this.task).subscribe(
       (result) => {
         this.task = result;
         this.tasksService.updateStatusView(this.task);

@@ -9,10 +9,10 @@
             <a class="task-buttons noselect" (click)="goBack()">
                 <i class="fa fa-cog" aria-hidden="true"></i>
             </a>
-            <a *ngIf="task.taskStatus != 'started'" class="task-buttons start noselect" (click)="updateTaskStatus('started')">
+            <a *ngIf="!task.taskStarted" class="task-buttons start noselect" (click)="updateStartedPaused()">
                     <i class="fa fa-play" aria-hidden="true"></i>
             </a>
-            <a *ngIf="task.taskStatus == 'started'" class="task-buttons pause noselect" (click)="updateTaskStatus('paused')">
+            <a *ngIf="task.taskStarted" class="task-buttons pause noselect" (click)="updateStartedPaused()">
                 <i class="fa fa-pause" aria-hidden="true"></i>
             </a>
         </div>
@@ -37,7 +37,7 @@
             <div class="col-xs-3 task-info">
                 <div class="box-heading"><i class="fa fa-sliders" aria-hidden="true"></i> Status</div>
                 <ul>
-                    <li><small>Status:</small> <span>{{task.taskStatus}}</span></li>
+                    <li><small>Status:</small> <span [ngClass]="setClass(task.taskStatus)">{{task.taskStatus}}</span></li>
                     <li><small>Priority:</small> <span>Medium</span></li>
                 </ul>
             </div>
