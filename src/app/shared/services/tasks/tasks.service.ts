@@ -49,6 +49,11 @@ export class TasksService {
     this.newTasksSubscription.unsubscribe();
   }
 
+  taskSubscription(): Observable<Task>{
+    console.log('intra aici');
+    return Observable.of(this.task);
+  }
+
   getAll(user: User): Observable<Task[]>{
     return this.http.post(this.apiPath + '/all', user, httpOptions).map((result: Task[]) => {
                     this.tasks = result;
@@ -62,6 +67,7 @@ export class TasksService {
   getOne(params): Observable<Task>{
     return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: Task) => {
       this.task = result;
+      this.taskSubscription();
       return result;
     })
     .catch((error:HttpErrorResponse) => {

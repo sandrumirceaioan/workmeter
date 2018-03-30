@@ -14,6 +14,7 @@ import { ToastService } from '../../shared/services/toast/toast.service';
 })
 export class TasksViewComponent implements OnInit {
   task: Task;
+  updateState: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private projectsService: ProjectsService,

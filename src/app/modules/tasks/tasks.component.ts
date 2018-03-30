@@ -41,7 +41,6 @@ export class TasksComponent implements OnInit {
   addState: boolean = false;
   myOptions: INgxMyDpOptions;
   loader: boolean;
-  status: string = 'new';
   projects: Project[] = [];
   lists: List[] = [];
   filteredLists: List[] = [];
