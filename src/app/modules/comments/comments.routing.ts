@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListEditComponent } from '../list-edit/list-edit.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { CommentsComponent } from './comments.component';
 
