@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../../models/task.model';
 import { List } from '../../models/list.model';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
@@ -21,6 +21,7 @@ export class TasksViewComponent implements OnInit {
   updateState: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private projectsService: ProjectsService,
     private listsService: ListsService,
     private usersService: UsersService,

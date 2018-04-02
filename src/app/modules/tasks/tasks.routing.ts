@@ -7,21 +7,30 @@ import { TaskResolve } from './task.resolve';
 import { ProjectsResolve } from '../projects/projects.resolve';
 import { ListsResolve } from '../lists/lists.resolve';
 import { UsersResolve } from '../users/users.resolve';
+import { CommentsComponent } from '../comments/comments.component';
 
 const routes: Routes = [
   {
     path: '',
     component: TasksComponent,
-    data: {title: 'Tasks', access: ['admin','manager', 'user']},
+    data: { title: 'Tasks', access: ['admin', 'manager', 'user'] },
     children: [
       {
-        path: ':id', 
+        path: ':id',
         component: TasksViewComponent,
-        data: {title: 'Task', access: ['admin', 'manager', 'user']},
+        data: { title: 'Task', access: ['admin', 'manager', 'user'] },
         resolve: {
           task: TaskResolve
         }
       },
+      {
+        path: ':id/comments',
+        loadChildren:  '../comments/comments.module#CommentsModule',
+        data: { title: 'Task Comments', access: ['admin', 'manager', 'user'] },
+        resolve: {
+          task: TaskResolve
+        }
+      }
     ],
     resolve: {
       projects: ProjectsResolve,
@@ -32,7 +41,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes)],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class TasksRoutingModule { }
