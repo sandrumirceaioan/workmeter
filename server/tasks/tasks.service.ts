@@ -109,6 +109,21 @@ export class TasksService {
             }
     }
 
+    async updateTaskInfo(task): Promise<Task>{
+        if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day');
+        if (task.taskDraft) task.taskStatus = 'draft';
+
+        let query = {_id: new ObjectId(task._id)};
+        let set = _.omit(task, '_id');
+
+        try {
+            let updatedTask = await this.taskModel.findOneAndUpdate(query, set, {new: true});
+            return updatedTask;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // async addDefaultList(list): Promise<List>{
     //     let defaultList = new this.taskModel(list);
     //     try {

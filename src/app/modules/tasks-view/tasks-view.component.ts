@@ -7,6 +7,7 @@ import { ListsService } from '../../shared/services/lists/lists.service';
 import { UsersService } from '../../shared/services/users/users.service';
 import { TasksService } from '../../shared/services/tasks/tasks.service';
 import { ToastService } from '../../shared/services/toast/toast.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-tasks-view',
@@ -15,6 +16,8 @@ import { ToastService } from '../../shared/services/toast/toast.service';
 })
 export class TasksViewComponent implements OnInit {
   task: Task;
+  list: any;
+  users: User[];
   updateState: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -26,11 +29,12 @@ export class TasksViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.users = this.usersService.users;
     this.activatedRoute.data
       .map((result) => { return result.task })
       .subscribe((result) => {
         this.task = result;
+        this.list = {_id: this.task.taskList, listName: this.task.taskListName};
         this.translateIds();
       });
   }
@@ -45,7 +49,7 @@ export class TasksViewComponent implements OnInit {
     this.tasksService.updateStartedPaused(this.task).subscribe(
       (result) => {
         this.task = result;
-        this.tasksService.updateStatusView(this.task);
+        this.tasksService.updateListView(this.task);
         this.translateIds();
       },
       (error) => {
@@ -55,6 +59,13 @@ export class TasksViewComponent implements OnInit {
         });
       }
     );
+  }
+
+  taskUpdated(event): void{
+    this.updateState = event.formStatus;
+    this.task = event.newTask;
+    this.tasksService.updateListView(this.task);
+    this.translateIds();
   }
 
   translateIds(): void {

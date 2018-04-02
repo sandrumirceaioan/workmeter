@@ -35,6 +35,11 @@ export class TasksController {
         return this.tasksService.updateTaskStatus(data);
     }
 
+    @Put('/updateInfo')
+    @UseInterceptors(ModifiedBy)
+    async updateInfo(@Body() data: CreateTaskDto){
+        return this.tasksService.updateTaskInfo(data);
+    }
 
     // @Post('/delete')
     // @Roles('admin')

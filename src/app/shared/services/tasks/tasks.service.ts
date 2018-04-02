@@ -77,7 +77,7 @@ export class TasksService {
   }
 
   // update task status in tasks list
-  updateStatusView(task: Task): void {
+  updateListView(task: Task): void {
     let length = this.tasks.length;
     for (let i = 0; i < length; i++) {
       if (this.tasks[i].taskStatus != 'new') {
@@ -85,9 +85,18 @@ export class TasksService {
         this.tasks[i].taskStatus = 'paused';
       }
       if (task._id == this.tasks[i]._id) {
-        this.tasks[i].taskStatus = task.taskStatus;
+        this.tasks[i] = task;
       }
     }
+  }
+
+  updateInfo(task: Task): Observable<Task>{
+    return this.http.put(this.apiPath + '/updateInfo', task, httpOptions).map((result: Task) => {
+      this.task = result;
+      return result;
+    }).catch((error: HttpErrorResponse) => {
+      return Observable.throw(error);
+    })
   }
 
   // deleteOne(params): Observable<Task>{

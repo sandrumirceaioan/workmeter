@@ -4,11 +4,10 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw'
 import * as jwt_decode from "jwt-decode";
-import { TasksService } from '../../tasks/tasks.service';
 
 @Interceptor()
 export class IsYours implements NestInterceptor {
-  constructor(private tasksService: TasksService){}
+  constructor(){}
 
   intercept(req, context: ExecutionContext, stream$: Observable<any>): Observable<any> {
     let token = req.headers['x-access-token'];

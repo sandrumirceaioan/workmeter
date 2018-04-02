@@ -51,3 +51,13 @@
     background: #00c10f;
     height: 40px;
   }
+
+  .btn-check {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  
+  .btn-check input {
+    margin: 10px 5px;
+  }
