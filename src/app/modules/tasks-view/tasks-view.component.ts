@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Task } from '../../models/task.model';
+import { List } from '../../models/list.model';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { ListsService } from '../../shared/services/lists/lists.service';
 import { UsersService } from '../../shared/services/users/users.service';
@@ -25,21 +26,22 @@ export class TasksViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.activatedRoute.data
-    .map((result) => {return result.task})
-    .subscribe((result) => {
-      this.task = result;
-      this.translateIds();
-    });
+      .map((result) => { return result.task })
+      .subscribe((result) => {
+        this.task = result;
+        this.translateIds();
+      });
   }
 
-  setClass(status){
+  setClass(status) {
     let classes = {};
-      classes[status] = true;
+    classes[status] = true;
     return classes;
   }
 
-  updateStartedPaused(): void{
+  updateStartedPaused(): void {
     this.tasksService.updateStartedPaused(this.task).subscribe(
       (result) => {
         this.task = result;
@@ -49,13 +51,13 @@ export class TasksViewComponent implements OnInit {
       (error) => {
         this.toastService.toastTrigger({
           message: error.error.message,
-          options: {type: 'error'}
+          options: { type: 'error' }
         });
       }
     );
   }
 
-  translateIds(): void{
+  translateIds(): void {
     this.task.taskProjectName = this.projectsService.mappedResults[this.task.taskProject].projectName;
     this.task.taskListName = this.listsService.mappedResults[this.task.taskList].listName;
     this.task.createdByName = this.usersService.mappedResults[this.task.createdBy].userName;

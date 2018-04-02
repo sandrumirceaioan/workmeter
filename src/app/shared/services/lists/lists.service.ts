@@ -15,6 +15,7 @@ const httpOptions = {
 export class ListsService {
   apiPath: string = '/api/lists';
   list: List;
+  taskLists: List[];
   mappedResults: object = {};
 
   constructor(private http: HttpClient) { }

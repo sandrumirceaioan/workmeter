@@ -1,7 +1,6 @@
 <div class="sub-page-container">
     <div *ngIf="updateState" class="overlay" (click)="updateState = false"></div>
     <task-update-form [task]="task" *ngIf="updateState"></task-update-form>
-
     <!-- lists toolbar -->
     <div class="row view-toolbar-container">
         <div class="col-sm-6">

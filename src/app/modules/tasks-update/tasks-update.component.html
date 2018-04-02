@@ -1,5 +1,5 @@
 <div class="task col-lg-6 col-md-8 col-sm-10" [@fadeIn]="''">
-    <form class="task-form" [formGroup]="updateTaskForm" (ngSubmit)="addTask(false)">
+    <form class="task-form" [formGroup]="updateTaskForm" (ngSubmit)="updateTask()">
         <div class="task-header">
             <h3># update task</h3>
         </div>
@@ -18,31 +18,16 @@
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    <select name="taskProject" class="form-control" id="taskProject" formControlName="taskProject" [class.invalid]="updateTaskForm.controls.taskProject.invalid && updateTaskForm.controls.taskProject.dirty">
-                        <option value="">Select Project</option>
-                        <option *ngFor="let project of projects" value="{{project._id}}">
-                            {{project.projectName}}
-                        </option>
-                    </select>
-                </div>
-                <div class="col-sm-6">
-                    <select name="taskList" class="form-control" id="taskList" formControlName="taskList" [class.invalid]="updateTaskForm.controls.taskList.invalid && updateTaskForm.controls.taskList.dirty">
-                        <option value="" disabled selected>Select List</option>
-                        <option *ngFor="let list of lists" value="{{list._id}}">{{list.listName}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
                     <select name="taskAssignedTo" class="form-control" id="taskAssignedTo" formControlName="taskAssignedTo" [class.invalid]="updateTaskForm.controls.taskAssignedTo.invalid && updateTaskForm.controls.taskAssignedTo.dirty">
                         <option value="">Assign to</option>
                         <option *ngFor="let user of users" value="{{user._id}}">{{user.userName}}</option>
                     </select>
                 </div>
                 <div class="col-sm-6">
-                    <input *ngIf="updateTaskForm.controls.taskAssignedTo.value" class="form-control" placeholder="Task Deadline" ngx-mydatepicker name="taskDeadline"
-                        formControlName="taskDeadline" [options]="myOptions" #dp="ngx-mydatepicker" (click)="dp.toggleCalendar()"
-                        [class.invalid]="updateTaskForm.controls.taskDeadline.errors && updateTaskForm.controls.taskDeadline.dirty" />
+                    <input *ngIf="updateTaskForm.controls.taskAssignedTo.value" class="form-control" placeholder="Task Deadline" ngx-mydatepicker
+                        name="taskDeadline" formControlName="taskDeadline" [options]="myOptions" #dp="ngx-mydatepicker" (click)="dp.toggleCalendar()"
+                        [class.invalid]="updateTaskForm.controls.taskDeadline.errors && updateTaskForm.controls.taskDeadline.dirty"
+                    />
                 </div>
             </div>
             <div class="row">
@@ -66,11 +51,8 @@
         </div>
         <div class="task-footer-add">
             <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-12">
                     <button class="btn btn-lg btn-primary btn-block col-sm-10" type="submit" [disabled]="updateTaskForm.invalid">Add task</button>
-                </div>
-                <div class="col-sm-2">
-                    <button [disabled]="!updateTaskForm.controls.taskName.value" class="btn btn-lg btn-primary btn-block col-sm-10" type="button" (click)="addTask(true)">Draft</button>
                 </div>
             </div>
             <span class="clearfix"></span>

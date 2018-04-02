@@ -9,9 +9,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { UsersService } from '../users/users.service';
 import { Socket } from 'ng-socket-io';
+import { Subject } from 'rxjs/Subject';
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type':'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable()
@@ -22,21 +23,20 @@ export class TasksService {
   newTasksSubscription;
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private usersService: UsersService,
     private socket: Socket
   ) { }
 
-  addTask(task: Task): Observable<Task>{
+  addTask(task: Task): Observable<Task> {
     return this.http.post(this.apiPath + '/add', task, httpOptions).map((result: Task) => {
       return result;
-    })
-    .catch((error:HttpErrorResponse) => {
-      return Observable.throw(error)
-    });
+    }).catch((error: HttpErrorResponse) => {
+        return Observable.throw(error)
+      });
   }
 
-  startGetTasks(){
+  startGetTasks() {
     // start receive new tasks subscription
     this.newTasksSubscription = this.socket.fromEvent("tasks").map((result: Task) => {
       return result;
@@ -45,37 +45,29 @@ export class TasksService {
     });
   }
 
-  stopGetTasks(): void{
+  stopGetTasks(): void {
     this.newTasksSubscription.unsubscribe();
   }
 
-  taskSubscription(): Observable<Task>{
-    console.log('intra aici');
-    return Observable.of(this.task);
-  }
-
-  getAll(user: User): Observable<Task[]>{
+  getAll(user: User): Observable<Task[]> {
     return this.http.post(this.apiPath + '/all', user, httpOptions).map((result: Task[]) => {
-                    this.tasks = result;
-                    return;
-                    })
-                    .catch((error:HttpErrorResponse) => {
-                      return Observable.throw(error)
-                    });
+      this.tasks = result;
+      return;
+    }).catch((error: HttpErrorResponse) => {
+        return Observable.throw(error)
+      });
   }
 
-  getOne(params): Observable<Task>{
+  getOne(params): Observable<Task> {
     return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: Task) => {
       this.task = result;
-      this.taskSubscription();
       return result;
-    })
-    .catch((error:HttpErrorResponse) => {
-      return Observable.throw(error);
-    });
+    }).catch((error: HttpErrorResponse) => {
+        return Observable.throw(error);
+      });
   }
 
-  updateStartedPaused(task: Task): Observable<Task>{
+  updateStartedPaused(task: Task): Observable<Task> {
     return this.http.put(this.apiPath + '/updateStatus', task, httpOptions).map((result: Task) => {
       this.task = result;
       return result;
@@ -85,17 +77,17 @@ export class TasksService {
   }
 
   // update task status in tasks list
-  updateStatusView(task: Task): void{
-      let length = this.tasks.length;
-      for (let i=0; i < length; i++) {
-        if (this.tasks[i].taskStatus != 'new') {
-          this.tasks[i].taskStarted = false;
-          this.tasks[i].taskStatus = 'paused';
-        }
-        if (task._id == this.tasks[i]._id) {
-          this.tasks[i].taskStatus = task.taskStatus;
-        }
+  updateStatusView(task: Task): void {
+    let length = this.tasks.length;
+    for (let i = 0; i < length; i++) {
+      if (this.tasks[i].taskStatus != 'new') {
+        this.tasks[i].taskStarted = false;
+        this.tasks[i].taskStatus = 'paused';
       }
+      if (task._id == this.tasks[i]._id) {
+        this.tasks[i].taskStatus = task.taskStatus;
+      }
+    }
   }
 
   // deleteOne(params): Observable<Task>{
