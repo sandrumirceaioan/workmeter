@@ -9,7 +9,7 @@ export const ProjectsSchema = new mongoose.Schema({
     projectOwner: String,
     created: {
         type: Date,
-        default: new Date()
+        default: function(){return new Date().getTime()}
     },
     createdBy: String
 });

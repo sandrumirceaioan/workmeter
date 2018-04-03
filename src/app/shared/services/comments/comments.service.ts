@@ -34,21 +34,21 @@ export class CommentsService {
 
   getAll(params): Observable<Comment[]>{
     return this.http.post(this.apiPath + '/all', params, httpOptions).map((results: Comment[]) => {
-                this.comments = this.mappedComments(results);
-                return this.mappedComments(results);
-                    })
-                    .catch((error:HttpErrorResponse) => {
-                      return Observable.throw(error)
-                    });
+                this.comments = results;
+                  return results;
+                })
+                  .catch((error:HttpErrorResponse) => {
+                    return Observable.throw(error)
+                  });
   }
 
-  mappedComments(results): Comment[]{
-    let comments = results.map((value) => {
-      value.createdByName = this.usersService.mappedResults[value.createdBy].userName;
-      return value;
-    });
-    return comments;
-  }
+  // mappedComments(results): Comment[]{
+  //   let comments = results.map((value) => {
+  //     value.createdByName = this.usersService.mappedResults[value.createdBy].userName;
+  //     return value;
+  //   });
+  //   return comments;
+  // }
   
 
 }

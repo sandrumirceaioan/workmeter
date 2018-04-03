@@ -40,21 +40,17 @@
 <!-- show comments -->
 <div class="comments-container">
       <img src="./assets/spinner.gif" *ngIf="loader" class="spinner">
-      <ul class="comments-list">
-      <li *ngFor="let comment of comments">
-          <div class="comment-body">
-                  <div class="col-xs-10 text-left">
-                      <span>{{comment.createdByName}} - <small><i>{{comment.commentDescription}}</i></small></span>
-                  </div>
-                  <div class="col-xs-2 text-center comment-options">
-                      <div class="col-xs-12 text-right">
-                          <a href="" [routerLink]="['./', comment._id]"><i class="fa fa-edit"></i> Edit</a>
-                      </div>
-                  </div>
-                  <div class="clearfix"></div>
-          </div>
-      </li>
-      </ul>
-  <div class="clearfix"></div>
+        <div class="row comment-body" *ngFor="let comment of comments">
+            <div class="col-sm-3 comment-user">
+                <img src="./assets/user.png" class="user-icon">
+                <span class="user-name">{{comment.createdByName}}</span>
+                <br />
+                <span class="comment-date">{{comment.created | date:'dd-MM-yyyy, h:mm a'}}</span>
+            </div>
+            <div class="col-sm-9 comment-message">
+                {{comment.commentDescription}}
+            </div>
+            <div class="clearfix"></div>
+        </div>
 </div>
 </div>

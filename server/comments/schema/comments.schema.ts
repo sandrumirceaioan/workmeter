@@ -8,7 +8,7 @@ export const CommentsSchema = new mongoose.Schema({
     commentModifiedBy: String,
     created: {
         type: Date,
-        default: new Date()
+        default: function(){return new Date().getTime()}
       },
     createdBy: String,
 });

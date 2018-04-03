@@ -18,7 +18,7 @@ export const UsersSchema = new mongoose.Schema({
   userStatus: Number,
   created: {
     type: Date,
-    default: new Date()
+    default: function(){return new Date().getTime()}
   }
 }).plugin(mongooseHidden({
     defaultHidden: {password: true}

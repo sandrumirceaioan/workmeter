@@ -6,6 +6,7 @@ import { CommentsService } from '../../shared/services/comments/comments.service
 import { TasksService } from '../../shared/services/tasks/tasks.service';
 import { ToastService } from '../../shared/services/toast/toast.service';
 import { Task } from '../../models/task.model';
+import { UsersService } from '../../shared/services/users/users.service';
 
 @Component({
   selector: 'app-comments',
@@ -23,19 +24,23 @@ export class CommentsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
     private commentsService: CommentsService,
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private usersService: UsersService
   ) { }
 
   ngOnInit() {
-    // get comments for current task
+    // get task id from params
     this.activatedRoute.params.subscribe(
       (result) => {
         this.taskId = result.id;
       }
     );
+
+    // get comments for current task
     this.loader = true;
-    this.commentsService.getAll({_id: this.taskId._id}).subscribe((result) => {
+    this.commentsService.getAll({_id: this.taskId}).subscribe((result) => {
         this.comments = result;
+        this.translateIds();
       },
       (error) => {
         this.toastService.toastTrigger({
@@ -54,12 +59,13 @@ export class CommentsComponent implements OnInit {
     });
   }
 
+  // add comment for current task
   addComment(): void{
-    console.log(this.commentForm.value);
     this.commentsService.addComment(this.commentForm.value).subscribe(
       (result) => {
         this.comments = this.commentsService.comments;
-        this.commentForm.reset();
+        this.translateIds();
+        this.commentForm.controls['commentDescription'].reset();
         this.addState = false;
       },
       (error) => {
@@ -70,5 +76,12 @@ export class CommentsComponent implements OnInit {
       }
     )
   }
-
+  
+  // replace id with names using mapped results
+  translateIds(): void {
+    this.comments = this.comments.map((value) => {
+      value.createdByName = this.usersService.mappedResults[value.createdBy].userName;
+      return value;
+    });
+  }
 }

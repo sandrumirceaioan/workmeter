@@ -34,7 +34,7 @@ export const TasksSchema = new mongoose.Schema({
     taskAssignedTo: String,
     created: {
         type: Date,
-        default: new Date()
+        default: function(){return new Date().getTime()}
       },
     createdBy: String,
 });
