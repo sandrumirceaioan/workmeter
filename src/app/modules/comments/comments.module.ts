@@ -6,6 +6,7 @@ import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { ListsFilterPipe } from '../../shared/filters/lists-filter.pipe';
 import { CommentsComponent } from './comments.component';
 import { CommentsRoutingModule } from './comments.routing';
+import { CommentsService } from '../../shared/services/comments/comments.service';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import { CommentsRoutingModule } from './comments.routing';
     CommentsRoutingModule
   ],
   declarations: [CommentsComponent],
-  providers: [CanActivateAuthGuard]
+  providers: [CanActivateAuthGuard, CommentsService]
 })
 
 export class CommentsModule { }

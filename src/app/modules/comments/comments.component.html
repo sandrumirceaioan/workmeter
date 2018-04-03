@@ -1,3 +1,60 @@
-<p>
-  comments works!
-</p>
+<div class="sub-page-container">
+
+  <!-- comments toolbar -->
+  <div class="row view-toolbar-container">
+      <div class="col-sm-6">
+          <h2>Task Comments</h2>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a class="add-button noselect" (click)="addState = !addState">
+              <small *ngIf="addState">
+                  <i class="fa fa-minus-circle" aria-hidden="true"></i> 
+              <span>Add new comment</span>
+            </small>
+            <small *ngIf="!addState">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> 
+              <span>Add new comment</span>
+            </small>
+            </a>
+      </div>
+      <div class="clearfix"></div>
+  </div>
+
+<!-- add comment form -->
+<div *ngIf="addState" class="comment">
+    <form class="comment-form" [formGroup]="commentForm" (ngSubmit)="addComment()">
+      <div class="comment-body">
+          <div class="row">
+              <div class="col-sm-8">
+                  <textarea name="commentDescription" class="form-control" placeholder="Add comment here" formControlName="commentDescription" rows="1" [class.invalid]="commentForm.controls.commentDescription.invalid && commentForm.controls.commentDescription.dirty"></textarea>
+              </div>
+              <div class="col-sm-4">
+                  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="commentForm.invalid">Add Comment</button>
+                <span class="clearfix"></span>
+              </div>
+          </div>
+      </div>
+    </form>
+</div>
+
+<!-- show comments -->
+<div class="comments-container">
+      <img src="./assets/spinner.gif" *ngIf="loader" class="spinner">
+      <ul class="comments-list">
+      <li *ngFor="let comment of comments">
+          <div class="comment-body">
+                  <div class="col-xs-10 text-left">
+                      <span>{{comment.createdByName}} - <small><i>{{comment.commentDescription}}</i></small></span>
+                  </div>
+                  <div class="col-xs-2 text-center comment-options">
+                      <div class="col-xs-12 text-right">
+                          <a href="" [routerLink]="['./', comment._id]"><i class="fa fa-edit"></i> Edit</a>
+                      </div>
+                  </div>
+                  <div class="clearfix"></div>
+          </div>
+      </li>
+      </ul>
+  <div class="clearfix"></div>
+</div>
+</div>

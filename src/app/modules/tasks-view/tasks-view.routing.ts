@@ -16,10 +16,10 @@ const routes: Routes = [
       {
         path: 'comments',
         loadChildren:  '../comments/comments.module#CommentsModule',
-        data: { title: 'Task Comments', access: ['admin', 'manager', 'user'] },
-        resolve: {
-          task: TaskResolve
-        }
+        data: { title: 'Task Comments', access: ['admin', 'manager', 'user'] }
+        // resolve: {
+        //   task: TaskResolve
+        // }
       }
 ];
 

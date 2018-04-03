@@ -36,7 +36,7 @@ export class TasksService {
       });
   }
 
-  startGetTasks() {
+  startGetTasks(): void{
     // start receive new tasks subscription
     this.newTasksSubscription = this.socket.fromEvent("tasks").map((result: Task) => {
       return result;

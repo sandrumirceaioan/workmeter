@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: CommentsComponent,
-    data: {title: 'Comments', access: ['admin','manager']},
+    data: {title: 'Comments', access: ['admin','manager', 'user']},
     canActivate: [CanActivateAuthGuard]
   },
   // {
