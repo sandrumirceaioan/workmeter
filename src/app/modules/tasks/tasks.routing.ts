@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { TasksComponent } from './tasks.component';
-import { TasksViewComponent } from '../tasks-view/tasks-view.component';
 import { TaskResolve } from './task.resolve';
 import { ProjectsResolve } from '../projects/projects.resolve';
 import { ListsResolve } from '../lists/lists.resolve';
@@ -17,19 +16,8 @@ const routes: Routes = [
     children: [
       {
         path: ':id',
-        component: TasksViewComponent,
+        loadChildren:  '../tasks-view/tasks-view.module#TasksViewModule',
         data: { title: 'Task', access: ['admin', 'manager', 'user'] },
-        resolve: {
-          task: TaskResolve
-        }
-      },
-      {
-        path: ':id/comments',
-        loadChildren:  '../comments/comments.module#CommentsModule',
-        data: { title: 'Task Comments', access: ['admin', 'manager', 'user'] },
-        resolve: {
-          task: TaskResolve
-        }
       }
     ],
     resolve: {

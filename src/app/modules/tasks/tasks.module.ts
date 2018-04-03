@@ -20,7 +20,14 @@ import { TasksUpdateComponent } from '../tasks-update/tasks-update.component';
     TasksRoutingModule,
     NgxMyDatePickerModule.forRoot()
   ],
-  declarations: [TasksComponent, TasksViewComponent, TasksUpdateComponent],
-  providers: [CanActivateAuthGuard, TasksService, TaskResolve, ProjectsResolve, ListsResolve, UsersResolve]
+  declarations: [TasksComponent],
+  providers: [
+    CanActivateAuthGuard,
+    TasksService,
+    TaskResolve,
+    ProjectsResolve,
+    ListsResolve,
+    UsersResolve
+  ]
 })
 export class TasksModule { }
