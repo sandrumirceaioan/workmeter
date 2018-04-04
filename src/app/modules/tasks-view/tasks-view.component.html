@@ -1,12 +1,6 @@
 <div class="sub-page-container">
     <div *ngIf="updateState" class="overlay" (click)="updateState = false"></div>
-    <task-update-form 
-        (updated)="taskUpdated($event)"
-        [task]="task" 
-        [projects]="projects" 
-        [list]="list"
-        [users]="users" 
-        *ngIf="updateState">
+    <task-update-form (updated)="taskUpdated($event)" [task]="task" [projects]="projects" [list]="list" [users]="users" *ngIf="updateState">
     </task-update-form>
     <!-- task toolbar -->
     <div class="row view-toolbar-container">
@@ -28,7 +22,7 @@
                 </a>
             </div>
             <div class="col-xs-3">
-                <a routerLink="./comments" class="task-buttons noselect">
+                <a class="task-buttons noselect">
                     <i class="fa fa-comments" aria-hidden="true"></i>
                 </a>
             </div>
@@ -110,11 +104,7 @@
             </div>
         </div>
         <div class="row task-box">
-            <div class="col-xs-12 task-comments">
-                <div class="box-heading">
-                    <i class="fa fa-comments-o" aria-hidden="true"></i> Comments</div>
-                <p>Feature not implemented yet.</p>
-            </div>
+            <task-comments></task-comments>
         </div>
     </div>
 </div>
