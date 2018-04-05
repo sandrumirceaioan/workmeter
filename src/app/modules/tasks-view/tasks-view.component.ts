@@ -8,6 +8,7 @@ import { UsersService } from '../../shared/services/users/users.service';
 import { TasksService } from '../../shared/services/tasks/tasks.service';
 import { ToastService } from '../../shared/services/toast/toast.service';
 import { User } from '../../models/user.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tasks-view',
@@ -19,6 +20,9 @@ export class TasksViewComponent implements OnInit {
   list: any;
   users: User[];
   updateState: boolean = false;
+  remaining: any; 
+  hours: any;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -74,6 +78,9 @@ export class TasksViewComponent implements OnInit {
     this.task.taskListName = this.listsService.mappedResults[this.task.taskList].listName;
     this.task.createdByName = this.usersService.mappedResults[this.task.createdBy].userName;
     this.task.taskModifiedByName = this.usersService.mappedResults[this.task.taskModifiedBy].userName;
+    this.hours = moment.duration(moment(new Date()).diff(moment(this.task.taskDeadline))).asHours();
+    let mins = moment.utc(moment(moment(this.task.taskDeadline), "HH:mm:ss").diff(moment(moment(new Date()), "HH:mm:ss"))).format("mm");
+    this.remaining = `${Math.abs(Math.trunc(this.hours))}:${mins}`;
   }
 
 }

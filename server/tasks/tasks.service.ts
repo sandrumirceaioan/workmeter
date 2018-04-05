@@ -37,7 +37,7 @@ export class TasksService {
     constructor(@InjectModel(TasksSchema) private readonly taskModel: Model<Task>){}
 
     async addTask(task): Promise<Task>{
-        if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day');
+        if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day').utc();
         if (task.taskDraft) task.taskStatus = 'draft';
         let newTask = new this.taskModel(task);
         try {
@@ -110,7 +110,7 @@ export class TasksService {
     }
 
     async updateTaskInfo(task): Promise<Task>{
-        if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day');
+        if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day').utc();
         if (task.taskDraft) task.taskStatus = 'draft';
 
         let query = {_id: new ObjectId(task._id)};

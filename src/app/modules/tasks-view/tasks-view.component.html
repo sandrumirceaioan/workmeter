@@ -4,11 +4,11 @@
     </task-update-form>
     <!-- task toolbar -->
     <div class="row view-toolbar-container">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <h2>{{task.taskName}}</h2>
         </div>
-        <div class="col-sm-6 text-right">
-            <div class="col-xs-3">
+        <div class="col-sm-8 text-center">
+            <div class="col-sm-3">
                 <a *ngIf="!task.taskStarted" class="task-buttons start noselect" (click)="updateStartedPaused()">
                     <i class="fa fa-play" aria-hidden="true"></i>
                 </a>
@@ -16,19 +16,24 @@
                     <i class="fa fa-pause" aria-hidden="true"></i>
                 </a>
             </div>
-            <div class="col-xs-3">
-                <a class="task-buttons noselect" (click)="updateState = !updateState">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
+            <div class="col-sm-2">
+                <a class="task-links noselect" (click)="updateState = !updateState">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Edit
                 </a>
             </div>
-            <div class="col-xs-3">
+            <div class="col-sm-2">
+                <a class="task-links noselect">
+                    <i class="fa fa-exchange" aria-hidden="true"></i> Assign
+                </a>
+            </div>
+            <div class="col-sm-2">
+                <a class="task-links noselect">
+                    <i class="fa fa-history" aria-hidden="true"></i> Activity
+                </a>
+            </div>
+            <div class="col-sm-3">
                 <a class="task-buttons noselect">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                </a>
-            </div>
-            <div class="col-xs-3">
-                <a class="task-buttons noselect" (click)="options()">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    <i class="fa fa-check" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -36,7 +41,7 @@
     </div>
     <div class="task-body">
         <div class="row task-box">
-            <div class="col-xs-3 task-info">
+            <div class="col-sm-3 task-info">
                 <div class="box-heading">
                     <i class="fa fa-info" aria-hidden="true"></i> General</div>
                 <ul>
@@ -50,7 +55,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-xs-3 task-info">
+            <div class="col-sm-3 task-info">
                 <div class="box-heading">
                     <i class="fa fa-exchange" aria-hidden="true"></i> Assigned</div>
                 <ul>
@@ -64,7 +69,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-xs-3 task-info">
+            <div class="col-sm-3 task-info">
                 <div class="box-heading">
                     <i class="fa fa-sliders" aria-hidden="true"></i> Status</div>
                 <ul>
@@ -78,26 +83,35 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-xs-3 task-info">
+            <div class="col-sm-3 task-info">
                 <div class="box-heading">
                     <i class="fa fa-clock-o" aria-hidden="true"></i> Deadline</div>
                 <ul>
                     <li>
                         <small>Deadline:</small>
-                        <span>{{task.taskDeadline | date:'yyyy-MM-dd'}}</span>
+                        <span>{{task.taskDeadline | date:'dd-MM-yyyy'}}</span>
+                        <br />
+                        <div *ngIf="this.hours >= 0" class="over">
+                            <small>Over time:</small>
+                            <span>{{remaining}}</span>
+                        </div>
+                        <div *ngIf="this.hours < 0">
+                            <small>Remaining:</small>
+                            <span>{{remaining}}</span>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="row task-box">
-            <div class="col-xs-12 task-description">
+            <div class="col-sm-12 task-description">
                 <div class="box-heading">
                     <i class="fa fa-file-text-o" aria-hidden="true"></i> Description</div>
                 <p>{{task.taskDescription}}</p>
             </div>
         </div>
         <div class="row task-box">
-            <div class="col-xs-12 task-attachments">
+            <div class="col-sm-12 task-attachments">
                 <div class="box-heading">
                     <i class="fa fa-paperclip" aria-hidden="true"></i> Attachments</div>
                 <p>Feature not implemented yet.</p>

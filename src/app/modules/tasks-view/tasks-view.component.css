@@ -45,7 +45,6 @@
 .task-buttons {
   display: block;
   color: #585858;
-  float: right;
   font-size: 40px;
   padding: 3px 10px;
   cursor: pointer;
@@ -57,4 +56,18 @@
 
 .pause {
   color: #fbae00;
+}
+
+.task-links {
+  font-size: 15px;
+  font-weight: bold;
+  color: #7b7b7b;
+  display: block;
+  padding: 20px 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.over span {
+  color: #dd0000 !important;
 }

@@ -34,7 +34,6 @@ export class CommentsComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       (result) => {
         this.taskId = result.id;
-        console.log(this.taskId);
         this.comments = [];
         // get comments for current id param
         this.loader = true;

@@ -31,13 +31,13 @@ import { AppRoutingModule } from './app.routing';
     Page404Component
   ],
   imports: [
+    AppBootstrapModule,
     HttpClientModule,
     AngularFontAwesomeModule,
     BrowserModule,
     BrowserAnimationsModule,
     LoginModule,
     AppRoutingModule,
-    AppBootstrapModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [
