@@ -1,7 +1,15 @@
 <div class="sub-page-container">
+
+    <!-- task update form -->
     <div *ngIf="updateState" class="overlay" (click)="updateState = false"></div>
     <task-update-form (updated)="taskUpdated($event)" [task]="task" [projects]="projects" [list]="list" [users]="users" *ngIf="updateState">
     </task-update-form>
+
+    <!-- task assign form -->
+    <div *ngIf="assignState" class="overlay" (click)="assignState = false"></div>
+    <task-assign-form [task]="task" [users]="users" *ngIf="assignState">
+    </task-assign-form>
+
     <!-- task toolbar -->
     <div class="row view-toolbar-container">
         <div class="col-sm-4">
@@ -9,31 +17,26 @@
         </div>
         <div class="col-sm-8 text-center">
             <div class="col-sm-3">
-                <a *ngIf="!task.taskStarted" class="task-buttons start noselect" (click)="updateStartedPaused()">
-                    <i class="fa fa-play" aria-hidden="true"></i>
-                </a>
-                <a *ngIf="task.taskStarted" class="task-buttons pause noselect" (click)="updateStartedPaused()">
-                    <i class="fa fa-pause" aria-hidden="true"></i>
-                </a>
-            </div>
-            <div class="col-sm-2">
-                <a class="task-links noselect" (click)="updateState = !updateState">
+                <a class="task-links noselect" (click)="updateState = !updateState; assignState = false">
                         <i class="fa fa-edit" aria-hidden="true"></i> Edit
                 </a>
             </div>
-            <div class="col-sm-2">
-                <a class="task-links noselect">
+            <div class="col-sm-3">
+                <a class="task-links noselect" (click)="assignState = !assignState; updateState = false">
                     <i class="fa fa-exchange" aria-hidden="true"></i> Assign
                 </a>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <a class="task-links noselect">
                     <i class="fa fa-history" aria-hidden="true"></i> Activity
                 </a>
             </div>
             <div class="col-sm-3">
-                <a class="task-buttons noselect">
-                    <i class="fa fa-check" aria-hidden="true"></i>
+                <a *ngIf="!task.taskStarted" class="task-links noselect" (click)="updateStartedPaused()">
+                    <i class="fa fa-play start" aria-hidden="true"></i> Start
+                </a>
+                <a *ngIf="task.taskStarted" class="task-links noselect" (click)="updateStartedPaused()">
+                    <i class="fa fa-pause pause" aria-hidden="true"></i> Pause
                 </a>
             </div>
         </div>

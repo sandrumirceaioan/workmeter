@@ -80,7 +80,7 @@ export class TasksService {
   updateListView(task: Task): void {
     let length = this.tasks.length;
     for (let i = 0; i < length; i++) {
-      if (this.tasks[i].taskStatus != 'new') {
+      if (this.tasks[i].taskStatus == 'started') {
         this.tasks[i].taskStarted = false;
         this.tasks[i].taskStatus = 'paused';
       }

@@ -8,6 +8,7 @@ import { TasksUpdateComponent } from '../tasks-update/tasks-update.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommentsComponent } from '../comments/comments.component';
 import { CommentsService } from '../../shared/services/comments/comments.service';
+import { TasksAssignComponent } from '../tasks-assign/tasks-assign.component';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { CommentsService } from '../../shared/services/comments/comments.service
     TasksViewRoutingModule,
     NgxMyDatePickerModule.forRoot()
   ],
-  declarations: [TasksViewComponent, TasksUpdateComponent, CommentsComponent],
+  declarations: [TasksViewComponent, TasksUpdateComponent, CommentsComponent, TasksAssignComponent],
   providers: [TaskResolve, CommentsService]
 })
 export class TasksViewModule { }

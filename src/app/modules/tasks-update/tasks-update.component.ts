@@ -26,22 +26,13 @@ import * as moment from 'moment';
           style({ opacity: '0.5', transform: 'translateY(25px)', offset: 0.3 }),
           style({ opacity: '1', transform: 'translateY(0)', offset: 1 })
         ])),
-      ),
-      transition(":leave",
-        animate('.2s ease-out', keyframes([
-          style({ opacity: '1', transform: 'translateX(25%)', offset: 0 }),
-          style({ opacity: '0.3', transform: 'translateX(50%)', offset: 0.5 }),
-          style({ opacity: '0', transform: 'translateX(70%)', offset: 1 })
-        ]))
       )
-    ]),
+    ])
   ]
 })
 export class TasksUpdateComponent implements OnInit {
   updateTaskForm: FormGroup;
-  addState: boolean = false;
   myOptions: INgxMyDpOptions;
-  loader: boolean;
   lists: List[] = [];
   @Input() task: Task;
   @Input() list: List;

@@ -57,10 +57,20 @@ export class TasksComponent implements OnInit {
     private projectsService: ProjectsService,
   ) { }
 
-  setClass(status){
-    let classes = {};
-      classes[status] = true;
-    return classes;
+  setClass(started, status){
+    let classes = {started: false, paused: false, other: false};
+      if (started) {
+        classes.started = true;
+      } else {
+        switch (status) {
+          case 'paused':
+            classes.paused = true;
+          break;
+          default:
+            classes.other = true;
+      }
+    }
+      return classes;
   }
 
   ngOnInit() {
