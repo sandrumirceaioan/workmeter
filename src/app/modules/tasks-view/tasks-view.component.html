@@ -7,7 +7,7 @@
 
     <!-- task assign form -->
     <div *ngIf="assignState" class="overlay" (click)="assignState = false"></div>
-    <task-assign-form [task]="task" [users]="users" *ngIf="assignState">
+    <task-assign-form (assigned)="taskAssigned($event)" [task]="task" [users]="users" *ngIf="assignState">
     </task-assign-form>
 
     <!-- task toolbar -->

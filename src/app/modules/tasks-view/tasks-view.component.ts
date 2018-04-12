@@ -55,7 +55,7 @@ export class TasksViewComponent implements OnInit {
     this.tasksService.updateStartedPaused(this.task).subscribe(
       (result) => {
         this.task = result;
-        this.tasksService.updateListView(this.task);
+        this.tasksService.updateListView(this.task, true);
         this.translateIds();
       },
       (error) => {
@@ -70,8 +70,12 @@ export class TasksViewComponent implements OnInit {
   taskUpdated(event): void{
     this.updateState = event.formStatus;
     this.task = event.newTask;
-    this.tasksService.updateListView(this.task);
+    this.tasksService.updateListView(this.task, true);
     this.translateIds();
+  }
+
+  taskAssigned(event): void{
+    this.assignState = event.formStatus;
   }
 
   translateIds(): void {

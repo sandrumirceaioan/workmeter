@@ -11,7 +11,7 @@ import { UsersService } from '../../shared/services/users/users.service';
 import { ListsService } from '../../shared/services/lists/lists.service';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { TasksService } from '../../shared/services/tasks/tasks.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -50,6 +50,7 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private tasksService: TasksService,
     private toastService: ToastService,
     private usersService: UsersService,
@@ -121,13 +122,18 @@ export class TasksComponent implements OnInit {
     // start list dropdown change subscription
     this.onProjectChanges();
     
-    // start receive new tasks subscription
-    this.tasksService.startGetTasks();
-  }
+    // start receive new tasks
+    this.tasksService.startGetTasks().subscribe((result) => {
+      if (result.taskAssignedTo == this.usersService.logged._id) this.tasks.unshift(result);
+    });
 
-  ngOnDestroy() {
-    // stop receive new tasks subscription
-    this.tasksService.stopGetTasks();
+    // start receive assigned tasks
+    this.tasksService.getAssignedTasks().subscribe((result) => {
+      if (result.taskAssignedTo == this.usersService.logged._id) {
+        this.tasksService.tasks.unshift(result);
+        this.tasksService.updateListView(result, false);
+      }
+    });
   }
 
   onProjectChanges(): void{

@@ -41,6 +41,12 @@ export class TasksController {
         return this.tasksService.updateTaskInfo(data);
     }
 
+    @Put('/assignTask')
+    @UseInterceptors(ModifiedBy)
+    async assignTask(@Body() data: CreateTaskDto){
+        return this.tasksService.assignTask(data);
+    }
+
     // @Post('/delete')
     // @Roles('admin')
     // async delete(@Body() params){

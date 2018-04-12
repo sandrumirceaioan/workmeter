@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
+import { CommentsService } from '../comments/comments.service';
 
 import {
     WebSocketGateway,
@@ -34,7 +35,10 @@ _.mixin({
 export class TasksService {
     @WebSocketServer() private server;
 
-    constructor(@InjectModel(TasksSchema) private readonly taskModel: Model<Task>){}
+    constructor(
+        @InjectModel(TasksSchema) private readonly taskModel: Model<Task>,
+        private commentsService: CommentsService
+    ){}
 
     async addTask(task): Promise<Task>{
         if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day').utc();
@@ -124,15 +128,31 @@ export class TasksService {
         }
     }
 
-    // async addDefaultList(list): Promise<List>{
-    //     let defaultList = new this.taskModel(list);
-    //     try {
-    //         let list = await defaultList.save();
-    //         return list;
-    //     } catch(e){
-    //         throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+    async assignTask(task): Promise<Task>{
+        let query = {_id: new ObjectId(task._id)};
+        let set = {
+            taskAssignedTo: task.assignTo,
+            taskStatus: task.assignStatus,
+            taskStarted: false,
+            taskModifiedBy: task.taskModifiedBy
+        };
+        try {
+            let updatedTask = await this.taskModel.findOneAndUpdate(query, set, {new: true});
+            if (!_.isEmpty(task.assignComment)) {
+                let assignComment = {
+                    commentDescription: task.assignComment,
+                    commentTask: updatedTask._id,
+                    created: updatedTask.created,
+                    createdBy: updatedTask.taskModifiedBy
+                };
+                this.commentsService.addComment(assignComment);
+            }
+            if (updatedTask) this.server.emit('assign', updatedTask);
+            return updatedTask;
+        } catch(e){
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     // async deleteProjectLists(param): Promise<any>{
     //     let query = {listProject: param._id};

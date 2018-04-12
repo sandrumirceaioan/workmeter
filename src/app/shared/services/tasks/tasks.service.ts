@@ -21,6 +21,7 @@ export class TasksService {
   tasks: Task[] = [];
   task: Task;
   newTasksSubscription;
+  assignTaskSubscription;
 
   constructor(
     private http: HttpClient,
@@ -36,17 +37,24 @@ export class TasksService {
       });
   }
 
-  startGetTasks(): void{
-    // start receive new tasks subscription
-    this.newTasksSubscription = this.socket.fromEvent("tasks").map((result: Task) => {
+  startGetTasks(): Observable<Task>{
+    return this.socket.fromEvent("tasks").map((result: Task) => {
       return result;
-    }).subscribe((result) => {
-      if (result.taskAssignedTo == this.usersService.logged._id) this.tasks.unshift(result);
+    });
+  }
+
+  getAssignedTasks(): Observable<Task>{
+    return this.socket.fromEvent("assign").map((result: Task) => {
+      return result;
     });
   }
 
   stopGetTasks(): void {
     this.newTasksSubscription.unsubscribe();
+  }
+
+  stopGetAssignedTasks(): void{
+    this.assignTaskSubscription.unsubscribe();
   }
 
   getAll(user: User): Observable<Task[]> {
@@ -77,10 +85,10 @@ export class TasksService {
   }
 
   // update task status in tasks list
-  updateListView(task: Task): void {
+  updateListView(task: Task, pause): void {
     let length = this.tasks.length;
     for (let i = 0; i < length; i++) {
-      if (this.tasks[i].taskStatus == 'started') {
+      if (this.tasks[i].taskStatus == 'started' && pause) {
         this.tasks[i].taskStarted = false;
         this.tasks[i].taskStatus = 'paused';
       }
@@ -97,6 +105,22 @@ export class TasksService {
     }).catch((error: HttpErrorResponse) => {
       return Observable.throw(error);
     })
+  }
+
+  assignTask(task: Task): Observable<Task>{
+    return this.http.put(this.apiPath + '/assignTask', task, httpOptions).map((result: Task) => {
+      // remove current task from the list
+      let length = this.tasks.length;
+      for (let i = 0; i < length; i++) {
+        if (task._id == this.tasks[i]._id) {
+          this.tasks.splice(i,1);
+          break;
+        }
+      }
+      return result;
+    }).catch((error: HttpErrorResponse) => {
+      return Observable.throw(error);
+    });
   }
 
   // deleteOne(params): Observable<Task>{
