@@ -51,6 +51,7 @@ export class TasksAssignComponent implements OnInit {
     let updateData = this.assignTaskForm.value;
     updateData._id = this.task._id;
     updateData.assingStarted = this.task.taskStarted;
+    updateData.assignCreated = new Date().getTime();
     this.tasksService.assignTask(updateData).subscribe(
       (result) => {
         this.toastService.toastTrigger({

@@ -142,7 +142,7 @@ export class TasksService {
                 let assignComment = {
                     commentDescription: task.assignComment,
                     commentTask: updatedTask._id,
-                    created: updatedTask.created,
+                    created: task.assignCreated,
                     createdBy: updatedTask.taskModifiedBy
                 };
                 this.commentsService.addComment(assignComment);
