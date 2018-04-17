@@ -47,6 +47,7 @@ export class TasksComponent implements OnInit {
   tasks: Task[] = [];
   users: User[] = [];
   newTasksSubscription;
+  assignTasksSubscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -123,17 +124,22 @@ export class TasksComponent implements OnInit {
     this.onProjectChanges();
     
     // start receive new tasks
-    this.tasksService.startGetTasks().subscribe((result) => {
+    this.newTasksSubscription = this.tasksService.startGetTasks().subscribe((result) => {
       if (result.taskAssignedTo == this.usersService.logged._id) this.tasks.unshift(result);
     });
 
     // start receive assigned tasks
-    this.tasksService.getAssignedTasks().subscribe((result) => {
+    this.assignTasksSubscription =  this.tasksService.getAssignedTasks().subscribe((result) => {
       if (result.taskAssignedTo == this.usersService.logged._id) {
         this.tasksService.tasks.unshift(result);
         this.tasksService.updateListView(result, false);
       }
     });
+  }
+
+  ngOnDestroy(){
+    this.newTasksSubscription.unsubscribe();
+    this.assignTasksSubscription.unsubscribe();
   }
 
   onProjectChanges(): void{

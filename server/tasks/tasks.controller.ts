@@ -6,6 +6,7 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { Sign } from '../common/interceptors/sign.interceptor';
 import { ModifiedBy } from '../common/interceptors/modified.interceptor';
 import { IsYours } from '../common/interceptors/is-yours.interceptor';
+import { MakeHistory } from '../common/interceptors/history.interceptor';
 
 @Controller('tasks')
 @UseGuards(AuthGuard)
@@ -14,7 +15,7 @@ export class TasksController {
 
     @Post('/add')
     @Roles('admin', 'manager', 'user')
-    @UseInterceptors(Sign, ModifiedBy)
+    @UseInterceptors(Sign, ModifiedBy, MakeHistory)
     async add(@Body() CreateTaskDto: CreateTaskDto){
         return this.tasksService.addTask(CreateTaskDto);
     }
@@ -30,19 +31,19 @@ export class TasksController {
     }
 
     @Put('/updateStatus')
-    @UseInterceptors(ModifiedBy, IsYours)
+    @UseInterceptors(ModifiedBy, IsYours, MakeHistory)
     async update(@Body() data: CreateTaskDto){
         return this.tasksService.updateTaskStatus(data);
     }
 
     @Put('/updateInfo')
-    @UseInterceptors(ModifiedBy)
+    @UseInterceptors(ModifiedBy, MakeHistory)
     async updateInfo(@Body() data: CreateTaskDto){
         return this.tasksService.updateTaskInfo(data);
     }
 
     @Put('/assignTask')
-    @UseInterceptors(ModifiedBy)
+    @UseInterceptors(ModifiedBy, MakeHistory)
     async assignTask(@Body() data: CreateTaskDto){
         return this.tasksService.assignTask(data);
     }
