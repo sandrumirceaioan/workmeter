@@ -34,7 +34,7 @@ _.mixin({
 @WebSocketGateway()
 export class TasksService {
     @WebSocketServer() private server;
-
+    pausedTask: Task;
     constructor(
         @InjectModel(TasksSchema) private readonly taskModel: Model<Task>,
         private commentsService: CommentsService
@@ -74,6 +74,8 @@ export class TasksService {
     }
 
     async updateTaskStatus(params): Promise<any>{
+        this.pausedTask = null;
+
         // cannot start/pause drafts
         if (params.taskDraft) throw new HttpException('This is a draft!', HttpStatus.BAD_REQUEST);
 
@@ -91,7 +93,7 @@ export class TasksService {
                     taskModifiedBy: params.taskModifiedBy
                 };
                 try {
-                    let pausedTask = await this.taskModel.findOneAndUpdate(check, set, {new: true});
+                    this.pausedTask = await this.taskModel.findOneAndUpdate(check, set, {new: true});
                 } catch(e) {
                     throw new HttpException(e.message, HttpStatus.I_AM_A_TEAPOT);
                 }
@@ -107,7 +109,7 @@ export class TasksService {
             try {
                 let startedTask = await this.taskModel.findOneAndUpdate(query, params, {new: true});
                 if (!startedTask) throw new HttpException('Status not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
-                return startedTask;
+                return {startedTask: startedTask, pausedTask: this.pausedTask};
             } catch(e){
                 throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
             }

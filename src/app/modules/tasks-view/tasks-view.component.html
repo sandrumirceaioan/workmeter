@@ -10,6 +10,10 @@
     <task-assign-form (assigned)="taskAssigned($event)" [task]="task" [users]="users" *ngIf="assignState">
     </task-assign-form>
 
+    <!-- task history list -->
+    <div *ngIf="historyState" class="overlay" (click)="historyState = false"></div>
+    <task-history [task]="task" *ngIf="historyState"></task-history>
+
     <!-- task toolbar -->
     <div class="row view-toolbar-container">
         <div class="col-sm-4">
@@ -17,17 +21,17 @@
         </div>
         <div class="col-sm-8 text-center">
             <div class="col-sm-3">
-                <a class="task-links noselect" (click)="updateState = !updateState; assignState = false">
+                <a class="task-links noselect" (click)="updateState = !updateState; assignState = false; historyState = false">
                         <i class="fa fa-edit" aria-hidden="true"></i> Edit
                 </a>
             </div>
             <div class="col-sm-3">
-                <a class="task-links noselect" (click)="assignState = !assignState; updateState = false">
+                <a class="task-links noselect" (click)="assignState = !assignState; updateState = false; historyState = false">
                     <i class="fa fa-exchange" aria-hidden="true"></i> Assign
                 </a>
             </div>
             <div class="col-sm-3">
-                <a class="task-links noselect">
+                <a class="task-links noselect" (click)="historyState = !historyState; assignState = false; updateState = false">
                     <i class="fa fa-history" aria-hidden="true"></i> Activity
                 </a>
             </div>

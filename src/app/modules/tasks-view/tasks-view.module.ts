@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommentsComponent } from '../comments/comments.component';
 import { CommentsService } from '../../shared/services/comments/comments.service';
 import { TasksAssignComponent } from '../tasks-assign/tasks-assign.component';
+import { TasksHistoryComponent } from '../tasks-history/tasks-history.component';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { TasksAssignComponent } from '../tasks-assign/tasks-assign.component';
     TasksViewRoutingModule,
     NgxMyDatePickerModule.forRoot()
   ],
-  declarations: [TasksViewComponent, TasksUpdateComponent, CommentsComponent, TasksAssignComponent],
+  declarations: [TasksViewComponent, TasksUpdateComponent, CommentsComponent, TasksAssignComponent, TasksHistoryComponent],
   providers: [TaskResolve, CommentsService]
 })
 export class TasksViewModule { }

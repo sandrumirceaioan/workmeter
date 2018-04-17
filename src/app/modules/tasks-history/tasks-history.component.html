@@ -1,0 +1,17 @@
+<div class="history col-lg-6 col-md-8 col-sm-10" [@fadeIn]="''">
+  <div class="history-title">
+      <h3># task activity</h3>
+  </div>
+  <div class="col-sm-12 history-head">
+    <div class="col-sm-3">Date</div>
+    <div class="col-sm-3">Author</div>
+    <div class="col-sm-3">Action</div>
+    <div class="col-sm-3">Result</div>
+  </div>
+  <div class="col-sm-12 history-body" *ngFor="let item of history">
+    <div class="col-sm-3">{{item.created | date:'dd-MM-yyyy, h:mm a'}}</div>
+    <div class="col-sm-3">{{item.historyUserName}}</div>
+    <div class="col-sm-3">{{item.historyAction}}</div>
+    <div class="col-sm-3">{{item.historyChange}}</div>
+  </div>
+</div>

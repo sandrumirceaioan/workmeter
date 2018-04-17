@@ -29,4 +29,11 @@ export class HistoryService {
         }
     }
 
+    async allForOne(params): Promise<History[]>{
+        let query = {};
+        if(params._id) query = {historyTask: params._id}; 
+        let history = await this.historyModel.find(query).sort({created: 1});
+        return history;
+    }
+
 }

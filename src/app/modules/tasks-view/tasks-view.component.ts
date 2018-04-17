@@ -21,6 +21,7 @@ export class TasksViewComponent implements OnInit {
   users: User[];
   updateState: boolean = false;
   assignState: boolean = false;
+  historyState: boolean = false;
   remaining: any; 
   hours: any;
 

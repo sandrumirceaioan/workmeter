@@ -1,14 +1,14 @@
-import { Interceptor, NestInterceptor, ExecutionContext, HttpStatus } from '@nestjs/common';
+import { Interceptor, NestInterceptor, ExecutionContext, HttpException, HttpStatus } from '@nestjs/common';
 import * as jwt_decode from "jwt-decode";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HistoryService } from '../../history/history.service';
 import { History } from "../../history/interfaces/history.interface";
-import { HttpException } from '@nestjs/core';
 
 @Interceptor()
 export class MakeHistory implements NestInterceptor {
+    indirectPaused: any = {};
     setAction: any = {};
     constructor(private historyService: HistoryService){}
 
@@ -32,6 +32,12 @@ export class MakeHistory implements NestInterceptor {
                     this.historyService.saveAction(this.setAction);
                 break;
                 case '/updateStatus':
+                    if (data.pausedTask) {
+                        this.indirectPaused.historyTask = data.pausedTask._id;
+                        this.indirectPaused.historyAction = 'changed status';
+                        this.indirectPaused.historyChange = 'paused';
+                        this.historyService.saveAction(this.indirectPaused);
+                    }
                     this.setAction.historyTask = req.body._id;
                     this.setAction.historyAction = 'changed status';
                     this.setAction.historyChange = req.body.taskStarted ? 'started' : 'paused';
@@ -51,8 +57,9 @@ export class MakeHistory implements NestInterceptor {
             }
             return data;
         }
-    ).catch((err) => Observable.throw(
-        new HttpException('Exception interceptor message', HttpStatus.BAD_REQUEST),
-      ));
+    ).catch((err) => {
+        console.log(err);
+        return Observable.throw(new HttpException('Exception interceptor message', HttpStatus.BAD_REQUEST));
+    });
   }
 }

@@ -18,6 +18,7 @@ const httpOptions = {
 @Injectable()
 export class TasksService {
   apiPath: string = '/api/tasks';
+  apiPathHistory: string = '/api/history';
   tasks: Task[] = [];
   task: Task;
   newTasksSubscription;
@@ -33,17 +34,17 @@ export class TasksService {
     return this.http.post(this.apiPath + '/add', task, httpOptions).map((result: Task) => {
       return result;
     }).catch((error: HttpErrorResponse) => {
-        return Observable.throw(error)
-      });
+      return Observable.throw(error)
+    });
   }
 
-  startGetTasks(): Observable<Task>{
+  startGetTasks(): Observable<Task> {
     return this.socket.fromEvent("tasks").map((result: Task) => {
       return result;
     });
   }
 
-  getAssignedTasks(): Observable<Task>{
+  getAssignedTasks(): Observable<Task> {
     return this.socket.fromEvent("assign").map((result: Task) => {
       return result;
     });
@@ -53,7 +54,7 @@ export class TasksService {
     this.newTasksSubscription.unsubscribe();
   }
 
-  stopGetAssignedTasks(): void{
+  stopGetAssignedTasks(): void {
     this.assignTaskSubscription.unsubscribe();
   }
 
@@ -62,8 +63,8 @@ export class TasksService {
       this.tasks = result;
       return;
     }).catch((error: HttpErrorResponse) => {
-        return Observable.throw(error)
-      });
+      return Observable.throw(error)
+    });
   }
 
   getOne(params): Observable<Task> {
@@ -71,14 +72,14 @@ export class TasksService {
       this.task = result;
       return result;
     }).catch((error: HttpErrorResponse) => {
-        return Observable.throw(error);
-      });
+      return Observable.throw(error);
+    });
   }
 
   updateStartedPaused(task: Task): Observable<Task> {
-    return this.http.put(this.apiPath + '/updateStatus', task, httpOptions).map((result: Task) => {
-      this.task = result;
-      return result;
+    return this.http.put(this.apiPath + '/updateStatus', task, httpOptions).map((result: any) => {
+      this.task = result.startedTask;
+      return result.startedTask;
     }).catch((error: HttpErrorResponse) => {
       return Observable.throw(error);
     });
@@ -98,7 +99,7 @@ export class TasksService {
     }
   }
 
-  updateInfo(task: Task): Observable<Task>{
+  updateInfo(task: Task): Observable<Task> {
     return this.http.put(this.apiPath + '/updateInfo', task, httpOptions).map((result: Task) => {
       this.task = result;
       return result;
@@ -107,13 +108,13 @@ export class TasksService {
     })
   }
 
-  assignTask(task: Task): Observable<Task>{
+  assignTask(task: Task): Observable<Task> {
     return this.http.put(this.apiPath + '/assignTask', task, httpOptions).map((result: Task) => {
       // remove current task from the list
       let length = this.tasks.length;
       for (let i = 0; i < length; i++) {
         if (task._id == this.tasks[i]._id) {
-          this.tasks.splice(i,1);
+          this.tasks.splice(i, 1);
           break;
         }
       }
@@ -121,6 +122,15 @@ export class TasksService {
     }).catch((error: HttpErrorResponse) => {
       return Observable.throw(error);
     });
+  }
+
+  getTaskHistory(params): Observable<any[]> {
+    return this.http.post(this.apiPathHistory + '/allForOne', params, httpOptions).map((results: any[]) => {
+      return results;
+    })
+      .catch((error: HttpErrorResponse) => {
+        return Observable.throw(error)
+      });
   }
 
   // deleteOne(params): Observable<Task>{
