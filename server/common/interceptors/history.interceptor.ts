@@ -9,6 +9,7 @@ import { History } from "../../history/interfaces/history.interface";
 @Interceptor()
 export class MakeHistory implements NestInterceptor {
     indirectPaused: any = {};
+    indirectComment: any = {};
     setAction: any = {};
     constructor(private historyService: HistoryService){}
 
@@ -26,13 +27,21 @@ export class MakeHistory implements NestInterceptor {
         (data) => {
             switch(req.route.path){
                 case '/add':
-                    this.setAction.historyTask = req.body._id;
+                    this.setAction.historyTask = data._id;
                     this.setAction.historyAction = 'added task';
                     this.setAction.historyChange = data.taskAssignedTo;
                     this.historyService.saveAction(this.setAction);
                 break;
+                case '/addComment':
+                    this.setAction.historyTask = data.commentTask;
+                    this.setAction.historyAction = 'note added';
+                    this.setAction.historyChange = data.commentDescription;
+                    this.historyService.saveAction(this.setAction);            
+                break;
                 case '/updateStatus':
                     if (data.pausedTask) {
+                        this.indirectPaused.historyUser = decoded._id;
+                        this.indirectPaused.historyUserName = decoded.user;
                         this.indirectPaused.historyTask = data.pausedTask._id;
                         this.indirectPaused.historyAction = 'changed status';
                         this.indirectPaused.historyChange = 'paused';
@@ -46,9 +55,18 @@ export class MakeHistory implements NestInterceptor {
                 case '/updateInfo':
                     this.setAction.historyTask = req.body._id;
                     this.setAction.historyAction = 'updated info';
+                    this.setAction.historyChange = 'details';
                     this.historyService.saveAction(this.setAction);            
                 break;
                 case '/assignTask':
+                if (req.body.assignComment && req.body.assignComment != ''){
+                    this.indirectComment.historyUser = decoded._id;
+                    this.indirectComment.historyUserName = decoded.user;
+                    this.indirectComment.historyTask = req.body._id;
+                    this.indirectComment.historyAction = 'note added';
+                    this.indirectComment.historyChange = req.body.assignComment;
+                    this.historyService.saveAction(this.indirectComment);   
+                }
                     this.setAction.historyTask = req.body._id;
                     this.setAction.historyAction = 'assigned task';
                     this.setAction.historyChange = data.taskAssignedTo;

@@ -24,7 +24,7 @@ export class CommentsService {
   ) { }
 
   addComment(task: Comment): Observable<Comment> {
-    return this.http.post(this.apiPath + '/add', task, httpOptions).map((result: Comment) => {
+    return this.http.post(this.apiPath + '/addComment', task, httpOptions).map((result: Comment) => {
       this.comments.unshift(result);
       return result;
     }).catch((error: HttpErrorResponse) => {

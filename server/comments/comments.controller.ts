@@ -6,14 +6,15 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { Sign } from '../common/interceptors/sign.interceptor';
 import { ModifiedBy } from '../common/interceptors/modified.interceptor';
 import { IsYours } from '../common/interceptors/is-yours.interceptor';
+import { MakeHistory } from '../common/interceptors/history.interceptor';
 
 @Controller('comments')
 @UseGuards(AuthGuard)
 export class CommentsController {
     constructor(private readonly commentsService: CommentsService){}
 
-    @Post('/add')
-    @UseInterceptors(Sign, ModifiedBy)
+    @Post('/addComment')
+    @UseInterceptors(Sign, ModifiedBy, MakeHistory)
     async add(@Body() createCommentDto: CreateCommentDto){
         return this.commentsService.addComment(createCommentDto);
     }

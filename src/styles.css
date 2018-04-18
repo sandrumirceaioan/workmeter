@@ -112,3 +112,23 @@ body {
   .sub-page-container {
     min-height: 725px;
   }
+
+  /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #340051; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(108, 61, 138);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(108, 61, 138);
+}

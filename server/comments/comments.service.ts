@@ -28,8 +28,8 @@ export class CommentsService {
     async addComment(comment): Promise<Comment>{
         let newComment = new this.commentModel(comment);
         try {
-            let task = await newComment.save();
-            return task;
+            let savedComment = await newComment.save();
+            return savedComment;
         } catch(e){
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -38,7 +38,7 @@ export class CommentsService {
     async allComments(params): Promise<Comment[]>{
         let query = {};
         if(params._id) query = {commentTask: params._id}; 
-        let lists = await this.commentModel.find(query).sort({created: -1});
+        let lists = await this.commentModel.find(query).sort({created: 1});
         return lists;
     }
 
