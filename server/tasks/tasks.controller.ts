@@ -36,6 +36,12 @@ export class TasksController {
         return this.tasksService.updateTaskStatus(data);
     }
 
+    @Put('/done')
+    @UseInterceptors(ModifiedBy, IsYours, MakeHistory)
+    async done(@Body() data: CreateTaskDto){
+        return this.tasksService.markAsDone(data);
+    }
+
     @Put('/updateInfo')
     @UseInterceptors(ModifiedBy, MakeHistory)
     async updateInfo(@Body() data: CreateTaskDto){

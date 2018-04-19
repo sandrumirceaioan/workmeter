@@ -35,12 +35,17 @@
                     <i class="fa fa-history" aria-hidden="true"></i> Activity
                 </a>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3" *ngIf="task.taskStatus != 'done'">
                 <a *ngIf="!task.taskStarted" class="task-links noselect" (click)="updateStartedPaused()">
                     <i class="fa fa-play start" aria-hidden="true"></i> Start
                 </a>
                 <a *ngIf="task.taskStarted" class="task-links noselect" (click)="updateStartedPaused()">
                     <i class="fa fa-pause pause" aria-hidden="true"></i> Pause
+                </a>
+            </div>
+            <div class="col-sm-3" *ngIf="task.taskStatus == 'done'">
+                <a *ngIf="!task.taskStarted" class="task-links noselect" (click)="markAsDone()">
+                    <i class="fa fa-check start" aria-hidden="true"></i> Mark as Done
                 </a>
             </div>
         </div>

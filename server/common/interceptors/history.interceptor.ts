@@ -32,6 +32,12 @@ export class MakeHistory implements NestInterceptor {
                     this.setAction.historyChange = data.taskAssignedTo;
                     this.historyService.saveAction(this.setAction);
                 break;
+                case '/done':
+                    this.setAction.historyTask = data._id;
+                    this.setAction.historyAction = 'marked as done';
+                    this.setAction.historyChange = data.taskStatus;
+                    this.historyService.saveAction(this.setAction);
+                break;
                 case '/addComment':
                     this.setAction.historyTask = data.commentTask;
                     this.setAction.historyAction = 'note added';

@@ -40,7 +40,7 @@ export class TasksService {
         private commentsService: CommentsService
     ){}
 
-    async addTask(task): Promise<Task>{
+    async addTask(task): Promise<Task> {
         if (task.taskDeadline) task.taskDeadline = moment(task.taskDeadline.formatted).endOf('day').utc();
         if (task.taskDraft) task.taskStatus = 'draft';
         let newTask = new this.taskModel(task);
@@ -53,10 +53,11 @@ export class TasksService {
         }
     }
 
-    async allTasks(params): Promise<Task[]>{
+    async allTasks(params): Promise<Task[]> {
         let query = {
             taskAssignedTo: params._id,
-            taskDraft: false
+            taskDraft: false,
+            taskStatus: { $ne: 'closed' }
         };
         let tasks = await this.taskModel.find(query).sort({created: -1});
         return tasks;
@@ -73,7 +74,7 @@ export class TasksService {
         }
     }
 
-    async updateTaskStatus(params): Promise<any>{
+    async updateTaskStatus(params): Promise<any> {
         this.pausedTask = null;
 
         // cannot start/pause drafts
@@ -130,7 +131,7 @@ export class TasksService {
         }
     }
 
-    async assignTask(task): Promise<Task>{
+    async assignTask(task): Promise<Task> {
         let query = {_id: new ObjectId(task._id)};
         let set = {
             taskAssignedTo: task.assignTo,
@@ -154,6 +155,19 @@ export class TasksService {
         } catch(e){
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    async markAsDone(task): Promise<Task> {
+        let query = {_id: new ObjectId(task._id)};
+        let set = _.omit(task, '_id');
+            set.taskStarted = false;
+            set.taskStatus = 'closed';
+            try {
+                let updatedTask = await this.taskModel.findOneAndUpdate(query, set, {new: true});
+                return updatedTask;
+            } catch(e){
+                throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
     }
 
     // async deleteProjectLists(param): Promise<any>{

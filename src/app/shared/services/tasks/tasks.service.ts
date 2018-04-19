@@ -85,6 +85,14 @@ export class TasksService {
     });
   }
 
+  markAsDone(task: Task): Observable<Task> {
+    return this.http.put(this.apiPath + '/done', task, httpOptions).map((result: any) => {
+      return result;
+    }).catch((error: HttpErrorResponse) => {
+      return Observable.throw(error);
+    });
+  }
+
   // update task status in tasks list
   updateListView(task: Task, pause): void {
     let length = this.tasks.length;
@@ -110,6 +118,14 @@ export class TasksService {
 
   assignTask(task: Task): Observable<Task> {
     return this.http.put(this.apiPath + '/assignTask', task, httpOptions).map((result: Task) => {
+      this.removeFromList(task);
+      return result;
+    }).catch((error: HttpErrorResponse) => {
+      return Observable.throw(error);
+    });
+  }
+
+  removeFromList(task): void {
       // remove current task from the list
       let length = this.tasks.length;
       for (let i = 0; i < length; i++) {
@@ -118,10 +134,6 @@ export class TasksService {
           break;
         }
       }
-      return result;
-    }).catch((error: HttpErrorResponse) => {
-      return Observable.throw(error);
-    });
   }
 
   getTaskHistory(params): Observable<any[]> {

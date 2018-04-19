@@ -68,6 +68,25 @@ export class TasksViewComponent implements OnInit {
     );
   }
 
+  markAsDone(): void {
+    this.tasksService.markAsDone(this.task).subscribe(
+      (result) => {
+        this.toastService.toastTrigger({
+          message: 'Task done!',
+          options: { type: 'success' }
+        });
+        this.tasksService.removeFromList(result);
+        this.router.navigate(['/main/tasks']);
+      },
+      (error) => {
+        this.toastService.toastTrigger({
+          message: error.error.message,
+          options: { type: 'error' }
+        });
+      }
+    ); 
+  }
+
   taskUpdated(event): void{
     this.updateState = event.formStatus;
     this.task = event.newTask;
