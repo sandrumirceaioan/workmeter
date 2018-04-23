@@ -29,8 +29,6 @@ export class MainComponent implements OnInit {
   }
 
   toggleMenu() {
-    this.menuState = this.menuState === 'out' ? 'in' : 'out';
-    console.log(this.menuState);
   }
 
   receiveStatus($event) {

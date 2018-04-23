@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
 import { CommentsService } from '../comments/comments.service';
+import { WorkmeterService } from '../workmeter/workmeter.service';
 
 import {
     WebSocketGateway,
@@ -37,7 +38,8 @@ export class TasksService {
     pausedTask: Task;
     constructor(
         @InjectModel(TasksSchema) private readonly taskModel: Model<Task>,
-        private commentsService: CommentsService
+        private commentsService: CommentsService,
+        private workmeterService: WorkmeterService
     ){}
 
     async addTask(task): Promise<Task> {
@@ -110,6 +112,10 @@ export class TasksService {
             try {
                 let startedTask = await this.taskModel.findOneAndUpdate(query, params, {new: true});
                 if (!startedTask) throw new HttpException('Status not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
+                // when task is started, save workmeter session
+                if (startedTask.taskStarted) {
+                    this.workmeterService.createSession({workmeterTask: params._id});
+                }
                 return {startedTask: startedTask, pausedTask: this.pausedTask};
             } catch(e){
                 throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);

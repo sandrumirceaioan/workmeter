@@ -7,6 +7,7 @@ import { MainRoutingModule } from './main.routing';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { ListsService } from '../../shared/services/lists/lists.service';
+import { WorkmeterService } from '../../shared/services/workmeter/workmeter.service';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ListsService } from '../../shared/services/lists/lists.service';
   providers: [
     CanActivateAuthGuard,
     ProjectsService,
-    ListsService
+    ListsService,
+    WorkmeterService
   ],
   exports: []
 })
