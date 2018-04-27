@@ -1,8 +1,7 @@
     <!-- dashboard header -->
-    <header></header>
-    
+    <header [time]="seconds"></header>
     <!-- dashboard navigation -->
-    <navigation [userAccess]="userService.logged.userType"></navigation>
+    <navigation [userAccess]="usersService.logged.userType"></navigation>
     
     <!-- dashboard body -> to add child states inside -->
     <div class="main-body">

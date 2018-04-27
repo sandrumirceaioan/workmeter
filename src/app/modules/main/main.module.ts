@@ -8,6 +8,7 @@ import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { ListsService } from '../../shared/services/lists/lists.service';
 import { WorkmeterService } from '../../shared/services/workmeter/workmeter.service';
+import { MainResolve } from './main.resolve';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { WorkmeterService } from '../../shared/services/workmeter/workmeter.serv
     CanActivateAuthGuard,
     ProjectsService,
     ListsService,
-    WorkmeterService
+    WorkmeterService,
+    MainResolve
   ],
   exports: []
 })

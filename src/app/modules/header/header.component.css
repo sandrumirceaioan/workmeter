@@ -27,3 +27,7 @@
     font-size: 35px;
     cursor: pointer;
   }
+
+  .work-status span {
+    font-size: 25px;
+  }

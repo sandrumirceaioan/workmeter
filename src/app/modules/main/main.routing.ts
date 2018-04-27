@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
+import { MainResolve } from '../main/main.resolve';
 
 const routes: Routes = [
   {
@@ -15,7 +16,10 @@ const routes: Routes = [
       { path: 'tasks', loadChildren: '../tasks/tasks.module#TasksModule'}
     ],
     canActivate: [CanActivateAuthGuard],
-    pathMatch: 'prefix'
+    pathMatch: 'prefix',
+    resolve: {
+      workmeter: MainResolve 
+    }
   }
 ];
 

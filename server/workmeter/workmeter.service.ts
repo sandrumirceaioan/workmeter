@@ -13,11 +13,11 @@ import { CommentsService } from '../comments/comments.service';
 const ObjectId = require('mongoose').Types.ObjectId;
 
 _.mixin({
-    compactObject: function(o){
-        _.each(o, function(v,k){
+    compactObject: function (o) {
+        _.each(o, function (v, k) {
             if (!v) delete o[k];
         });
-       return o; 
+        return o;
     }
 });
 
@@ -25,9 +25,9 @@ _.mixin({
 export class WorkmeterService {
     constructor(
         @InjectModel(WorkmeterSchema) private readonly workmeterModel: Model<Workmeter>
-    ){}
+    ) { }
 
-    async createSession(params): Promise<Workmeter>{
+    async createSession(params): Promise<Workmeter> {
         let toSave = {
             workmeterTask: params._id,
             workmeterTaskStarted: true,
@@ -37,19 +37,19 @@ export class WorkmeterService {
         try {
             let session = await newSession.save();
             return session;
-        } catch(e){
+        } catch (e) {
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    async closeSession(params): Promise<Workmeter>{
+    async closeSession(params): Promise<Workmeter> {
         let check = {
             workmeterTaskStarted: true,
             workmeterCreatedBy: params.taskAssignedTo
         };
 
         let getSession = await this.workmeterModel.findOne(check);
-        if (!getSession) throw new HttpException('Can`t find task session!', HttpStatus.BAD_REQUEST); 
+        if (!getSession) throw new HttpException('Can`t find task session!', HttpStatus.BAD_REQUEST);
 
         let now = moment.utc();
         let start = moment(getSession.workmeterCreated).utc();
@@ -61,56 +61,47 @@ export class WorkmeterService {
             workmeterDuration: duration.asSeconds()
         };
         try {
-           let stopSession = await this.workmeterModel.update(check, set, {new: true});
-        } catch(e) {
+            let stopSession = await this.workmeterModel.update(check, set, { new: true });
+        } catch (e) {
             throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
         }
         return;
     }
 
-    // toHHMMSS = function (sec) {
-    //     let hours: any = Math.floor(sec / 3600);
-    //     let minutes: any = Math.floor((sec - (hours * 3600)) / 60);
-    //     let seconds: any = sec - (hours * 3600) - (minutes * 60);
-    
-    //     if (hours   < 10) hours   = '0' + hours;
-    //     if (minutes < 10) minutes = '0' + minutes;
-    //     if (seconds < 10) seconds = '0' + seconds;
-    //     return hours + ':' + minutes + ':'+seconds;
-    // }
-
-    async hoursForOne(params): Promise<any>{
-        let query = {_id: new ObjectId(params.taskid)};
+    async hoursForOne(params): Promise<any> {
+        let query = { _id: new ObjectId(params.taskid) };
         try {
             let oneSession = await this.workmeterModel.findOne(query);
             if (!oneSession) return {
                 workmeterTask: params.taskid
             }
             return oneSession;
-        } catch(e){
+        } catch (e) {
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    async todayHours(params): Promise<any>{
+    async todayHours(params): Promise<any> {
+        let totalSeconds = 0;
         let query = {
-            createdBy: params.userId,
-            created: {
-                $gte: moment().startOf('day'), 
-                $lte: moment().endOf('day')
+            workmeterCreatedBy: params.userId,
+            workmeterCreated: {
+                $gte: moment().startOf('day').utc(),
+                $lte: moment().endOf('day').utc()
             }
         };
-        //console.log(query);
-        // try {
-        //     let oneSession = await this.workmeterModel.findOne(query);
-        //     if (!oneSession) return {
-        //         workmeterTask: params.taskid
-        //     }
-        //     return oneSession;
-        // } catch(e){
-        //     throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        // }
-        return;
+        try {
+            let allSessions = await this.workmeterModel.find(query);
+            if (allSessions.length == 0) return 0;
+
+            let length = allSessions.length;
+            for (let i=0; i<length; i++){
+                totalSeconds += allSessions[i].workmeterDuration;  
+            }
+            return totalSeconds;
+        } catch (e) {
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

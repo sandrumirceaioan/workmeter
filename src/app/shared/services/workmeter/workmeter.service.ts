@@ -17,6 +17,7 @@ const httpOptions = {
 @Injectable()
 export class WorkmeterService {
   apiPath: string = '/api/hours';
+  worked: number;
 
   constructor(
     private http: HttpClient,
@@ -34,6 +35,7 @@ export class WorkmeterService {
 
   totalTime(params): Observable<any>{
     return this.http.post(this.apiPath + '/hours', params, httpOptions).map((result: any) => {
+      this.worked = result;
       return result;
     }).catch((error: HttpErrorResponse) => {
       return Observable.throw(error);
