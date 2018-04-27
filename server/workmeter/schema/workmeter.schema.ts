@@ -3,6 +3,7 @@ import * as mongooseHidden from 'mongoose-hidden';
 
 export const WorkmeterSchema = new mongoose.Schema({
     workmeterTask: String,
+    workmeterTaskStarted: Boolean,
     workmeterDuration: {
         type: Number,
         default: 0
@@ -10,9 +11,9 @@ export const WorkmeterSchema = new mongoose.Schema({
     workmeterStoped: {
         type: Date
     },
-    created: {
-        type: Number,
+    workmeterCreated: {
+        type: Date,
         default: function(){return new Date().getTime()}
     },
-    createdBy: String
+    workmeterCreatedBy: String
 });

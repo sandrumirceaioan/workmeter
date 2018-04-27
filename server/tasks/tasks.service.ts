@@ -97,6 +97,7 @@ export class TasksService {
                 };
                 try {
                     this.pausedTask = await this.taskModel.findOneAndUpdate(check, set, {new: true});
+                    if (this.pausedTask) this.workmeterService.closeSession(params);
                 } catch(e) {
                     throw new HttpException(e.message, HttpStatus.I_AM_A_TEAPOT);
                 }
@@ -112,9 +113,12 @@ export class TasksService {
             try {
                 let startedTask = await this.taskModel.findOneAndUpdate(query, params, {new: true});
                 if (!startedTask) throw new HttpException('Status not updated!', HttpStatus.INTERNAL_SERVER_ERROR);
+
                 // when task is started, save workmeter session
                 if (startedTask.taskStarted) {
-                    this.workmeterService.createSession({workmeterTask: params._id});
+                    this.workmeterService.createSession(params);
+                } else {
+                    this.workmeterService.closeSession(params);
                 }
                 return {startedTask: startedTask, pausedTask: this.pausedTask};
             } catch(e){
