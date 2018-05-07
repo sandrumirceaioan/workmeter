@@ -20,3 +20,14 @@
     color: #ffffff;
     text-align: center;
   }
+
+  .leave {
+    color: #ffffff;
+    padding: 20px;
+    font-size: 35px;
+    cursor: pointer;
+  }
+
+  .work-status span {
+    font-size: 25px;
+  }

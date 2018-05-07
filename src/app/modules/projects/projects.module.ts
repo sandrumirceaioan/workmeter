@@ -5,9 +5,10 @@ import { ProjectsRoutingModule } from './projects.routing';
 import { ProjectsComponent } from './projects.component';
 import { CanActivateAuthGuard } from '../../shared/guards/dashboard.authGuard';
 import { ProjectComponent } from '../project/project.component';
-import { ProjectsService } from '../../shared/services/projects/projects.service';
+import { ProjecteditComponent } from '../project-edit/project-edit.component';
 import { ProjectsResolve } from './projects.resolve';
-import { ListFilterPipe } from '../../shared/filters/search-filter.pipe';
+import { ProjectResolve } from '../project/project.resolve';
+import { ProjectsFilterPipe } from '../../shared/filters/projects-filter.pipe';
 
 @NgModule({
   imports: [
@@ -15,8 +16,8 @@ import { ListFilterPipe } from '../../shared/filters/search-filter.pipe';
     ReactiveFormsModule,
     ProjectsRoutingModule
   ],
-  declarations: [ProjectsComponent, ProjectComponent, ListFilterPipe],
-  providers: [CanActivateAuthGuard, ProjectsService, ProjectsResolve]
+  declarations: [ProjectsComponent, ProjectComponent, ProjecteditComponent, ProjectsFilterPipe],
+  providers: [CanActivateAuthGuard, ProjectsResolve, ProjectResolve],
 })
 
 export class ProjectsModule { }

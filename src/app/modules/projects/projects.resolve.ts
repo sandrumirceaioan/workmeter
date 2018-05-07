@@ -16,14 +16,14 @@ export class ProjectsResolve implements Resolve<any>{
     private router: Router    
   ){ }
 
-  resolve(route: ActivatedRouteSnapshot){
+  resolve(route: ActivatedRouteSnapshot){ 
     return this.projectsService.getAll().catch(
       (error)=>{
         this.toastService.toastTrigger({
           message: error.error.message,
           options: {type: 'error'}
         });
-        this.router.navigate['/main/dashboard'];
+        this.router.navigate(['/main/dashboard']);
         return Observable.of(null);
       });
   }

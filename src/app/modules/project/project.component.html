@@ -3,10 +3,10 @@
   <div class="project-header">
       <div class="row">
         <div class="col-sm-6">
-          {{details.projectName}}
+          <a [routerLink]="['./', details._id]" href="" class="title">{{details.projectName}}</a>
         </div>
         <div class="col-sm-6 text-right">
-          <a href="" ><i class="fa fa-edit"></i></a>
+          <a [routerLink]="['./', details._id]" href="" ><i class="fa fa-edit"></i></a>
         </div>
       </div>
   </div>

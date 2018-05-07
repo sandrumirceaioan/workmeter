@@ -13,24 +13,66 @@ const httpOptions = {
 
 @Injectable()
 export class ProjectsService {
-  apiPath: string = '/api/project';
+  apiPath: string = '/api/projects';
+  projects: Project[] = [];
+  project: Project;
+  mappedResults: object = {};
 
   constructor(private http: HttpClient) { }
 
   addProject(project: Project): Observable<Project>{
-    return this.http.post(this.apiPath + '/add', project, httpOptions)
+    return this.http.post(this.apiPath + '/add', project, httpOptions).map((result: Project) => {
+      this.projects.unshift(result);
+      return result;
+    })
     .catch((error:HttpErrorResponse) => {
       return Observable.throw(error)
     });
   }
 
-  getAll(){
-    return this.http.post(this.apiPath + '/getAll', {}, httpOptions).map((result: Project[]) => {
+  getAll(): Observable<Project[]>{
+    return this.http.post(this.apiPath + '/all', {}, httpOptions).map((result: Project[]) => {
+                    this.projects = result;
+                    this.mapedResults(result);
                     return result;
                     })
                     .catch((error:HttpErrorResponse) => {
                         return Observable.throw(error)
                       });
+  }
+
+  mapedResults(results){
+    let length = results.length;
+    for (let i=0;i<length;i++) {
+      this.mappedResults[results[i]._id] = results[i];
+    }
+  }
+
+  getOne(params): Observable<Project>{
+    return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: Project) => {
+      this.project = result;
+      return result;
+    })
+    .catch((error:HttpErrorResponse) => {
+      return Observable.throw(error);
+    });
+  }
+
+  updateOne(project: Project): Observable<Project>{
+    return this.http.put(this.apiPath + '/update', project, httpOptions).map((result: Project) => {
+      this.project = result;
+      return result;
+    }).catch((error: HttpErrorResponse) => {
+      return Observable.throw(error);
+    });
+  }
+
+  deleteOne(params): Observable<Project>{
+    return this.http.post(this.apiPath + '/delete', params).map((result) => {
+      return result;
+    }).catch((error: HttpErrorResponse) => {
+      return Observable.throw(error);
+    });
   }
 
 }

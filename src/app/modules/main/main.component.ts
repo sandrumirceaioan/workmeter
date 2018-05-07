@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, animate, style, state, transition, query, stagger } from '@angular/animations';
 import { UsersService } from '../../shared/services/users/users.service';
+import { WorkmeterService } from '../../shared/services/workmeter/workmeter.service';
+import { ToastService } from '../../shared/services/toast/toast.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'main',
@@ -21,16 +24,21 @@ import { UsersService } from '../../shared/services/users/users.service';
 })
 export class MainComponent implements OnInit {
   menuState:string = 'out';
+  seconds: number;
   
-  constructor(private userService: UsersService) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private usersService: UsersService,
+    private workmeterService: WorkmeterService,
+    private toastService: ToastService) {
   }
 
   ngOnInit() {
-  }
-
-  toggleMenu() {
-    this.menuState = this.menuState === 'out' ? 'in' : 'out';
-    console.log(this.menuState);
+    this.activatedRoute.data
+    .map((result) => {return result.workmeter})
+    .subscribe((result) => {
+      this.seconds = result;
+    });
   }
 
   receiveStatus($event) {

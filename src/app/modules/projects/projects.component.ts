@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Project } from '../../models/project.model';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 import { ToastService } from '../../shared/services/toast/toast.service';
-import { ActivatedRoute } from '@angular/router';
-import { ListFilterPipe } from '../../shared/filters/search-filter.pipe';
+import { ProjectsFilterPipe } from '../../shared/filters/projects-filter.pipe';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { trigger, state, animate, style, transition, keyframes } from '@angular/animations';
 import 'rxjs/add/operator/map';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -34,6 +34,7 @@ import 'rxjs/add/operator/map';
 export class ProjectsComponent implements OnInit {
   projectForm: FormGroup;
   addState: boolean = false;
+  loader: boolean;
   searchTerm: string;
   projects: Project[] = [];
   
@@ -44,10 +45,26 @@ export class ProjectsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.data
-    .map((result) => {return result.projects})
-    .subscribe((result) => {
+    // // load resolved data
+    // this.activatedRoute.data
+    // .map((result) => {return result.projects})
+    // .subscribe((result) => {
+    //   this.projects = result;
+    // });
+
+    // load lazy data
+    this.loader = true;
+    this.projectsService.getAll().subscribe((result) => {
       this.projects = result;
+    },
+    (error) => {
+      this.toastService.toastTrigger({
+        message: error.error.message,
+        options: {type: 'error'}
+      });
+    },
+    () => {
+      this.loader = false;
     });
     this.projectForm = new FormGroup({
       projectName: new FormControl('', Validators.required),
@@ -67,7 +84,6 @@ export class ProjectsComponent implements OnInit {
         });
         this.projectForm.reset();
         this.addState = false;
-        this.projects.unshift(result);
       },
       (error)=>{
         this.toastService.toastTrigger({

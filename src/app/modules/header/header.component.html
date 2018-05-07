@@ -1,12 +1,12 @@
 <div class="main-header">
   <div class="col-sm-2">
-      <h3>tmwm</h3>
+      <h3>wm</h3>
   </div>
   <div class="work-status col-sm-8">
-    <p>Today you worked for: 5 hours 45 minutes</p>
+    <span>{{workmeter}}</span>
   </div>
-  <div class="col-sm-2">
-      <img class="wm-logo tm-logo-small" src="assets/tm-logo-small.png" alt="" (click)="toggleMenu()">
+  <div class="col-sm-2 text-right">
+    <a (click)="logout()"><i class="fa fa-power-off leave" aria-hidden="true"></i></a>
   </div>
   <div class="clearfix"></div>
 </div>

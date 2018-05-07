@@ -12,12 +12,13 @@ export class CanActivateAuthGuard implements CanActivate {
             ) {}
 
             canActivate(next:ActivatedRouteSnapshot, state:RouterStateSnapshot) {
+
                 // get access property from route data
                 let access = next.data.access;
 
                 // check if user is logged in
                 return this.usersService.checkLogged().map(checkedUser => {
-                    
+
                     // check if user type is allowed on this route
                     let result = access.indexOf(checkedUser.userType) > -1 ? true : false;
                     if (!result) {
