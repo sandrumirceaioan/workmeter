@@ -84,6 +84,7 @@ export class WorkmeterService {
     async todayHours(params): Promise<any> {
         let totalSeconds = 0;
         let query = {
+            workmeterTaskStarted: false,
             workmeterCreatedBy: params.userId,
             workmeterCreated: {
                 $gte: moment().startOf('day').utc(),
@@ -91,6 +92,8 @@ export class WorkmeterService {
             }
         };
         try {
+            
+            // get seconds of stoped tasks
             let allSessions = await this.workmeterModel.find(query);
             if (allSessions.length == 0) return 0;
 
@@ -98,7 +101,22 @@ export class WorkmeterService {
             for (let i=0; i<length; i++){
                 totalSeconds += allSessions[i].workmeterDuration;  
             }
-            return totalSeconds;
+
+            // get seconds of started task
+            let check = {
+                workmeterTaskStarted: true,
+                workmeterCreatedBy: params.userId
+            };
+    
+            let startedSession = await this.workmeterModel.findOne(check);
+            if (startedSession) {
+                let now = moment.utc();
+                let start = moment(startedSession.workmeterCreated).utc();
+                let duration = moment.duration(now.diff(start));
+                totalSeconds += duration.asSeconds();
+            }
+
+            return {seconds:totalSeconds, started: startedSession ? true : false};
         } catch (e) {
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }

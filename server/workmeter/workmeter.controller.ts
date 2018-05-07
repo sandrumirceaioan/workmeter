@@ -4,7 +4,7 @@ import { AuthGuard } from '../common/guards/auth.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Sign } from '../common/interceptors/sign.interceptor';
 
-@Controller('hours')
+@Controller('workmeter')
 @UseGuards(AuthGuard)
 export class WorkmeterController {
     constructor(private readonly workmeterService: WorkmeterService){}

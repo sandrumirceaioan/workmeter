@@ -19,8 +19,10 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.workmeter = this.toHHMMSS(this.workmeterService.worked);
-      // Faci in serviciul workmeter o variabila pe care o incrementezi cu setinterval cand se da start la task. Returnezi ca si observabil si faci subscribe din header. Cand se da stop la un task opresti incrementarea cu clearInterval, si omori subscriptia.
+    this.workmeter = this.toHHMMSS(this.workmeterService.worked);
+    this.workmeterService.subject.subscribe((result)=>{
+      this.workmeter = this.toHHMMSS(result);
+    });
   }
 
     toHHMMSS = function (sec) {
@@ -28,7 +30,6 @@ export class HeaderComponent implements OnInit {
         let hours: any = Math.floor(sec / 3600);
         let minutes: any = Math.floor((sec - (hours * 3600)) / 60);
         let seconds: any = sec - (hours * 3600) - (minutes * 60);
-
         if (hours   < 10) hours   = '0' + hours;
         if (minutes < 10) minutes = '0' + minutes;
         if (seconds < 10) seconds = '0' + seconds;

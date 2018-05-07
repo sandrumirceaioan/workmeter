@@ -16,8 +16,10 @@ const httpOptions = {
 
 @Injectable()
 export class WorkmeterService {
-  apiPath: string = '/api/hours';
+  apiPath: string = '/api/workmeter';
   worked: number;
+  subject = new Subject<any>();
+  countSession: any;
 
   constructor(
     private http: HttpClient,
@@ -25,7 +27,19 @@ export class WorkmeterService {
     private socket: Socket
   ) { }
 
-  getOne(params): Observable<Workmeter> {
+  startCount(from): void{
+    this.worked = from;
+    this.countSession = setInterval(()=>{
+      this.worked += 1;
+      this.subject.next(this.worked);
+    }, 1000);
+  }
+
+  preventCount(): void{
+    clearInterval(this.countSession);
+  }
+
+  getOne(params): Observable<Workmeter>{
     return this.http.post(this.apiPath + '/one', params, httpOptions).map((result: Workmeter) => {
       return result;
     }).catch((error: HttpErrorResponse) => {
@@ -35,8 +49,9 @@ export class WorkmeterService {
 
   totalTime(params): Observable<any>{
     return this.http.post(this.apiPath + '/hours', params, httpOptions).map((result: any) => {
-      this.worked = result;
-      return result;
+      if (result.started) this.startCount(result.seconds);
+      this.worked = result.seconds || 0;
+      return;
     }).catch((error: HttpErrorResponse) => {
       return Observable.throw(error);
     });

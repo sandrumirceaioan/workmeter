@@ -12,7 +12,6 @@ import { UsersResolve } from '../users/users.resolve';
 import { TasksViewComponent } from '../tasks-view/tasks-view.component';
 import { TaskResolve } from './task.resolve';
 import { TasksUpdateComponent } from '../tasks-update/tasks-update.component';
-import { WorkmeterService } from '../../shared/services/workmeter/workmeter.service';
 
 @NgModule({
   imports: [
@@ -25,7 +24,6 @@ import { WorkmeterService } from '../../shared/services/workmeter/workmeter.serv
   providers: [
     CanActivateAuthGuard,
     TasksService,
-    WorkmeterService,
     TaskResolve,
     ProjectsResolve,
     ListsResolve,

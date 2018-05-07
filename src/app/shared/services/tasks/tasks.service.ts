@@ -10,6 +10,7 @@ import 'rxjs/add/operator/catch';
 import { UsersService } from '../users/users.service';
 import { Socket } from 'ng-socket-io';
 import { Subject } from 'rxjs/Subject';
+import { WorkmeterService } from '../workmeter/workmeter.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,7 +28,8 @@ export class TasksService {
   constructor(
     private http: HttpClient,
     private usersService: UsersService,
-    private socket: Socket
+    private socket: Socket,
+    private workmeterService: WorkmeterService
   ) { }
 
   addTask(task: Task): Observable<Task> {
@@ -79,6 +81,12 @@ export class TasksService {
   updateStartedPaused(task: Task): Observable<Task> {
     return this.http.put(this.apiPath + '/updateStatus', task, httpOptions).map((result: any) => {
       this.task = result.startedTask;
+      if (this.task.taskStarted) {
+        this.workmeterService.preventCount();
+        this.workmeterService.startCount(this.workmeterService.worked);
+      } else {
+        this.workmeterService.preventCount();
+      }
       return result.startedTask;
     }).catch((error: HttpErrorResponse) => {
       return Observable.throw(error);
